@@ -8,7 +8,7 @@ import authRouters from "./routes/authRoutes";
 const app = express();
 dontenv.config();
 
-const database: any = process.env.db;
+const database: any = process.env.DB_URL;
 
 mongoose
   .connect(database)
