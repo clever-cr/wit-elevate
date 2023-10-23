@@ -4,6 +4,7 @@ import * as dontenv from "dotenv";
 import "dotenv/config";
 import cors from "cors";
 import authRouters from "./routes/authRoutes";
+import eventRouters from "./routes/eventRoutes";
 
 const app = express();
 dontenv.config();
@@ -23,3 +24,4 @@ mongoose
 app.use(express.json());
 app.use(cors());
 app.use(authRouters);
+app.use(eventRouters);
