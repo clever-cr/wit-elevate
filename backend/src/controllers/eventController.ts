@@ -1,4 +1,3 @@
-import { resourceLimits } from "worker_threads";
 import Event from "../models/event";
 import { Request, Response } from "express";
 
@@ -43,4 +42,16 @@ const deleteEvent = async (req: Request, res: Response) => {
   }
 };
 
-export { createEvent, allEvents, oneEvent, deleteEvent };
+const updateEvent = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id;
+    const event = await Event.findByIdAndUpdate(id, req.body, { new: true });
+    if (!event) {
+      res.status(404).send("Event Not found");
+    }
+    res.status(200).send(event);
+  } catch (error) {
+    console.log(error);
+  }
+};
+export { createEvent, allEvents, oneEvent, deleteEvent, updateEvent };

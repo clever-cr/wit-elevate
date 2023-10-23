@@ -5,6 +5,7 @@ import "dotenv/config";
 import cors from "cors";
 import authRouters from "./routes/authRoutes";
 import eventRouters from "./routes/eventRoutes";
+import blogRouter from "./routes/blogRoutes";
 
 const app = express();
 dontenv.config();
@@ -25,3 +26,4 @@ app.use(express.json());
 app.use(cors());
 app.use(authRouters);
 app.use(eventRouters);
+app.use(blogRouter);
