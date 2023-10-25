@@ -67,7 +67,7 @@ const signIn = async (req: Request, res: Response) => {
       message: "User logged in successfully",
       user: returnedUser,
       token,
-    })
+    });
   } catch (error: any) {
     return res.status(500).json({
       message: "Something went wrong",
@@ -76,4 +76,16 @@ const signIn = async (req: Request, res: Response) => {
   }
 };
 
-export { signUp, signIn };
+const editRole = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id;
+    const user = await User.findByIdAndUpdate(id, req.body, { new: true });
+    if (!user) {
+      res.status(404).send("user doesn't exists");
+    }
+    res.status(200).send(`Role changed to ${user}`);
+  } catch (error) {
+    console.log(error);
+  }
+};
+export { signUp, signIn, editRole };

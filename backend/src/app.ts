@@ -16,7 +16,7 @@ mongoose
   .connect(database)
   .then(() => {
     app.listen(3000);
-    console.log("connected to daatabase");
+    console.log("connected to database");
   })
   .catch((error) => {
     console.log(error);
