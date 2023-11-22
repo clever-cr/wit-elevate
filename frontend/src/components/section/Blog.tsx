@@ -2,52 +2,62 @@ import { useState, useEffect } from "react";
 import { allBlogs } from "../../util/api";
 import { blogPorps } from "../../util/types";
 import blog from "../../assets/blog.png";
-import Back from "../../assets/back";
+import Back from "../../assets/Back";
+import { Link } from "react-router-dom";
+import Right from "../../assets/Right";
+import Button from "../ui/Button";
+
 const Blog = () => {
   const [blogs, setBlogs] = useState([]);
 
   useEffect(() => {
-    allBlogs().then((data) => {
+    allBlogs(4).then((data) => {
       setBlogs(data);
     });
   }, []);
 
   return (
-    <div className="py-24 ">
-      <div className="pb-10">
-        <h1 className="text-5xl leading-10- font-bold text-center ">
-          Read blogs from our <span className="text-primary">women </span>
-        </h1>
-        <h1 className="text-5xl leading-10- font-bold text-center text-primary">
-          Contributors
-        </h1>
-      </div>
-
-      <div className="grid grid-cols-2 px-16 gap-12 bg-white  py-28">
+    <div className="py-40">
+      <h1 className="text-3xl font-semibold leading-10 text-darkGrey">
+        Read Blogs from our women <br></br> contributors
+      </h1>
+      <div className="grid grid-cols-2 px-16 gap-12 bg-white  pt-28 ">
         {blogs?.map(({ picture, title, description }: blogPorps) => {
           return (
             <div className="flex gap-8">
               <img src={blog} alt="blg" />
-              <div className="flex flex-col justify-between">
-                <div className="flex items-center gap-4 text-sm">
-                  <p className="bg-lightGrey px-2 py-1">category</p>
-                  <p>5 min read</p>
+              <div className="flex flex-col gap-2">
+                <div className="flex items-center gap-4 text-xs">
+                  <p className="text-primary">Category</p>
+                  <p className="text-light">5 min read</p>
                 </div>
-                <div className="gap-4 flex flex-col">
-                  <h1 className="text-2xl">{title}</h1>
-                  <p className="text-base">{description}</p>
+                <div className="gap-2 flex flex-col">
+                  <h1 className="text-2xl text-darkGrey leading-8">{title}</h1>
+                  <p className="text-base text-light leading-6">
+                    {description}
+                  </p>
                 </div>
 
                 <div>
-                  <button className="flex items-center gap-2 text-sm">
-                    Read more <Back />
-                  </button>{" "}
+                  <Link
+                    className="text-light underline text-sm leading-6 pt-1"
+                    to="/"
+                  >
+                    Read More
+                  </Link>
                 </div>
               </div>
             </div>
           );
         })}
       </div>
+      <Link to="blogs" className="flex flex-col items-center pt-12">
+        <Button
+          icon={<Right />}
+          text="Explore More Articles"
+          className="bg-lightBlue text-primary"
+        />
+      </Link>
     </div>
   );
 };

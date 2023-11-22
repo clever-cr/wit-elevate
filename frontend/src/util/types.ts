@@ -14,6 +14,7 @@ export interface eventProps {
 
 export interface linkProps {
   link: string;
+  path: string;
 }
 
 export interface buttonProps {
@@ -33,5 +34,32 @@ export interface blogPorps {
   picture: string;
   title: String;
   description: String;
-  
+}
+export interface testimonyProps {
+  testimony: string;
+  title: string;
+  name: string;
+}
+
+export interface searchProps {
+  placeholder: string;
+  text: string;
+}
+
+export interface discoverProps {
+  text: string;
+}
+
+export interface formProps {
+  header: string;
+}
+
+export interface inputProps {
+  placeholder: string;
+}
+
+export interface headerProps {
+  path: string;
+  link: string;
+  text: string;
 }

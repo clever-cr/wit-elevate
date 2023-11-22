@@ -7,74 +7,60 @@ import Calendar from "../../assets/Calendar";
 import Cost from "../../assets/Cost";
 import Locations from "../../assets/Locations";
 import Arrow from "../../assets/Arrow";
+import event from "../../assets/event.png";
+import { Link } from "react-router-dom";
+import Right from "../../assets/Right";
 
 const Events = () => {
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
-    allEvents().then((data) => {
+    allEvents(3).then((data) => {
       setEvents(data);
     });
   }, []);
 
   return (
-    <div className="pt-10 flex flex-col gap-16">
-      <div>
-        <h1 className="font-bold leading-tight  text-center  text-5xl ">
-          Choose Among Our <span className="text-primary">Featured </span>
-        </h1>
-        <h1 className="font-bold leading-tight  text-center  text-5xl text-primary">
-          Events
-        </h1>
-      </div>
-
-      <div className="grid grid-cols-3 px-20 gap-8">
-        {events?.map(({ title, date, location, cost }: eventProps) => {
+    <div className="flex flex-col gap-12 mt-4">
+      <h2 className="font-semibold text-3xl leading-10 max-w-xl">
+        Choose from the recent and Our Featured Events
+      </h2>
+      <div className="grid grid-cols-2 gap-7 px-28- ">
+        {events.map(({ title }: eventProps, index) => {
           return (
-            <div className="flex flex-col gap-5 pb-5">
-              <img src={picture} />
-              <div className="flex flex-col gap-5 px-5">
-                <h1 className="font-bold text-2xl leading-8">{title}</h1>
-                <div className="text-dark text-sm leading-3 ">
-                  <div className=" flex items-center gap-10 ">
-                    <div className="flex items-center gap-0.5">
-                      <Calendar />
-                      <p>{`: ${date}`}</p>
-                    </div>
-                    <div className="flex items-center gap-0.5">
-                      <Locations />
-                      <p>{location}</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-0.5 ">
-                  <Cost />
-                  <p className="text-dark text-sm leading-3 ">{cost}</p>
-                </div>
-
-                <div className="flex justify-between">
-                  <Button
-                    className="bg-white border border-primary text-primary"
-                    text="Register for This Event"
-                  />
-                  <Button
-                    text="..."
-                    className="
-              "
-                  />
-                </div>
+            <div
+              className={
+                index === 1
+                  ? " row-span-2 h-full relative"
+                  : "bg-black- relative"
+              }
+            >
+              <img
+                className={
+                  index === 1
+                    ? "h-full  object-cover brightness-75 rounded-md"
+                    : "w-full brightness-75 rounded-md"
+                }
+                src={event}
+              />
+              <div className="absolute bottom-8 left-5 text-white leading-8">
+                <h1 className="font-bold text-2xl ">{title}</h1>
+                <Link to="/" className="text-lg underline">
+                  {" "}
+                  Learn more
+                </Link>
               </div>
             </div>
           );
         })}
       </div>
-      <div className="flex flex-col items-center">
+      <Link to="events" className="flex flex-col items-center">
         <Button
-          className="bg-white border border-primary text-primary"
-          text="View More Event"
-          icon={<Arrow />}
+          icon={<Right />}
+          text="View More Events"
+          className="bg-lightBlue text-primary"
         />
-      </div>
+      </Link>
     </div>
   );
 };

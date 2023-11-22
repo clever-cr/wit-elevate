@@ -1,7 +1,8 @@
 import axios from "axios";
 
-export async function allEvents() {
-  const url = "http://localhost:3000/allevents";
+export async function allEvents(limit?: number) {
+  const url = `${process.env.REACT_APP_URL}/allevents?limit=${limit}`;
+
   try {
     const data = await axios.get(url);
     return data.data;
@@ -10,12 +11,10 @@ export async function allEvents() {
   }
 }
 
-export async function allBlogs() {
-  const url = "http://localhost:3000/allBlogs";
+export async function allBlogs(limit?: number) {
+  const url = `${process.env.REACT_APP_URL}?limit=${limit}`;
   try {
-    console.log("url", url);
     const data = await axios.get(url);
-    console.log("blogs", data);
     return data.data;
   } catch (error) {
     console.log(error);

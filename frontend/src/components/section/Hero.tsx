@@ -1,66 +1,54 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { useState } from "react";
-import { data } from "../data/festivals";
+import data from "../data/festivals";
 import { heroProps } from "../../util/types";
 import Button from "../ui/Button";
+import hero from "../../assets/hero.png";
+import Connect from "../../assets/Connect";
+import Arrow from "../../assets/Arrow";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   const [slide, setSlide] = useState();
   return (
-    <div>
-      <div className="w-full">
-        <Swiper slidesPerView={1}>
-          <div>
-            {data.map(({ image, title, description }: heroProps) => {
-              return (
-                <SwiperSlide className="relative">
-                  <img
-                    className="w-full"
-                    src={image}
-                  />
-                  <div className="absolute text-white z-10 bottom-52 flex flex-col items-center px-10- gap-12 left-96">
-                    <h1 className="text-7xl font-semibold leading-10 ">
-                      {title}
-                    </h1>
-                    <p className="text-xl leading-6 max-w-3xl text-center">
-                      {description}
-                    </p>
-                    <div className="flex gap-5 ">
-                      <Button text="sign Up Now" />
-                      <Button
-                        className="bg-white border-primary border "
-                        text="
-                  Learn more"
-                      />
-                    </div>
-                  </div>
-                </SwiperSlide>
-              );
-            })}
-          </div>
-        </Swiper>
-      </div>
-      <div className="flex px-16 py-28 gap-12">
-        <div>
-          <h1 className="text-5xl  font-bold leading-[57px] ">
-            We’re the leading Platform to connect{" "}
-            <span className="text-primary">women in Tech.</span>{" "}
+    <div className="flex items-center gap-48">
+      <div className="flex flex-col  gap-12">
+        <div className="gap-7 flex  flex-col">
+          <h1 className="font-bold text-5xl max-w-xl leading-[52.8px]">
+            We’re the <br></br>leading Platform to connect women in Tech.
           </h1>
+          <p className="text-lg text-grey  max-w-lg">
+            Join WIT Elevate Connect Mission of connecting women in tech and
+            inspiring them to come together for the greater good
+          </p>
         </div>
-        <div className="flex flex-col gap-24">
-          <h2 className="text-base leading-5 pt-4">
-            Join Tech Connekt Mission of connecting women in tech and inspiring
-            them to come together for the greater good. Lorem ipsum dolor sit
-            amet, consectetur adipiscing elit. Suspendisse varius enim in eros
-            elementum tristique.
-          </h2>
-          <div className="flex  gap-8 ">
-            <Button text="Join Us Now" />
+
+        <div className="flex gap-8 ">
+          <Link to="partner">
             <Button
-              className="bg-white text-primary border border-primary"
-              text="About us"
+              text="Join us Now"
+              className="text-white bg-secondary"
+              icon={<Arrow />}
             />
+          </Link>
+
+          <Button text="learn more" className="bg-lighty text-dark" />
+        </div>
+      </div>
+      <div className="relative">
+        <img src={hero} />
+        <div className="absolute bg-white opacity-90   w-[228px]   backdrop-blur-2xl- bottom-[68px]  -left-10  h-[228px] rounded-xl flex flex-col items-center py-8  px-5">
+          <div className=" bg-white w-16 h-16 rounded-full relative">
+            <p className="absolute top-4 left-4 text-3xl">🤝</p>
+          </div>
+          <div className="flex flex-col gap-2 items-center pt-5">
+            <h3 className="font-bold   text-dark text-sm leading-4">
+              You’re connected!
+            </h3>
+            <p className="text-light text-xs text-center">
+              Network through this platform and one-one in the event
+            </p>
           </div>
         </div>
       </div>

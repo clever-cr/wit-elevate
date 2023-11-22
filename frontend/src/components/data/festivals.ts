@@ -1,5 +1,5 @@
 import image from "../../assets/unsplash_F2KRf_QfCqw.png";
-export const data = [
+ const data = [
   {
     image: image,
     title: "Annual Kigali DevFest ",
@@ -19,3 +19,4 @@ export const data = [
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.",
   },
 ];
+export default data
