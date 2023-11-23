@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { allBlogs } from "../../util/api";
 import blog from "../../assets/blog.png";
 import profile from "../../assets/profile.png";
-import Rectangle from "../../assets/Rectangle.png"
+import Rectangle from "../../assets/Rectangle.png";
 
 const Blogs = () => {
   const [blogs, setBlogs] = useState([]);
@@ -16,13 +16,12 @@ const Blogs = () => {
     });
   }, []);
 
-
   return (
     <div className="pt-24 grid grid-cols-3 gap-8">
-      {blogs.map(({ title, createdAt }) => {
+      {blogs?.map(({ title, createdAt }) => {
         return (
           <div className="">
-            <img src={Rectangle} alt="blog"  />
+            <img src={Rectangle} alt="blog" />
             <div className="flex items-center gap-3 text-purple text-xs leading-8 font-medium pt-2">
               <p>TECHNOLOGY</p>
               <p>LIFESTYLE</p>

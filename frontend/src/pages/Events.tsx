@@ -41,7 +41,7 @@ const Events = () => {
           Explore inspiring <span className="text-secondary">Events</span>
         </h2>
         <div className="grid grid-cols-3 pt-16 gap-8 overflow-auto h-[32rem] ">
-          {events.map(({ title, description, date, cost }: eventProps) => {
+          {events?.map(({ title, description, date, cost }: eventProps) => {
             return (
               <div className="relative">
                 <img src={girls} alt="" className="" />

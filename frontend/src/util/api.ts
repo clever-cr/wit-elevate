@@ -1,7 +1,8 @@
 import axios from "axios";
 
 export async function allEvents(limit?: number) {
-  const url = `${process.env.REACT_APP_URL}/allevents?limit=${limit}`;
+  const url = `${import.meta.env.VITE_URL}/allevents?limit=${limit}`;
+  console.log("url", url);
 
   try {
     const data = await axios.get(url);
@@ -12,7 +13,8 @@ export async function allEvents(limit?: number) {
 }
 
 export async function allBlogs(limit?: number) {
-  const url = `${process.env.REACT_APP_URL}?limit=${limit}`;
+  const url = `${import.meta.env.VITE_URL}/allblogs?limit=${limit}`;
+  console.log("blogs", url);
   try {
     const data = await axios.get(url);
     return data.data;
