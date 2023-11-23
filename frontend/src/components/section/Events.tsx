@@ -26,7 +26,7 @@ const Events = () => {
         Choose from the recent and Our Featured Events
       </h2>
       <div className="grid grid-cols-2 gap-7 px-28- ">
-        {events.map(({ title }: eventProps, index) => {
+        {events?.map(({ title }: eventProps, index) => {
           return (
             <div
               className={
