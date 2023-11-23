@@ -1,9 +1,5 @@
 import { useState, useEffect } from "react";
-import Search from "../../components/ui/Search";
-import { blogLinks } from "../../util/data";
-import { Link } from "react-router-dom";
 import { allBlogs } from "../../util/api";
-import blog from "../../assets/blog.png";
 import profile from "../../assets/profile.png";
 import Rectangle from "../../assets/Rectangle.png";
 

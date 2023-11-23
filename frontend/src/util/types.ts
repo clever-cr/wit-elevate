@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ChangeEvent, ReactNode } from "react";
 
 export interface eventProps {
   _id: string;
@@ -22,6 +22,7 @@ export interface buttonProps {
   className?: string;
   textClass?: string;
   icon?: ReactNode;
+  onClick?: any;
 }
 
 export interface heroProps {
@@ -56,10 +57,17 @@ export interface formProps {
 
 export interface inputProps {
   placeholder: string;
+  value: string;
+  name: string;
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export interface headerProps {
   path: string;
   link: string;
   text: string;
+}
+
+export interface formData {
+  [key: string]: string;
 }

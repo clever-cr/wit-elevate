@@ -1,17 +1,16 @@
-import {searchProps} from "../../util/types"
-import Button from "./Button"
+import { searchProps } from "../../util/types";
 
-const Search =({placeholder,text}: searchProps)=>{
-return(
-    
-     <div className="flex gap-8 ">
-        <input
-          placeholder={placeholder}
-          className="bg-bright py-5 px-4 rounded-md w-[650px]"
-        />
-        <Button text={text} className="bg-secondary text-white" />
-      </div>
-    
-)
-}
-export default Search
+const Search = ({ placeholder, text }: searchProps) => {
+  return (
+    <div className="flex justify-between gap-5">
+      <input
+        placeholder={placeholder}
+        className="bg-bright py-5 px-4 rounded-md w-[513px]"
+      />
+      <button className="bg-secondary text-white px-12 rounded-md">
+        Search
+      </button>
+    </div>
+  );
+};
+export default Search;

@@ -1,18 +1,50 @@
+import { useState, useEffect, ChangeEvent } from "react";
 import Button from "../components/ui/Button";
 import Form from "../components/ui/Form";
 import Header from "../components/ui/Header";
 import Input from "../components/ui/Input";
+import { formData } from "../util/types";
+import { logIn } from "../util/api";
+import { useNavigate } from "react-router-dom";
 const LogIn = () => {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState<formData>({});
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const data = useEffect(() => {
+    logIn(formData).then((data: any) => {
+      localStorage.setItem("token", data.token);
+      navigate("/signup");
+    });
+  });
+  console.log("dataaaa", data);
+  const handleSubmit = (e: any) => {
+    e.preventDefault;
+  };
   return (
     <div className="">
       <Header link="Sign Up" path="/signUp" text="Not have an account" />
       <div className="py-44">
         <Form header="Welcome back" />
         <div className="flex flex-col items-center pt-8">
-          <form className="flex flex-col gap-4">
-            <Input placeholder="Enter email address" />
-            <Input placeholder="Enter password" />
+          <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+            <Input
+              value={formData.email}
+              name="email"
+              placeholder="Enter email address"
+              onChange={handleChange}
+            />
+            <Input
+              value={formData.password}
+              name="password"
+              placeholder="Enter password"
+              onChange={handleChange}
+            />
+
             <Button
+              onClick={handleSubmit}
               text="sign In"
               className="bg-secondary text-white flex justify-center rounded-2xl"
             />

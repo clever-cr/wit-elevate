@@ -15,7 +15,8 @@ const Faqs = () => {
         <h1 className="text-darkGrey text-base leading-6 font-medium">
           Why is it better to choose WIT Elevate as a partner?
         </h1>
-        <div >{!isOpen ? <BoldArrow /> : <Up />}</div>
+        <div>{!isOpen ? <BoldArrow onClick={handleOpen} /> : <Up />}</div>
+        {isOpen && <h1 className="bg-red-200">Descriptionnnn</h1>}
       </div>
     </div>
   );
