@@ -1,4 +1,4 @@
-import { useState, useEffect, ChangeEvent } from "react";
+import { useState,  ChangeEvent } from "react";
 import Button from "../components/ui/Button";
 import Form from "../components/ui/Form";
 import Header from "../components/ui/Header";
@@ -13,15 +13,13 @@ const LogIn = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const data = useEffect(() => {
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    console.log("formdata", formData);
     logIn(formData).then((data: any) => {
       localStorage.setItem("token", data.token);
-      navigate("/signup");
+      navigate("/");
     });
-  });
-  console.log("dataaaa", data);
-  const handleSubmit = (e: any) => {
-    e.preventDefault;
   };
   return (
     <div className="">
@@ -41,11 +39,13 @@ const LogIn = () => {
               name="password"
               placeholder="Enter password"
               onChange={handleChange}
+              type="password"
             />
 
             <Button
               onClick={handleSubmit}
               text="sign In"
+              type="submit"
               className="bg-secondary text-white flex justify-center rounded-2xl"
             />
           </form>

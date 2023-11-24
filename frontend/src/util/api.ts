@@ -7,6 +7,7 @@ export async function allEvents(limit?: number) {
 
   try {
     const data = await axios.get(url);
+    console.log("data", data);
     return data.data;
   } catch (error) {
     console.log("something wrong ...");
@@ -27,12 +28,22 @@ export async function allBlogs(limit?: number) {
 export async function logIn(formdata: formData) {
   const url = `${import.meta.env.VITE_URL}/signIn`;
   try {
-    console.log("first data");
-    await axios.post(url, formdata).then((data) => {
-      localStorage.setItem("token", data.data.token);
-    });
+    const data = await axios.post(url, formdata);
+    return data.data;
   } catch (error) {
     console.log("....erorr");
+    console.log(error);
+  }
+}
+
+export async function signUp(formdata: formData) {
+  const url = `${import.meta.env.VITE_URL}/signUp`;
+  try {
+    const data = await axios.post(url, formdata);
+    console.log("dataaaa=====", data);
+    return data.data;
+  } catch (error) {
+    console.log("..failed to login");
     console.log(error);
   }
 }

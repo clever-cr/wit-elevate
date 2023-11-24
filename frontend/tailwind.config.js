@@ -19,7 +19,8 @@ export default {
         greyy: "#777777",
         darkest: "#504F4F",
         purple: "#6366F1",
-        med:" #F0F0F0"
+        med: " #F0F0F0",
+        middle: "#D9D9D9",
       },
     },
   },
