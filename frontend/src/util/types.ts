@@ -23,6 +23,7 @@ export interface buttonProps {
   textClass?: string;
   icon?: ReactNode;
   onClick?: any;
+  type?: "button" | "submit" | "reset";
 }
 
 export interface heroProps {
@@ -59,6 +60,7 @@ export interface inputProps {
   placeholder: string;
   value: string;
   name: string;
+  type?: string 
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 

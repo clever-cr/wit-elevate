@@ -3,37 +3,53 @@ import Button from "../components/ui/Button";
 import Header from "../components/ui/Header";
 import Input from "../components/ui/Input";
 import { formData } from "../util/types";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
+import { signUp } from "../util/api";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
+  const navigate = useNavigate();
+  const [data, setData] = useState<formData>({});
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setData({ ...data, [e.target.name]: e.target.value });
+  };
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    console.log("formdata", data);
+    signUp(data).then(() => {
+      navigate("/logIn");
+    });
+  };
   return (
     <div>
       <Header link="Log In" path="/login" text="Already have an acount" />
       <div className="py-44">
         <Form header="Welcome back" />
         <div className="flex flex-col items-center pt-8">
-          <form className="flex flex-col gap-4" onSubmit={() => {}}>
+          <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
             <Input
-              value={""}
-              name="full Name"
-              placeholder="Enter email address"
-              onChange={() => {}}
+              value={data.fullName}
+              name="fullName"
+              placeholder="Enter Full name"
+              onChange={handleChange}
             />
             <Input
-              value={""}
+              value={data.email}
               name="email"
               placeholder="Enter email address"
-              onChange={() => {}}
+              onChange={handleChange}
             />
             <Input
-              value={""}
+              type="password"
+              value={data.password}
               name="password"
               placeholder="Enter password"
-              onChange={() => {}}
+              onChange={handleChange}
             />
 
             <Button
-              onClick={() => {}}
+              type="submit"
+              onClick={handleSubmit}
               text="sign In"
               className="bg-secondary text-white flex justify-center rounded-2xl"
             />

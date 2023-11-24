@@ -14,7 +14,12 @@ const Form = ({ header }: formProps) => {
               Continue with Google
             </p>
           </button>
-          <p className="">or</p>
+          <div className="flex items-center gap-4 text-middle">
+            <div className="bg-middle h-0.5 w-[180px]"></div>
+            <p className="">or</p>
+            <div className="bg-middle h-0.5 w-[180px]"></div>
+            <div></div>
+          </div>
         </div>
       </div>
     </div>
