@@ -32,10 +32,16 @@ export interface heroProps {
   description: string;
 }
 
-export interface blogPorps {
-  picture: string;
-  title: String;
-  description: String;
+export interface blogProps {
+  picture?: string;
+  title?: string;
+  description?: string;
+  _id?: number;
+  createdAt?: string;
+}
+export interface commentProps {
+  content: string;
+  createdBy: any;
 }
 export interface testimonyProps {
   testimony: string;
@@ -60,7 +66,7 @@ export interface inputProps {
   placeholder: string;
   value: string;
   name: string;
-  type?: string 
+  type?: string;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 

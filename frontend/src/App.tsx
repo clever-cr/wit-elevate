@@ -12,6 +12,7 @@ import Experience from "./pages/Blogs/Experience";
 import Opportunity from "./pages/Blogs/Opportunity";
 import Testimony from "./pages/Blogs/Testimony";
 import SignUp from "./pages/SignUp";
+import BlogDetails from "./pages/BlogDetails";
 
 const App = () => {
   return (
@@ -27,10 +28,11 @@ const App = () => {
               <Route path="opportunity" element={<Opportunity />} />
               <Route path="testimony" element={<Testimony />} />
             </Route>
+            <Route path="blog/:id" element={<BlogDetails/>}/>
             <Route path="events" element={<Events />} />
-
             <Route path="AboutUs" element={<AboutUs />} />
             <Route path="partner" element={<Partner />} />
+
           </Route>
           <Route path="logIn" element={<LogIn />} />
           <Route path="signUp" element={<SignUp />} />

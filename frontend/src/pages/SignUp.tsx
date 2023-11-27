@@ -15,7 +15,6 @@ const SignUp = () => {
   };
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    console.log("formdata", data);
     signUp(data).then(() => {
       navigate("/logIn");
     });
