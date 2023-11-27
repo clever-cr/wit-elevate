@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { allBlogs } from "../../util/api";
-import { blogPorps } from "../../util/types";
-import blog from "../../assets/blog.png";
-import Back from "../../assets/Back";
+import { blogProps } from "../../util/types";
+import blogg from "../../assets/blogg.png";
 import { Link } from "react-router-dom";
 import Right from "../../assets/Right";
 import Button from "../ui/Button";
@@ -22,10 +21,10 @@ const Blog = () => {
         Read Blogs from our women <br></br> contributors
       </h1>
       <div className="grid grid-cols-2 px-16 gap-12 bg-white  pt-28 ">
-        {blogs?.map(({ picture, title, description }: blogPorps) => {
+        {blogs?.map(({ picture, title, description, _id }: blogProps) => {
           return (
             <div className="flex gap-8">
-              <img src={blog} alt="blg" />
+              <img src={blogg} alt="blg" />
               <div className="flex flex-col gap-2">
                 <div className="flex items-center gap-4 text-xs">
                   <p className="text-primary">Category</p>
@@ -33,15 +32,15 @@ const Blog = () => {
                 </div>
                 <div className="gap-2 flex flex-col">
                   <h1 className="text-2xl text-darkGrey leading-8">{title}</h1>
-                  <p className="text-base text-light leading-6">
-                    {description}
+                  <p className="text-base text-light leading-6 truncate">
+                    In the ever-evolving landscape of technology,..
                   </p>
                 </div>
 
                 <div>
                   <Link
                     className="text-light underline text-sm leading-6 pt-1"
-                    to="/"
+                    to={`blog/${_id}`}
                   >
                     Read More
                   </Link>

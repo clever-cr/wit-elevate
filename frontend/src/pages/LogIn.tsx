@@ -1,4 +1,4 @@
-import { useState,  ChangeEvent } from "react";
+import { useState, ChangeEvent } from "react";
 import Button from "../components/ui/Button";
 import Form from "../components/ui/Form";
 import Header from "../components/ui/Header";
@@ -6,6 +6,7 @@ import Input from "../components/ui/Input";
 import { formData } from "../util/types";
 import { logIn } from "../util/api";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 const LogIn = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState<formData>({});
@@ -15,12 +16,13 @@ const LogIn = () => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    console.log("formdata", formData);
     logIn(formData).then((data: any) => {
       localStorage.setItem("token", data.token);
+      localStorage.setItem("userId", data.user.id);
       navigate("/");
     });
   };
+
   return (
     <div className="">
       <Header link="Sign Up" path="/signUp" text="Not have an account" />

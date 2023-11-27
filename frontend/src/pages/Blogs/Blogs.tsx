@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { allBlogs } from "../../util/api";
 import profile from "../../assets/profile.png";
 import Rectangle from "../../assets/Rectangle.png";
+import { Link } from "react-router-dom";
 
 const Blogs = () => {
   const [blogs, setBlogs] = useState([]);
@@ -14,9 +15,9 @@ const Blogs = () => {
 
   return (
     <div className="pt-24 grid grid-cols-3 gap-8">
-      {blogs?.map(({ title, createdAt }) => {
+      {blogs?.map(({ title, createdAt, _id }) => {
         return (
-          <div className="">
+          <Link to={`blog/${_id}`}>
             <img src={Rectangle} alt="blog" />
             <div className="flex items-center gap-3 text-purple text-xs leading-8 font-medium pt-2">
               <p>TECHNOLOGY</p>
@@ -31,7 +32,7 @@ const Blogs = () => {
               <p>.</p>
               <p>{createdAt}</p>
             </div>
-          </div>
+          </Link>
         );
       })}
     </div>
