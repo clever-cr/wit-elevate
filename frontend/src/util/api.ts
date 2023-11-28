@@ -1,5 +1,4 @@
 import axios from "axios";
-import data from "../components/data/festivals";
 import { formData } from "./types";
 
 const token = localStorage.getItem("token");
@@ -11,6 +10,16 @@ export async function allEvents(limit?: number) {
     return data.data;
   } catch (error) {
     console.log("something wrong ...");
+  }
+}
+
+export async function event(id:any){
+  const url = `${import.meta.env.VITE_URL}//event/${id}`
+  try{
+const data = await axios.get(url);
+return data.data
+  } catch(error){
+console.log(error)
   }
 }
 
