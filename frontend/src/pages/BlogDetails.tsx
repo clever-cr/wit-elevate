@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useState, useEffect, ChangeEvent, useId } from "react";
+import { useState, useEffect, ChangeEvent } from "react";
 import { blog, comment, postComment, allBlogs } from "../util/api";
 import profile from "../assets/profile.png";
 import Calendars from "../assets/Calendars";

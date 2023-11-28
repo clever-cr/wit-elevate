@@ -26,7 +26,7 @@ const Events = () => {
         Choose from the recent and Our Featured Events
       </h2>
       <div className="grid grid-cols-2 gap-7 px-28- ">
-        {events?.map(({ title }: eventProps, index) => {
+        {events?.map(({ title, _id }: eventProps, index) => {
           return (
             <div
               className={
@@ -45,7 +45,7 @@ const Events = () => {
               />
               <div className="absolute bottom-8 left-5 text-white leading-8">
                 <h1 className="font-bold text-2xl ">{title}</h1>
-                <Link to="/" className="text-lg underline">
+                <Link to={`event/${_id}`} className="text-lg underline">
                   {" "}
                   Learn more
                 </Link>

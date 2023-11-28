@@ -6,6 +6,7 @@ import Button from "../components/ui/Button";
 import Like from "../assets/Like";
 import { eventProps } from "../util/types";
 import Discover from "../components/ui/Discover";
+import { Link } from "react-router-dom";
 
 const Events = () => {
   const [events, setEvents] = useState([]);
@@ -41,36 +42,40 @@ const Events = () => {
           Explore inspiring <span className="text-secondary">Events</span>
         </h2>
         <div className="grid grid-cols-3 pt-16 gap-8 overflow-auto h-[32rem] ">
-          {events?.map(({ title, description, date, cost }: eventProps) => {
-            return (
-              <div className="relative">
-                <img src={girls} alt="" className="" />
-                <div className="absolute top-4 right-24 z-10 ">
-                  <Like />
-                </div>
-
-                <div className="flex flex-col gap-4">
-                  <div className="flex flex-col gap-2">
-                    <h1 className="font-semibold text-xl leading-10 text-darkest">
-                      {title}
-                    </h1>
-                    <p className="text-greyy leading-5">{description}</p>
+          {events?.map(
+            ({ title, description, date, cost, _id }: eventProps) => {
+              return (
+                <div className="relative">
+                  <img src={girls} alt="" className="" />
+                  <div className="absolute top-4 right-24 z-10 ">
+                    <Like />
                   </div>
 
-                  <div className="flex items-center font-semibold text-xs text-greyy gap-3">
-                    <p>{date}</p>
-                    <p>{cost}</p>
-                  </div>
-                  <div className="flex justify-start">
-                    <Button
-                      text="Book Event"
-                      className="border border-primary bg-white text-primary"
-                    />
+                  <div className="flex flex-col gap-4">
+                    <div className="flex flex-col gap-2">
+                      <h1 className="font-semibold text-xl leading-10 text-darkest">
+                        {title}
+                      </h1>
+                      <p className="text-greyy leading-5">{description}</p>
+                    </div>
+
+                    <div className="flex items-center font-semibold text-xs text-greyy gap-3">
+                      <p>{date}</p>
+                      <p>{cost}</p>
+                    </div>
+                    <div className="flex justify-start">
+                      <Link to={`event/${_id}`}>
+                        <Button
+                          text="Book Event"
+                          className="border border-primary bg-white text-primary"
+                        />
+                      </Link>
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            }
+          )}
         </div>
         <div className="flex justify-center pt-24">
           <Discover text="Explore more events" />
