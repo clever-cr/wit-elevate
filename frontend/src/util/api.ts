@@ -13,13 +13,40 @@ export async function allEvents(limit?: number) {
   }
 }
 
-export async function event(id:any){
-  const url = `${import.meta.env.VITE_URL}//event/${id}`
-  try{
-const data = await axios.get(url);
-return data.data
-  } catch(error){
-console.log(error)
+export async function event(id: any) {
+  const url = `${import.meta.env.VITE_URL}/event/${id}`;
+  try {
+    const data = await axios.get(url);
+    return data.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function createBlog(blogData: any) {
+  const url = `${import.meta.env.VITE_URL}/postBlog`;
+  try {
+    const data = await axios.post(url, blogData, {
+      headers: {
+        Authorization: `${token}`,
+      },
+    });
+    return data.data;
+  } catch (error) {
+    console.log("can't post");
+  }
+}
+export async function createEvent(eventData: any) {
+  const url = `${import.meta.env.VITE_URL}/postEvent`;
+  try {
+    const data = await axios.post(url, eventData, {
+      headers: {
+        Authorization: `${token}`,
+      },
+    });
+    return data.data;
+  } catch (error) {
+    console.log("can't post");
   }
 }
 
