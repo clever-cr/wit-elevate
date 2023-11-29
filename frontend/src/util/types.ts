@@ -63,11 +63,12 @@ export interface formProps {
 }
 
 export interface inputProps {
-  placeholder: string;
+  placeholder?: string;
   value: string;
   name: string;
   type?: string;
-  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  className?: string;
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export interface headerProps {
