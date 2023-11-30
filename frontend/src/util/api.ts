@@ -69,6 +69,21 @@ export async function blog(id: any) {
     console.log(error);
   }
 }
+
+export async function editBlog(blogData: any, id: any) {
+  const url = `${import.meta.env.VITE_URL}/updateBlog/${id}`;
+  try {
+    const data = await axios.patch(url, blogData, {
+      headers: {
+        Authorization: `${token}`,
+      },
+    });
+    return data.data;
+  } catch (error) {
+    console.log("can't edit");
+  }
+}
+
 export async function postComment(blogId: any, formData: any) {
   const url = `${import.meta.env.VITE_URL}/postComment/${blogId}`;
   try {

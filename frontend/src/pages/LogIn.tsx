@@ -16,13 +16,15 @@ const LogIn = () => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    logIn(formData).then((data: any) => {
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("userId", data.user.id);
-      navigate("/");
-    }).catch(()=>{
-      
-    });
+    logIn(formData)
+      .then((data: any) => {
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("userId", data.user.id);
+        navigate("/");
+      })
+      .catch(() => {
+        toast.error("something went wrong");
+      });
   };
 
   return (
