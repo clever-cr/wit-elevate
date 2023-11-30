@@ -38,6 +38,7 @@ export interface blogProps {
   description?: string;
   _id?: number;
   createdAt?: string;
+  createdBy?: {};
 }
 export interface commentProps {
   content: string;
