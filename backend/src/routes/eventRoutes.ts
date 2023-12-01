@@ -7,10 +7,10 @@ import {
   updateEvent,
 } from "../controllers/eventController";
 
-const eventRouter = express.Router();
-eventRouter.post("/postEvent", createEvent);
-eventRouter.get("/allEvents", allEvents);
-eventRouter.get("/event/:id", oneEvent);
-eventRouter.delete("/deleteEvent/:id", deleteEvent);
-eventRouter.patch("/updateEvent/:id", updateEvent);
-export default eventRouter;
+const eventRoute = express.Router();
+eventRoute.post("/postEvent", createEvent);
+eventRoute.get("/allEvents", allEvents);
+eventRoute.get("/event/:id", oneEvent);
+eventRoute.delete("/deleteEvent/:id", deleteEvent);
+eventRoute.patch("/updateEvent/:id", updateEvent);
+export default eventRoute;

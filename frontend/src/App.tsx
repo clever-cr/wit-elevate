@@ -19,7 +19,8 @@ import CreateBlog from "./pages/createBlog";
 import ListBlogs from "./pages/ListBlogs";
 import CreateEvent from "./pages/CreateEvent";
 import ListEvents from "./pages/ListEvents";
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const App = () => {
   return (
     <>
@@ -43,12 +44,15 @@ const App = () => {
           <Route path="logIn" element={<LogIn />} />
           <Route path="signUp" element={<SignUp />} />
           <Route path="dashboard" element={<Dashboard />}>
-            <Route index element={<CreateBlog />} />
-            <Route path="listBlogs" element={<ListBlogs />} />
-            <Route path="createEvents" element={<CreateEvent />} />
-            <Route path="listEvents" element={<ListEvents />} />
+            <Route path="blog/create" element={<CreateBlog />} />
+            <Route path="blog/edit/:id" element={<CreateBlog />} />
+            <Route path="blog/list" element={<ListBlogs />} />
+            <Route path="event/create" element={<CreateEvent />} />
+            <Route path="event/edit/:id" element={<CreateEvent />} />
+            <Route path="event/list" element={<ListEvents />} />
           </Route>
         </Routes>
+        <ToastContainer />
       </BrowserRouter>
     </>
   );

@@ -1,6 +1,6 @@
-const Up = () => {
+const Up = ({ onClick }: any) => {
   return (
-    <>
+    <div onClick={onClick}>
       <svg
         width="20"
         height="20"
@@ -15,7 +15,7 @@ const Up = () => {
           fill="#2A2A2A"
         />
       </svg>
-    </>
+    </div>
   );
 };
 export default Up;

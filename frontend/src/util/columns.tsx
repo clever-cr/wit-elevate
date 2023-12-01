@@ -1,9 +1,15 @@
 import { MenuProps, Space, Dropdown } from "antd";
-
+import { useNavigate } from "react-router-dom";
 import { ColumnsType } from "antd/es/table";
 import { blogProps, eventProps } from "./types";
-import { MdDelete, MdOutlineAssignmentInd } from "react-icons/md";
+import {
+  MdDelete,
+  MdOutlineAssignmentInd,
+  MdModeEditOutline,
+} from "react-icons/md";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
+import { deleteBlog, deleteEvent } from "./api";
+import { toast } from "react-toastify";
 
 export const columns: ColumnsType<blogProps> = [
   {
@@ -39,9 +45,15 @@ export const columns: ColumnsType<blogProps> = [
         {
           key: "1",
           label: (
-            <label className="flex gap-2 bg-[#0f0f4712] p-1 rounded-md cursor-pointer">
-              <span className="text-[#0F0F47] text-[10px] font-normal pt-[5px]">
-                {" "}
+            <label
+              onClick={() => {
+                console.log("....", record);
+                record.navigate(`/dashboard/blog/edit/${record?._id}`);
+              }}
+              className="flex gap-2 bg-[#0f0f4712] p-1 rounded-md cursor-pointer"
+            >
+              <span className="text-[#0F0F47] text-[16px] font-normal pt-[5px] flex items-center">
+                <MdModeEditOutline className="pt-1  size={20}" />
                 Edit
               </span>
             </label>
@@ -52,7 +64,12 @@ export const columns: ColumnsType<blogProps> = [
           key: "3",
           label: (
             <label
-              // onClick={(e) => openDeleteModel(record?._id)}
+              onClick={() => {
+                deleteBlog(record._id).then(() => {
+                  toast.success("Blog deleted successfully");
+                  console.log("Deleted successfully");
+                });
+              }}
               className="flex gap-2 bg-red-200 rounded-md p-1"
             >
               <MdDelete className="pt-1 fill-red-500" size={20} />{" "}
@@ -119,6 +136,12 @@ export const eventConlumns: ColumnsType<eventProps> = [
     width: 200,
   },
   {
+    key: "time",
+    title: "time",
+    dataIndex: "time",
+    width: 200,
+  },
+  {
     key: "location",
     title: "location",
     dataIndex: "location",
@@ -146,9 +169,15 @@ export const eventConlumns: ColumnsType<eventProps> = [
         {
           key: "1",
           label: (
-            <label className="flex gap-2 bg-[#0f0f4712] p-1 rounded-md cursor-pointer">
+            <label
+              onClick={() => {
+                console.log("....", record);
+                record.navigate(`/dashboard/event/edit/${record?._id}`);
+              }}
+              className="flex gap-2 bg-[#0f0f4712] p-1 rounded-md cursor-pointer"
+            >
               <span className="text-[#0F0F47] text-[10px] font-normal pt-[5px]">
-                {" "}
+                <MdModeEditOutline />
                 Edit
               </span>
             </label>
@@ -159,7 +188,12 @@ export const eventConlumns: ColumnsType<eventProps> = [
           key: "3",
           label: (
             <label
-              // onClick={(e) => openDeleteModel(record?._id)}
+              onClick={() => {
+                deleteEvent(record._id).then(() => {
+                  toast.success("Blog deleted successfully");
+                  console.log("Deleted successfully");
+                });
+              }}
               className="flex gap-2 bg-red-200 rounded-md p-1"
             >
               <MdDelete className="pt-1 fill-red-500" size={20} />{" "}

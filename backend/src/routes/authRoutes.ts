@@ -1,8 +1,8 @@
 import express from "express";
 import { signUp, signIn, editRole } from "../controllers/authController";
 
-const authRouter = express.Router();
-authRouter.post("/signup", signUp);
-authRouter.post("/signIn", signIn);
-authRouter.patch("/editRole/:id", editRole);
-export default authRouter;
+const authRoute = express.Router();
+authRoute.post("/signUp", signUp);
+authRoute.post("/signIn", signIn);
+authRoute.patch("/editRole/:id", editRole);
+export default authRoute;
