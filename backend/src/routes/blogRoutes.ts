@@ -6,11 +6,13 @@ import {
   oneBlog,
   updateBlog,
 } from "../controllers/blogController";
+import { verifyUserToken } from "../middleware/verifyToken";
 
-const blogRouter = express.Router();
-blogRouter.post("/postBlog", createBlog);
-blogRouter.get("/allBlogs", allBlogs);
-blogRouter.get("/oneBlog/:id", oneBlog);
-blogRouter.delete("/deleteBlog/:id", deleteBlog);
-blogRouter.patch("/updateBlog/:id", updateBlog);
-export default blogRouter;
+const blogRoute = express.Router();
+
+blogRoute.post("/postBlog", verifyUserToken, createBlog);
+blogRoute.get("/allBlogs", allBlogs);
+blogRoute.get("/oneBlog/:id", oneBlog);
+blogRoute.delete("/deleteBlog/:id", verifyUserToken, deleteBlog);
+blogRoute.patch("/updateBlog/:id", verifyUserToken, updateBlog);
+export default blogRoute;

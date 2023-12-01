@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 
 const signUp = async (req: Request, res: Response) => {
   try {
-    const { fullName, email, password } = req.body;
+    const { fullName, email, password, role } = req.body;
     const userExists = await User.findOne({ email });
     const harshedPassword = await bcrypt.hash(password, 10);
 
@@ -18,13 +18,15 @@ const signUp = async (req: Request, res: Response) => {
     const user = await User.create({
       fullName,
       email,
+      role,
       password: harshedPassword,
     });
 
     const returnedUser = {
       id: user.id,
       fullName: user.fullName,
-      emaiil: user.email,
+      email: user.email,
+      role: user.role,
     };
 
     return res.status(200).json({
@@ -57,6 +59,7 @@ const signIn = async (req: Request, res: Response) => {
       id: userExists.id,
       fullName: userExists.fullName,
       email: userExists.email,
+      role: userExists.role,
     };
 
     const token = jwt.sign(returnedUser, process.env.JWT_SECRET_KEY!, {

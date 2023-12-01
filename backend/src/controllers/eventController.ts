@@ -12,7 +12,8 @@ const createEvent = async (req: Request, res: Response) => {
 
 const allEvents = async (req: Request, res: Response) => {
   try {
-    const events = await Event.find();
+    const limit: any = req.query.limit || 0;
+    const events = await Event.find().limit(limit);
     res.status(200).send(events);
   } catch (error) {
     console.log(error);

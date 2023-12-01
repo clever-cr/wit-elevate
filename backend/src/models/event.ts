@@ -19,6 +19,10 @@ const EventSchema = new Schema({
     type: Date,
     required: true,
   },
+  time: {
+    type: String,
+    required: true,
+  },
   location: {
     type: String,
     required: true,
@@ -30,6 +34,10 @@ const EventSchema = new Schema({
   organiser: {
     type: String,
     required: true,
+  },
+  author: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
   },
 });
 

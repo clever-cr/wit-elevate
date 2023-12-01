@@ -3,9 +3,10 @@ import mongoose from "mongoose";
 import * as dontenv from "dotenv";
 import "dotenv/config";
 import cors from "cors";
-import authRouters from "./routes/authRoutes";
-import eventRouters from "./routes/eventRoutes";
-import blogRouter from "./routes/blogRoutes";
+import authRoute from "./routes/authRoutes";
+import eventRoute from "./routes/eventRoutes";
+import blogRoute from "./routes/blogRoutes";
+import commentRoute from "./routes/commentRoutes";
 
 const app = express();
 dontenv.config();
@@ -24,6 +25,7 @@ mongoose
 
 app.use(express.json());
 app.use(cors());
-app.use(authRouters);
-app.use(eventRouters);
-app.use(blogRouter);
+app.use(authRoute);
+app.use(eventRoute);
+app.use(blogRoute);
+app.use(commentRoute);

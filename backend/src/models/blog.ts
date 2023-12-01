@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+import User from "./user";
+import Comment from "./comments";
 
 const Schema = mongoose.Schema;
 
@@ -24,6 +26,19 @@ const BlogSchema = new Schema({
     type: Date,
     default: Date.now,
   },
+  createdBy: {
+    type: mongoose.Types.ObjectId,
+    ref: "User",
+  },
+});
+BlogSchema.pre("find", function (next) {
+  this.populate({
+    path: "createdBy",
+    select: "fullName",
+    model: User,
+  });
+
+  next();
 });
 
 const Blog = mongoose.model("Blog", BlogSchema);
