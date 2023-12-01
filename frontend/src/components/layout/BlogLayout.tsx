@@ -1,7 +1,6 @@
 import { NavLink, Outlet } from "react-router-dom";
 import { blogLinks } from "../../util/data";
 import Search from "../ui/Search";
-import Rectangle from "../../assets/Rectangle.png";
 import Profile from "../../assets/profile.png";
 import blog1 from "../../assets/blog1.png";
 const BlogLayout = () => {

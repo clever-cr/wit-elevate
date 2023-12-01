@@ -21,7 +21,7 @@ const Blog = () => {
         Read Blogs from our women <br></br> contributors
       </h1>
       <div className="grid grid-cols-2 px-16 gap-12 bg-white  pt-28 ">
-        {blogs?.map(({ picture, title, description, _id }: blogProps) => {
+        {blogs?.map(({ title, _id }: blogProps) => {
           return (
             <div className="flex gap-8">
               <img src={blogg} alt="blg" />

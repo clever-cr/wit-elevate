@@ -70,8 +70,7 @@ const CreateBlog = () => {
           <Editor
             value={content.description}
             onChange={handleChange}
-            // apiKey="your-api-key"
-            onInit={(evt, editor) => (editorRef.current = editor)}
+            onInit={(_evt, editor) => (editorRef.current = editor)}
             onEditorChange={() =>
               setContent({
                 ...content,

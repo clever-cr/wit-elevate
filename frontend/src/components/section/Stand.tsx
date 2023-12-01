@@ -1,5 +1,3 @@
-import people from "../../assets/people.png";
-import Button from "../ui/Button";
 import rectangle22 from "../../assets/Rectangle 22.png";
 import rectangle25 from "../../assets/Rectangle 25.png";
 import rectangle13 from "../../assets/Rectangle 13.png";

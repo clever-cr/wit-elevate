@@ -1,5 +1,3 @@
-import Calendar from "./Calendar";
-
 const Calendars = () => {
   return (
     <>

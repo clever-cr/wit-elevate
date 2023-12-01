@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 const ListEvents = () => {
   const navigate = useNavigate();
   const [events, setEvents] = useState([]);
-  const role = localStorage.getItem("role");
   useEffect(() => {
     allEvents(0).then((data) => {
       setEvents(data);

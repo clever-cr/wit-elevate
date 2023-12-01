@@ -1,9 +1,8 @@
-import { Table, MenuProps, Space, Dropdown, Avatar } from "antd";
+import { Table, MenuProps, Space, Dropdown } from "antd";
 import { useState, useEffect } from "react";
 import { allBlogs } from "../util/api";
 import { blogProps } from "../util/types";
 import { ColumnsType } from "antd/es/table";
-import { Typography } from "@mui/material";
 import { MdDelete, MdOutlineAssignmentInd } from "react-icons/md";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 const List = () => {
@@ -23,30 +22,13 @@ const List = () => {
       key: "title",
       title: "title",
       dataIndex: "title",
-      //   render: (text: any, record: any) => (
-      //     <>
-      //       <Space className="ml-2">
-      //         <Avatar src={record?.data.picture} />
-      //         <div className="flex flex-col">
-      //           <h1 className="text-sm font-normal text-[#0F0F47] capitalize">
-      //             {text}
-      //           </h1>
-      //           {record?.channel && (
-      //             <h1 className="text-sm font-semibold text-[#0F0F47] capitalize">
-      //               {record?.channel}
-      //             </h1>
-      //           )}
-      //         </div>
-      //       </Space>
-      //     </>
-      //   ),
       width: 300,
     },
     {
       key: "description",
       title: "description",
       dataIndex: "description",
-      render: (text: string, record: any) => (
+      render: (text: string, _record: any) => (
         <div className=" line-clamp-2">{text}</div>
       ),
       width: 250,
@@ -55,9 +37,7 @@ const List = () => {
       key: "createdBy",
       title: "createdBy",
       dataIndex: "createdBy",
-      render: (text: any, record: any) => (
-        <div>{text?.fullName}</div>
-      ),
+      render: (text: any, _record: any) => <div>{text?.fullName}</div>,
       width: 200,
     },
 
@@ -83,10 +63,7 @@ const List = () => {
           {
             key: "3",
             label: (
-              <label
-                // onClick={(e) => openDeleteModel(record?._id)}
-                className="flex gap-2 bg-red-200 rounded-md p-1"
-              >
+              <label className="flex gap-2 bg-red-200 rounded-md p-1">
                 <MdDelete className="pt-1 fill-red-500" size={20} />{" "}
                 <span className="text-red-500 text-[12px] font-normal pt-[5px]">
                   Delete
@@ -132,7 +109,6 @@ const List = () => {
 
   return (
     <>
-     
       <Table columns={columns} dataSource={Data} pagination={false} />
     </>
   );

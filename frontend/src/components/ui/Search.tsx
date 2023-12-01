@@ -1,6 +1,6 @@
 import { searchProps } from "../../util/types";
 
-const Search = ({ placeholder, text }: searchProps) => {
+const Search = ({ placeholder }: searchProps) => {
   return (
     <div className="flex justify-between gap-5">
       <input

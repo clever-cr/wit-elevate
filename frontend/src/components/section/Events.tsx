@@ -1,15 +1,10 @@
 import { useState, useEffect } from "react";
 import { allEvents } from "../../util/api";
 import { eventProps } from "../../util/types";
-import picture from "../../assets/girls.png";
-import Button from "../ui/Button";
-import Calendar from "../../assets/Calendar";
-import Cost from "../../assets/Cost";
-import Locations from "../../assets/Locations";
-import Arrow from "../../assets/Arrow";
 import event from "../../assets/event.png";
 import { Link } from "react-router-dom";
 import Right from "../../assets/Right";
+import Button from "../ui/Button";
 
 const Events = () => {
   const [events, setEvents] = useState([]);
