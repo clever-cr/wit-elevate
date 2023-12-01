@@ -2,12 +2,12 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "app.ts",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:dev": "npx nodemon",
-    "build": "npx babel src --out-dir dist",
-    "start": "node ./dist/app.ts"
+    "build": "tsc",
+    "start": "node ./build/app.js"
   },
   "keywords": [],
   "author": "",
