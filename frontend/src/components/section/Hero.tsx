@@ -1,7 +1,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { useState } from "react";
-import data from "../data/festivals";
+
 import { heroProps } from "../../util/types";
 import Button from "../ui/Button";
 import hero from "../../assets/hero.png";

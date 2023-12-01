@@ -1,6 +1,6 @@
 const BoldArrow = ({ onClick }: any) => {
   return (
-    <>
+    <div onClick={onClick}>
       <svg
         width="20"
         height="20"
@@ -15,7 +15,7 @@ const BoldArrow = ({ onClick }: any) => {
           fill="#2A2A2A"
         />
       </svg>
-    </>
+    </div>
   );
 };
 export default BoldArrow;

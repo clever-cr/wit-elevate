@@ -15,7 +15,7 @@ export default {
         darkGrey: "#2A2A2A",
         lightGrey: "#FCFCFD",
         medium: "#E6E6E6",
-        red: "#E3135D",
+        redy: "#E3135D",
         greyy: "#777777",
         darkest: "#504F4F",
         purple: "#6366F1",

@@ -7,6 +7,7 @@ import Like from "../assets/Like";
 import { eventProps } from "../util/types";
 import Discover from "../components/ui/Discover";
 import { Link } from "react-router-dom";
+import MyUpload from "../components/ui/MyUpload";
 
 const Events = () => {
   const [events, setEvents] = useState([]);
@@ -19,7 +20,7 @@ const Events = () => {
   return (
     <div>
       <div className="flex flex-col items-center gap-12 py-16 bg-gradient-to-r- from-pink-50 to-blue-50- ">
-        <button className="border rounded-3xl text-red border-red bg-[#FEEFF4] py-2 px-10 ">
+        <button className="border rounded-3xl text-redy border-redy bg-[#FEEFF4] py-2 px-10 ">
           Connect Through Tech events
         </button>
         <div className="flex flex-col gap-5">
@@ -43,10 +44,14 @@ const Events = () => {
         </h2>
         <div className="grid grid-cols-3 pt-16 gap-8 overflow-auto h-[32rem] ">
           {events?.map(
-            ({ title, description, date, cost, _id }: eventProps) => {
+            ({ title, description, date, cost, _id, picture }: eventProps) => {
               return (
                 <div className="relative">
-                  <img src={girls} alt="" className="" />
+                  <img
+                    src={picture}
+                    alt=""
+                    className="w-[380px] h-[233px] rounded-md  brightness-75"
+                  />
                   <div className="absolute top-4 right-24 z-10 ">
                     <Like />
                   </div>
@@ -64,9 +69,9 @@ const Events = () => {
                       <p>{cost}</p>
                     </div>
                     <div className="flex justify-start">
-                      <Link to={`event/${_id}`}>
+                      <Link to={`/event/${_id}`}>
                         <Button
-                          text="Book Event"
+                          text="Read more"
                           className="border border-primary bg-white text-primary"
                         />
                       </Link>
@@ -80,6 +85,9 @@ const Events = () => {
         <div className="flex justify-center pt-24">
           <Discover text="Explore more events" />
         </div>
+      </div>
+      <div>
+        <MyUpload />
       </div>
     </div>
   );

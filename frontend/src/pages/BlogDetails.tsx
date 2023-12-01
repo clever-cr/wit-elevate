@@ -8,8 +8,10 @@ import BookMark from "../assets/BookMark";
 import Share from "../assets/Share";
 import blogg from "../assets/blogg.png";
 import BlogCard from "../components/ui/BlogCard";
+import { toast } from "react-toastify";
 
 const BlogDetails = () => {
+  const token = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
   const [blogDetails, setBlogDetails] = useState<blogProps>();
   const [comments, setComments] = useState([]);
@@ -29,8 +31,16 @@ const BlogDetails = () => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
     postComment(id, commentData).then((data) => {
+      if (!token) {
+        toast.error("You have to login first");
+      }
       setCommentData(data);
+      comment(id).then((data: any) => {
+        console.log("comments...");
+        setComments(data);
+      });
     });
+    e.reset();
   };
 
   useEffect(() => {

@@ -6,6 +6,7 @@ import { formData } from "../util/types";
 import { ChangeEvent, useState } from "react";
 import { signUp } from "../util/api";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -15,7 +16,9 @@ const SignUp = () => {
   };
   const handleSubmit = (e: any) => {
     e.preventDefault();
+    
     signUp(data).then(() => {
+      toast.success("Signed up successfully");
       navigate("/logIn");
     });
   };

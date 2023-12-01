@@ -16,14 +16,18 @@ const LogIn = () => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
+
     logIn(formData)
       .then((data: any) => {
         localStorage.setItem("token", data.token);
         localStorage.setItem("userId", data.user.id);
+        localStorage.setItem("role", data.user.role);
+        
         navigate("/");
       })
-      .catch(() => {
-        toast.error("something went wrong");
+      .catch((error) => {
+        console.log(error);
+        toast.warn("Invalid Email or Password");
       });
   };
 

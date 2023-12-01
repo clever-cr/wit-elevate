@@ -22,6 +22,32 @@ export async function event(id: any) {
     console.log(error);
   }
 }
+export async function createEvent(eventData: any) {
+  const url = `${import.meta.env.VITE_URL}/postEvent`;
+  try {
+    const data = await axios.post(url, eventData, {
+      headers: {
+        Authorization: `${token}`,
+      },
+    });
+    return data.data;
+  } catch (error) {
+    console.log("can't post");
+  }
+}
+export async function editEvent(eventData: any, id: any) {
+  const url = `${import.meta.env.VITE_URL}/updateEvent/${id}`;
+  try {
+    const data = await axios.patch(url, eventData, {
+      headers: {
+        Authorization: `${token}`,
+      },
+    });
+    return data.data;
+  } catch (error) {
+    console.log("can't edit");
+  }
+}
 
 export async function createBlog(blogData: any) {
   const url = `${import.meta.env.VITE_URL}/postBlog`;
@@ -36,22 +62,25 @@ export async function createBlog(blogData: any) {
     console.log("can't post");
   }
 }
-export async function createEvent(eventData: any) {
-  const url = `${import.meta.env.VITE_URL}/postEvent`;
+
+export async function deleteEvent(id: any) {
+  const url = `${import.meta.env.VITE_URL}/deleteEvent/${id}`;
   try {
-    const data = await axios.post(url, eventData, {
+    const data = await axios.delete(url, {
       headers: {
         Authorization: `${token}`,
       },
     });
     return data.data;
   } catch (error) {
-    console.log("can't post");
+    console.log("can't delete");
   }
 }
 
-export async function allBlogs(limit?: number) {
-  const url = `${import.meta.env.VITE_URL}/allblogs?limit=${limit}`;
+export async function allBlogs(limit?: number, userId?: string) {
+  const url = `${import.meta.env.VITE_URL}/allblogs?limit=${limit}&${
+    userId && "user=" + userId
+  }`;
   try {
     const data = await axios.get(url);
     return data.data;
@@ -81,6 +110,20 @@ export async function editBlog(blogData: any, id: any) {
     return data.data;
   } catch (error) {
     console.log("can't edit");
+  }
+}
+
+export async function deleteBlog(id: any) {
+  const url = `${import.meta.env.VITE_URL}/deleteBlog/${id}`;
+  try {
+    const data = await axios.delete(url, {
+      headers: {
+        Authorization: `${token}`,
+      },
+    });
+    return data.data;
+  } catch (error) {
+    console.log("can't delete");
   }
 }
 
