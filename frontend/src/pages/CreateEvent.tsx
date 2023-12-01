@@ -1,5 +1,4 @@
 import Input from "../components/ui/Input";
-import { GoPlus } from "react-icons/go";
 import { DatePicker, TimePicker } from "antd";
 import type { DatePickerProps, TimePickerProps } from "antd";
 import { SetStateAction, useEffect, useState } from "react";
@@ -46,11 +45,11 @@ const CreateEvent = () => {
     }
   }, [id]);
 
-  const handleDateChange: DatePickerProps["onChange"] = (date, dateString) => {
+  const handleDateChange: DatePickerProps["onChange"] = (_date, dateString) => {
     setEventContent({ ...eventContent, date: dateString });
   };
   const handleTimeChange: TimePickerProps["onChange"] = (
-    time: Dayjs | null,
+    _time: Dayjs | null,
     dateString
   ) => {
     setEventContent({ ...eventContent, time: dateString });

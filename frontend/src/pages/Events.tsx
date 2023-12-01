@@ -1,13 +1,11 @@
 import Search from "../components/ui/Search";
 import { useState, useEffect } from "react";
 import { allEvents } from "../util/api";
-import girls from "../assets/girls.png";
 import Button from "../components/ui/Button";
 import Like from "../assets/Like";
 import { eventProps } from "../util/types";
 import Discover from "../components/ui/Discover";
 import { Link } from "react-router-dom";
-import MyUpload from "../components/ui/MyUpload";
 
 const Events = () => {
   const [events, setEvents] = useState([]);
@@ -85,9 +83,6 @@ const Events = () => {
         <div className="flex justify-center pt-24">
           <Discover text="Explore more events" />
         </div>
-      </div>
-      <div>
-        <MyUpload />
       </div>
     </div>
   );

@@ -1,16 +1,10 @@
-import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import { useState } from "react";
-
-import { heroProps } from "../../util/types";
 import Button from "../ui/Button";
 import hero from "../../assets/hero.png";
-import Connect from "../../assets/Connect";
 import Arrow from "../../assets/Arrow";
 import { Link } from "react-router-dom";
 
 const Hero = () => {
-  const [slide, setSlide] = useState();
   return (
     <div className="flex items-center gap-48">
       <div className="flex flex-col  gap-12">

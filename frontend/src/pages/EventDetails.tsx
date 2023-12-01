@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { event } from "../util/api";
-import cpic from "../assets/cpic.png";
 import { PiCalendarBlank } from "react-icons/pi";
 import { GoClock } from "react-icons/go";
 import { SlLocationPin } from "react-icons/sl";

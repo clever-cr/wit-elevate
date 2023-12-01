@@ -1,7 +1,5 @@
-import Logo from "../../assets/Logo";
 import { linkProps } from "../../util/types";
 import { links } from "../../util/data";
-import Button from "../ui/Button";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 const NavBar = () => {

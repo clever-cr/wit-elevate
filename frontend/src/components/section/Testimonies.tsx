@@ -1,5 +1,4 @@
 import Right from "../../assets/Right";
-import profile from "../../assets/profile.png";
 import Button from "../ui/Button";
 import { testimonies } from "../../util/data";
 import Testimony from "../ui/Testimony";

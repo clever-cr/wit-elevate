@@ -1,5 +1,4 @@
 import { MenuProps, Space, Dropdown } from "antd";
-import { useNavigate } from "react-router-dom";
 import { ColumnsType } from "antd/es/table";
 import { blogProps, eventProps } from "./types";
 import {
@@ -22,7 +21,7 @@ export const columns: ColumnsType<blogProps> = [
     key: "description",
     title: "description",
     dataIndex: "description",
-    render: (text: string, record: any) => (
+    render: (text: string, _record: any) => (
       <div className=" line-clamp-2">{text}</div>
     ),
     width: 250,
@@ -31,7 +30,7 @@ export const columns: ColumnsType<blogProps> = [
     key: "createdBy",
     title: "createdBy",
     dataIndex: "createdBy",
-    render: (text: any, record: any) => <div>{text?.fullName}</div>,
+    render: (text: any, _record: any) => <div>{text?.fullName}</div>,
     width: 200,
   },
 
@@ -124,7 +123,7 @@ export const eventConlumns: ColumnsType<eventProps> = [
     key: "description",
     title: "description",
     dataIndex: "description",
-    render: (text: string, record: any) => (
+    render: (text: string, _record: any) => (
       <div className=" line-clamp-2">{text}</div>
     ),
     width: 250,
