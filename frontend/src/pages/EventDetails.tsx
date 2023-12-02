@@ -5,28 +5,23 @@ import { PiCalendarBlank } from "react-icons/pi";
 import { GoClock } from "react-icons/go";
 import { SlLocationPin } from "react-icons/sl";
 import { FaAngleRight } from "react-icons/fa";
-import Profile from "../assets/profile.png";
-import meeting from "../assets/meeting.png";
+import { eventProps } from "../util/types";
 const EventDetails = () => {
-  const [eventDetails, setEventDetails] = useState();
+  const [eventDetails, setEventDetails] = useState<eventProps>();
   const params = useParams();
   useEffect(() => {
     event(params.id).then((data) => {
       setEventDetails(data);
     });
   }, [params.id]);
-  console.log("detailsss", eventDetails);
+
   return (
     <div>
       <h1 className="font-semibold text-4xl text-center mt-32">
-        Empowering Innovators: Celebrating <br></br> Women in Tech
-        Revolutionising the <br></br>
-        Industry
+        {eventDetails?.title}
       </h1>
-      <p className="text-base text-dark text-center mt-6">
-        In the ever-evolving landscape of technology, women have been
-        instrumental in <br></br> driving innovation, yet their contributions
-        often remain overlooked or under.
+      <p className="text-base text-dark t mt-6 line-clamp-1 mx-52 ">
+        {eventDetails?.description}
       </p>
       <div className="flex items-center gap-8 ml-[650px] mt-[75px] ">
         <button className="bg-secondary text-white px-10 py-3 rounded-full text-base  ">
@@ -40,10 +35,9 @@ const EventDetails = () => {
         <span className="text-xs text-slate-400">No credit card required</span>
       </div>
       <div className="ml-[400px] mt-10">
-        <img src={meeting} className="w-[790px] h-[450px]" />
+        <img src={eventDetails?.picture} className="w-[790px] h-[450px]" />
         <h1 className="mt-2 text-[18px] font-semibold">
-          Empowering Innovators: Celebrating Women in Tech Revolutionising the
-          Industry
+          {eventDetails?.title}
         </h1>
         <div className="flex">
           <p>45 slots remains</p>
@@ -55,34 +49,35 @@ const EventDetails = () => {
       <div>
         <div className="flex ml-[400px] mt-8 text-[#B3B2B2]">
           <PiCalendarBlank className="w-6 h-6" />
-          <p className="text-[14px] ml-3">23 Dec 2023 - 27 Dec 2023</p>
+          <p className="text-[14px] ml-3">{eventDetails?.date}</p>
         </div>
         <div className="flex ml-[400px] mt-6 text-[#B3B2B2]">
           <GoClock className="w-6 h-6" />
-          <p className="text-[14px] ml-3">08 : 00 AM - 05 : 00 PM</p>
+          <p className="text-[14px] ml-3">{eventDetails?.time}</p>
         </div>
         <div className="flex ml-[400px] mt-6 text-[#B3B2B2]">
           <SlLocationPin className="w-6 h-6" />
-          <p className="text-[14px] ml-3">KN 599 St. Kiyovu Great Hotel</p>
+          <p className="text-[14px] ml-3">{eventDetails?.location}</p>
         </div>
       </div>
       <div className="bg-[#F4F1F1] w-[790px] h-0.5 ml-[400px] mt-8"></div>
       <div className="ml-[400px] mt-6">
         <p>
-          It was a Thursday, but it felt like a Monday to John. And John loved
-          Mondays. He thrived at work. He dismissed <br></br>
-          the old cliché of dreading Monday mornings and refused to engage in
-          water-cooler complaints about <br></br>
-          “the grind” and empty conversations that included the familiar parry
-          “How was your weekend?” “Too short!”. Yes, <br></br>
-          John liked his work and was unashamed.<br></br> <br></br>
+          {eventDetails?.description} <br></br>
           <span className="text-[#8B8A8A]">
-            I should probably get another latte. I’ve just been sitting here
-            with this empty cup. But then I’ll start to get jittery. <br></br>
+            The journey of women in tech dates back to the 19th century with Ada
+            Lovelace, renowned as the world's first computer programmer. Her
+            visionary work alongside Charles Babbage laid the foundation for
+            modern computing, demonstrating an early grasp of the potential of
+            machines beyond mere calculation. <br></br>
           </span>
           <span className="text-[#B4B1B1]">
-            I’ll get a decaf. No, that’s stupid, it feels stupid to pay for a
-            decaf. I can’t justify that. John was always impatient on
+            Despite remarkable progress, women in tech continue to face systemic
+            challenges. The gender gap persists, with women being
+            underrepresented in leadership positions and facing biases in hiring
+            and promotion. Moreover, hostile work environments and gender-based
+            discrimination hinder many talented women from reaching their full
+            potential.
           </span>
           <br></br>
           <span className="text-[#D7D4D4]">
@@ -102,28 +97,17 @@ const EventDetails = () => {
         <h1 className="font-semibold  text-[18px]">Events speakers</h1>
         <p>Listen. Learn. Get inspired from our special speakers. </p>
       </div>
-      <div className="flex gap-16 ml-[400px] mt-11">
+      <div className="flex justify-start ml-[400px] mt-11">
         <div className="flex items-center gap-3 ">
-          <img
+          {/* <img
             src={Profile}
             alt="profile"
             className="w-[100px] h-[100px] rounded-full"
-          />
+          /> */}
           <div>
-            <h1 className="font-semibold  text-[18px]">Clever Umuhuza</h1>
-            <p>
-              Listen. Learn. Get inspired from our <br></br> special speakers.
-            </p>
-          </div>
-        </div>
-        <div className="flex items-center gap-3 ">
-          <img
-            src={Profile}
-            alt="profile"
-            className="w-[100px] h-[100px] rounded-full"
-          />
-          <div>
-            <h1 className="font-semibold  text-[18px]">John Uwimana</h1>
+            <h1 className="font-semibold  text-[18px]">
+              {eventDetails?.organiser}
+            </h1>
             <p>
               Listen. Learn. Get inspired from our <br></br> special speakers.
             </p>

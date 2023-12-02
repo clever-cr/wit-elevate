@@ -10,6 +10,9 @@ export const createComment = async (req: Request, res: Response) => {
       return res.status(400).send("blog doesn't exist");
     }
     const comment = await Comment.create({ ...req.body, blogId });
+    if (!comment) {
+      console.log("don't create");
+    }
     res.status(200).send(comment);
   } catch (error) {
     console.log(error);

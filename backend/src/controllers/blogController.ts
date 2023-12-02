@@ -31,11 +31,10 @@ const oneBlog = async (req: Request, res: Response) => {
   try {
     const id = req.params.id;
     const blog = await Blog.findById(id);
-    if (!blog) {
-      res.status(404).send("Blog doesn't exist");
+    if (blog) {
+      res.status(200).send(blog);
     }
-
-    res.status(200).send(blog);
+    res.status(404).send("Blog doesn't exist");
   } catch (error) {
     console.log(error);
   }
@@ -45,10 +44,10 @@ const deleteBlog = async (req: Request, res: Response) => {
   try {
     const id = req.params.id;
     const blog = await Blog.findByIdAndDelete(id);
-    if (blog) {
-      res.status(200).send(blog);
+    if (!blog) {
+      res.status(400).send("blog not found");
     }
-    res.status(400).send("blog not found");
+    res.status(200).send(blog);
   } catch (error) {
     console.log(error);
   }

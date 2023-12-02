@@ -6,6 +6,7 @@ export interface eventProps {
   title: string;
   description: string;
   date: string;
+  time: string;
   location: string;
   cost: string;
   organiser: string;
@@ -38,7 +39,7 @@ export interface blogProps {
   description?: string;
   _id?: number;
   createdAt?: string;
-  createdBy?: {};
+  createdBy?: any;
 }
 export interface commentProps {
   content: string;

@@ -10,7 +10,7 @@ const Blog = () => {
   const [blogs, setBlogs] = useState([]);
 
   useEffect(() => {
-    allBlogs(4).then((data) => {
+    allBlogs(2).then((data) => {
       setBlogs(data);
     });
   }, []);
@@ -21,10 +21,14 @@ const Blog = () => {
         Read Blogs from our women <br></br> contributors
       </h1>
       <div className="grid grid-cols-2 px-16 gap-12 bg-white  pt-28 ">
-        {blogs?.map(({ title, _id }: blogProps) => {
+        {blogs?.map(({ title, _id, picture, description }: blogProps) => {
           return (
             <div className="flex gap-8">
-              <img src={blogg} alt="blg" />
+              <img
+                src={picture}
+                alt="blg"
+                className="w-[239px] h-full object-cover rounded-md brightness-75"
+              />
               <div className="flex flex-col gap-2">
                 <div className="flex items-center gap-4 text-xs">
                   <p className="text-primary">Category</p>
@@ -32,8 +36,8 @@ const Blog = () => {
                 </div>
                 <div className="gap-2 flex flex-col">
                   <h1 className="text-2xl text-darkGrey leading-8">{title}</h1>
-                  <p className="text-base text-light leading-6 truncate">
-                    In the ever-evolving landscape of technology,..
+                  <p className="text-base text-light leading-6 line-clamp-1">
+                    {description}
                   </p>
                 </div>
 

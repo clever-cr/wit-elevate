@@ -15,10 +15,10 @@ const Blogs = () => {
 
   return (
     <div className="pt-24 grid grid-cols-3 gap-8">
-      {blogs?.map(({ title, createdAt, _id }) => {
+      {blogs?.map(({ title, createdAt, _id, picture }) => {
         return (
           <Link to={`/blog/${_id}`}>
-            <img src={Rectangle} alt="blog" />
+            <img src={picture} alt="blog" />
             <div className="flex items-center gap-3 text-purple text-xs leading-8 font-medium pt-2">
               <p>TECHNOLOGY</p>
               <p>LIFESTYLE</p>

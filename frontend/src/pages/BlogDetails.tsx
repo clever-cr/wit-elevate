@@ -13,6 +13,7 @@ import { toast } from "react-toastify";
 const BlogDetails = () => {
   const token = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
+  const fullName = localStorage.getItem("fullName");
   const [blogDetails, setBlogDetails] = useState<blogProps>();
   const [comments, setComments] = useState([]);
   const [commentData, setCommentData] = useState<formData>({
@@ -36,7 +37,6 @@ const BlogDetails = () => {
       }
       setCommentData(data);
       comment(id).then((data: any) => {
-        console.log("comments...");
         setComments(data);
       });
     });
@@ -57,8 +57,7 @@ const BlogDetails = () => {
       setBlogs(data);
     });
   }, []);
-
-  console.log("comenttt", commentData);
+  console.log("comment", commentData);
   return (
     <div className="px-40 pt-28">
       {blogDetails ? (
@@ -87,7 +86,7 @@ const BlogDetails = () => {
           </div>
           <div className="flex flex-col gap-10 py-9 border-b">
             <img
-              src={blogg}
+              src={blogDetails?.picture}
               alt=""
               className="w-[820px] object-cover h-[500px]"
             />
@@ -99,9 +98,15 @@ const BlogDetails = () => {
             <h1 className="font-medium text-xl leading-8">
               Recommended to read
             </h1>
-            <div className="flex gap-8 pt-5 pb-20">
-              {blogs.map(({ title, createdAt }) => {
-                return <BlogCard title={title} createdAt={createdAt} />;
+            <div className="flex gap-8- pt-5 pb-20">
+              {blogs.map(({ title, createdAt, picture }) => {
+                return (
+                  <BlogCard
+                    picture={picture}
+                    title={title}
+                    createdAt={createdAt}
+                  />
+                );
               })}
             </div>
           </div>
@@ -137,7 +142,7 @@ const BlogDetails = () => {
                   <div className="flex items-center gap-2">
                     <img src={profile} alt="" />
                     <div className="flex items-center ">
-                      <p className="text-xs text-dark">{createdBy.fullName}</p>
+                      <p className="text-xs text-dark">{fullName}</p>
                       <p className="text-[#9CA3AF] text-xs">. 1 day ago</p>
                     </div>
                   </div>

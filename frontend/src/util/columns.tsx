@@ -128,6 +128,7 @@ export const eventConlumns: ColumnsType<eventProps> = [
     ),
     width: 250,
   },
+
   {
     key: "date",
     title: "date",

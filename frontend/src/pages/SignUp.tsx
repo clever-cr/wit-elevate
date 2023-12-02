@@ -16,7 +16,7 @@ const SignUp = () => {
   };
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    
+
     signUp(data).then(() => {
       toast.success("Signed up successfully");
       navigate("/logIn");
@@ -52,7 +52,7 @@ const SignUp = () => {
             <Button
               type="submit"
               onClick={handleSubmit}
-              text="sign In"
+              text="sign Up"
               className="bg-secondary text-white flex justify-center rounded-2xl"
             />
           </form>

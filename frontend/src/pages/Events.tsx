@@ -59,7 +59,7 @@ const Events = () => {
                       <h1 className="font-semibold text-xl leading-10 text-darkest">
                         {title}
                       </h1>
-                      <p className="text-greyy leading-5">{description}</p>
+                      <p className="text-greyy leading-5 line-clamp-2">{description}</p>
                     </div>
 
                     <div className="flex items-center font-semibold text-xs text-greyy gap-3">

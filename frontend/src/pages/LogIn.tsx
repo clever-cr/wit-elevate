@@ -21,8 +21,9 @@ const LogIn = () => {
       .then((data: any) => {
         localStorage.setItem("token", data.token);
         localStorage.setItem("userId", data.user.id);
+        localStorage.setItem("fullName", data.user.fullName);
         localStorage.setItem("role", data.user.role);
-        
+
         navigate("/");
       })
       .catch((error) => {
