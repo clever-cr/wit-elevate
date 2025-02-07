@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Editor } from "@tinymce/tinymce-react";
 import Input from "../components/ui/Input";
-import { GoPlus } from "react-icons/go";
 import { formData } from "../util/types";
 import { blog, createBlog, editBlog } from "../util/api";
 import { toast } from "react-toastify";

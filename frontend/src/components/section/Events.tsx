@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { allEvents } from "../../util/api";
 import { eventProps } from "../../util/types";
-import event from "../../assets/event.png";
 import { Link } from "react-router-dom";
 import Right from "../../assets/Right";
 import Button from "../ui/Button";

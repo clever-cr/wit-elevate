@@ -6,7 +6,6 @@ import Calendars from "../assets/Calendars";
 import { blogProps, commentProps, formData } from "../util/types";
 import BookMark from "../assets/BookMark";
 import Share from "../assets/Share";
-import blogg from "../assets/blogg.png";
 import BlogCard from "../components/ui/BlogCard";
 import { toast } from "react-toastify";
 
@@ -29,6 +28,7 @@ const BlogDetails = () => {
     setCommentData({ ...commentData, [e.target.name]: e.target.value });
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleSubmit = (e: any) => {
     e.preventDefault();
     postComment(id, commentData).then((data) => {
@@ -36,6 +36,7 @@ const BlogDetails = () => {
         toast.error("You have to login first");
       }
       setCommentData(data);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       comment(id).then((data: any) => {
         setComments(data);
       });
@@ -44,9 +45,11 @@ const BlogDetails = () => {
   };
 
   useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     blog(id).then((data: any) => {
       setBlogDetails(data);
     });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     comment(id).then((data: any) => {
       setComments(data);
     });
@@ -136,7 +139,7 @@ const BlogDetails = () => {
             </form>
           </div>
           <div className="py-8">
-            {comments?.map(({ content, createdBy }: commentProps) => {
+            {comments?.map(({ content}: commentProps) => {
               return (
                 <div>
                   <div className="flex items-center gap-2">
