@@ -1,6 +1,5 @@
-import mongoose from "mongoose";
-import User from "./user";
-import Blog from "./blog";
+const mongoose = require('mongoose');
+const User = require('./user');
 
 const Schema = mongoose.Schema;
 
@@ -9,11 +8,11 @@ const CommentSchema = new Schema({
     type: String,
   },
   createdBy: {
-    type: mongoose.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
   blogId: {
-    type: mongoose.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "Blog",
   },
 });
@@ -28,4 +27,4 @@ CommentSchema.pre("find", function (next) {
 });
 
 const Comment = mongoose.model("Comment", CommentSchema);
-export default Comment;
+module.exports = Comment; 

@@ -1,6 +1,5 @@
-import mongoose from "mongoose";
-import User from "./user";
-import Comment from "./comments";
+const mongoose = require('mongoose');
+const User = require('./user');
 
 const Schema = mongoose.Schema;
 
@@ -27,10 +26,11 @@ const BlogSchema = new Schema({
     default: Date.now,
   },
   createdBy: {
-    type: mongoose.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
 });
+
 BlogSchema.pre("find", function (next) {
   this.populate({
     path: "createdBy",
@@ -42,4 +42,4 @@ BlogSchema.pre("find", function (next) {
 });
 
 const Blog = mongoose.model("Blog", BlogSchema);
-export default Blog;
+module.exports = Blog; 

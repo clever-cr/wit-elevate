@@ -1,9 +1,8 @@
-import User from "../models/user";
-import { Request, Response } from "express";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+const User = require('../models/user');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
-const signUp = async (req: Request, res: Response) => {
+const signUp = async (req, res) => {
   try {
     const { fullName, email, password, role } = req.body;
     const userExists = await User.findOne({ email });
@@ -35,10 +34,11 @@ const signUp = async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.log(error);
+    res.status(500).json({ message: "Server error" });
   }
 };
 
-const signIn = async (req: Request, res: Response) => {
+const signIn = async (req, res) => {
   try {
     const { email, password } = req.body;
     const userExists = await User.findOne({ email });
@@ -62,7 +62,7 @@ const signIn = async (req: Request, res: Response) => {
       role: userExists.role,
     };
 
-    const token = jwt.sign(returnedUser, process.env.JWT_SECRET_KEY!, {
+    const token = jwt.sign(returnedUser, process.env.JWT_SECRET_KEY, {
       expiresIn: "1d",
     });
 
@@ -71,7 +71,7 @@ const signIn = async (req: Request, res: Response) => {
       user: returnedUser,
       token,
     });
-  } catch (error: any) {
+  } catch (error) {
     return res.status(500).json({
       message: "Something went wrong",
       error: error.message,
@@ -79,16 +79,4 @@ const signIn = async (req: Request, res: Response) => {
   }
 };
 
-const editRole = async (req: Request, res: Response) => {
-  try {
-    const id = req.params.id;
-    const user = await User.findByIdAndUpdate(id, req.body, { new: true });
-    if (!user) {
-      res.status(404).send("user doesn't exists");
-    }
-    res.status(200).send(`Role changed to ${user}`);
-  } catch (error) {
-    console.log(error);
-  }
-};
-export { signUp, signIn, editRole };
+module.exports = { signUp, signIn }; 
