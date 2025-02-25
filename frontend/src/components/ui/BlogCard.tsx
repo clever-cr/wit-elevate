@@ -1,4 +1,4 @@
-import Rectangle from "../../assets/Rectangle.png";
+
 import profile from "../../assets/profile.png";
 import { blogProps } from "../../util/types";
 

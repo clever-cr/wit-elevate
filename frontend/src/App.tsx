@@ -21,9 +21,17 @@ import CreateEvent from "./pages/CreateEvent";
 import ListEvents from "./pages/ListEvents";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Profile from "./pages/Profile";
+import Assessment from "./pages/Assessment";
+import GetStarted from "./pages/GetStarted";
+import PortalLayout from "./components/layout/PortalLayout";
+import Generate from "./pages/Generate";
+import Courses from "./pages/Courses";
+import Project from "./pages/project";
+
 const App = () => {
   return (
-    <>
+    <div className="bg-[#F8F9FB]">
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
@@ -51,10 +59,19 @@ const App = () => {
             <Route path="event/edit/:id" element={<CreateEvent />} />
             <Route path="event/list" element={<ListEvents />} />
           </Route>
+          <Route path="portal" element={<PortalLayout />}>
+            {/* <Route path="" element={<Assessment />} /> */}
+            {/* <Route path="" element={<Generate />} /> */}
+            {/* <Route path="" element={<Courses />} /> */}
+            <Route path="" element={<Project />} />
+          </Route>
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/assessment" element={<Assessment />} />
+          <Route path="/getStarted" element={<GetStarted />} />
         </Routes>
         <ToastContainer />
       </BrowserRouter>
-    </>
+    </div>
   );
 };
 export default App;

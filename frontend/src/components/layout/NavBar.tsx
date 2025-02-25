@@ -18,7 +18,7 @@ const NavBar = () => {
             to="/"
             className="text-black text-2xl leading-10 font-extrabold"
           >
-            WIT <span className="text-secondary">Elevate</span>
+            WIT <span className="text-primary">Elevate</span>
           </Link>
 
           <div className=" flex items-center gap-8 text-grey text-base font-medium leading-6">

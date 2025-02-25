@@ -54,7 +54,7 @@ const LogIn = () => {
             />
 
             <Button
-              onClick={handleSubmit}
+
               text="sign In"
               type="submit"
               className="bg-secondary text-white flex justify-center rounded-2xl"
