@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const User = require('./user');
+import mongoose from 'mongoose';
+import User from './user.js';
 
 const Schema = mongoose.Schema;
 
@@ -27,4 +27,4 @@ CommentSchema.pre("find", function (next) {
 });
 
 const Comment = mongoose.model("Comment", CommentSchema);
-module.exports = Comment; 
+export default Comment; 

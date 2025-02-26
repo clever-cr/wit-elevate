@@ -1,6 +1,12 @@
-const express = require('express');
-const { allBlogs, createBlog, deleteBlog, oneBlog, updateBlog } = require('../controllers/blogController');
-const { verifyUserToken } = require('../middleware/verifyToken');
+import express from 'express';
+import { 
+  allBlogs, 
+  createBlog, 
+  deleteBlog, 
+  oneBlog, 
+  updateBlog 
+} from '../controllers/blogController.js';
+import { verifyUserToken } from '../middleware/verifyToken.js';
 
 const router = express.Router();
 
@@ -10,4 +16,4 @@ router.get("/oneBlog/:id", oneBlog);
 router.delete("/deleteBlog/:id", verifyUserToken, deleteBlog);
 router.patch("/updateBlog/:id", verifyUserToken, updateBlog);
 
-module.exports = router; 
+export default router; 

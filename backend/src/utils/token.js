@@ -1,7 +1,5 @@
-const jwt = require('jsonwebtoken');
+import jwt from 'jsonwebtoken';
 
-const decodeToken = (token) => {
+export const decodeToken = (token) => {
   return jwt.verify(token, process.env.JWT_SECRET_KEY);
-};
-
-module.exports = { decodeToken }; 
+}; 

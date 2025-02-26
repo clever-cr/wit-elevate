@@ -1,6 +1,5 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-const Schema = mongoose.Schema;
 
 const AssessmentSchema = new Schema({
   title: {
@@ -29,4 +28,4 @@ const AssessmentSchema = new Schema({
 });
 
 const Assessment = mongoose.model("Assessment", AssessmentSchema);
-module.exports = Assessment; 
+export default Assessment

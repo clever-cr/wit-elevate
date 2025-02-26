@@ -1,7 +1,7 @@
-const Comment = require('../models/comments');
-const Blog = require('../models/blog');
+import Comment from '../models/comments.js';
+import Blog from '../models/blog.js';
 
-const createComment = async (req, res) => {
+export const createComment = async (req, res) => {
   try {
     const blogId = req.params.blogId;
     const blog = await Blog.findById(blogId);
@@ -22,7 +22,7 @@ const createComment = async (req, res) => {
   }
 };
 
-const AllComments = async (req, res) => {
+export const AllComments = async (req, res) => {
   try {
     const blogId = req.params.blogId;
     const blog = await Blog.findById(blogId);
@@ -39,7 +39,7 @@ const AllComments = async (req, res) => {
   }
 };
 
-const updateComment = async (req, res) => {
+export const updateComment = async (req, res) => {
   try {
     const id = req.params.id;
     const comment = await Comment.findByIdAndUpdate(id, req.body, {
@@ -57,7 +57,7 @@ const updateComment = async (req, res) => {
   }
 };
 
-const deleteComment = async (req, res) => {
+export const deleteComment = async (req, res) => {
   try {
     const id = req.params.id;
     const comment = await Comment.findByIdAndDelete(id);
@@ -71,11 +71,4 @@ const deleteComment = async (req, res) => {
     console.log(error);
     res.status(500).json({ message: "Server error" });
   }
-};
-
-module.exports = {
-  createComment,
-  AllComments,
-  updateComment,
-  deleteComment
 }; 

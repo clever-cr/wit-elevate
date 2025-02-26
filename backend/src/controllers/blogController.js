@@ -1,73 +1,75 @@
-const Blog = require('../models/blog');
+import Blog from '../models/blog.js';
 
-const createBlog = async (req, res) => {
+export const createBlog = async (req, res) => {
   try {
     const blog = await Blog.create(req.body);
-    res.status(201).send(blog);
+    res.status(201).json({
+      message: "Blog created successfully",
+      blog
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Server error" });
   }
 };
 
-const allBlogs = async (req, res) => {
+export const allBlogs = async (req, res) => {
   try {
     const limit = req.query.limit || 0;
-    const userId = req.query.user;
-    let query = {};
-    if (userId) {
-      query = { createdBy: userId };
-    }
-
-    const blogs = await Blog.find(query).limit(limit);
-    res.status(200).send(blogs);
+    const blogs = await Blog.find()
+      .limit(parseInt(limit))
+      .sort({ createdAt: -1 });
+    res.status(200).json(blogs);
   } catch (error) {
-    console.log("something went wrong");
     console.log(error);
     res.status(500).json({ message: "Server error" });
   }
 };
 
-const oneBlog = async (req, res) => {
+export const oneBlog = async (req, res) => {
   try {
     const id = req.params.id;
     const blog = await Blog.findById(id);
-    if (blog) {
-      return res.status(200).send(blog);
+    
+    if (!blog) {
+      return res.status(404).json({ message: "Blog not found" });
     }
-    res.status(404).send("Blog doesn't exist");
+    
+    res.status(200).json(blog);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Server error" });
   }
 };
 
-const deleteBlog = async (req, res) => {
+export const deleteBlog = async (req, res) => {
   try {
     const id = req.params.id;
     const blog = await Blog.findByIdAndDelete(id);
+    
     if (!blog) {
-      return res.status(400).send("blog not found");
+      return res.status(404).json({ message: "Blog not found" });
     }
-    res.status(200).send(blog);
+    
+    res.status(200).json({ message: "Blog deleted successfully", blog });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Server error" });
   }
 };
 
-const updateBlog = async (req, res) => {
+export const updateBlog = async (req, res) => {
   try {
     const id = req.params.id;
     const blog = await Blog.findByIdAndUpdate(id, req.body, { new: true });
+    
     if (!blog) {
-      return res.status(404).send("blog not found");
+      return res.status(404).json({ message: "Blog not found" });
     }
-    res.status(200).send(blog);
+    
+    res.status(200).json(blog);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Server error" });
   }
-};
-
-module.exports = { createBlog, allBlogs, oneBlog, deleteBlog, updateBlog }; 
+}; 

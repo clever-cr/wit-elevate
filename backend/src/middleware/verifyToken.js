@@ -1,7 +1,8 @@
-const jwt = require('jsonwebtoken');
-const User = require('../models/user');
+import jwt from 'jsonwebtoken';
+import { decodeToken } from '../utils/token.js';
+import User from '../models/user.js';
 
-const verifyUserToken = async (req, res, next) => {
+export const verifyUserToken = async (req, res, next) => {
   try {
     const token = req.headers.authorization;
 
@@ -35,6 +36,4 @@ const verifyUserToken = async (req, res, next) => {
       message: "failed to verify token",
     });
   }
-};
-
-module.exports = { verifyUserToken }; 
+}; 

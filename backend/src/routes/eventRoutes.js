@@ -1,18 +1,19 @@
-const express = require('express');
-const {
+import express from 'express';
+import {
   allEvents,
   createEvent,
   deleteEvent,
   oneEvent,
   updateEvent,
-} = require('../controllers/eventController');
+} from '../controllers/eventController.js';
+import { verifyUserToken } from '../middleware/verifyToken.js';
 
 const router = express.Router();
 
-router.post("/postEvent", createEvent);
+router.post("/postEvent", verifyUserToken, createEvent);
 router.get("/allEvents", allEvents);
 router.get("/event/:id", oneEvent);
-router.delete("/deleteEvent/:id", deleteEvent);
-router.patch("/updateEvent/:id", updateEvent);
+router.delete("/deleteEvent/:id", verifyUserToken, deleteEvent);
+router.patch("/updateEvent/:id", verifyUserToken, updateEvent);
 
-module.exports = router; 
+export default router; 

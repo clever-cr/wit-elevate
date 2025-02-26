@@ -1,11 +1,13 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
-const cors = require('cors');
-const authRoute = require('./routes/authRoutes.js');
-const eventRoute = require('./routes/eventRoutes.js');
-const blogRoute = require('./routes/blogRoutes.js');
-const commentRoute = require('./routes/commentRoutes.js');
+import express from 'express';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+import cors from 'cors';
+import authRoute from './routes/authRoutes.js';
+import eventRoute from './routes/eventRoutes.js';
+import blogRoute from './routes/blogRoutes.js';
+import commentRoute from './routes/commentRoutes.js';
+import courseRoute from './routes/courseRoute.js';
+import assessmentRoute from "./routes/assessmentsRoutes.js"
 
 const app = express();
 dotenv.config();
@@ -31,6 +33,8 @@ app.use('/api', authRoute);
 app.use('/api', eventRoute);
 app.use('/api', blogRoute);
 app.use('/api', commentRoute);
+app.use("/api", courseRoute);
+app.use('/api', assessmentRoute);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
