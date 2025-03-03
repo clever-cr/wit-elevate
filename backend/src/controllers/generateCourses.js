@@ -4,104 +4,104 @@ import Course from "../models/course.js";
 import Response from "../utils/Response.js";
 import status from "http-status";
 
-const generateCourses = async (req, res) => {
+export const generateCourses = async (req, res) => {
   try {
     const { userId } = req.params;
     const userData = await User.findById(userId);
+    console.log("userData",userData)
+    // if (!userData) {
+    //   return Response.errorMessage(
+    //     res,
+    //     "User not found",
+    //     status.NOT_FOUND
+    //   );
+    // }
+
+    // const { careerPath, experienceLevel, learningPreference } = req.body;
+
+    // if (!careerPath) {
+    //   return Response.errorMessage(
+    //     res,
+    //     "Please provide a career path",
+    //     status.BAD_REQUEST
+    //   );
+    // }
+
+    // const openai = new OpenAI({
+    //   apiKey: process.env.OPENAI_API_KEY,
+    // });
+
+    // // System directive for structured course recommendations
+    // const systemPrompt = `You are an expert career counselor and tech educator. 
+    // Provide course recommendations in the following JSON format:
+    // {
+    //   "courses": [
+    //     {
+    //       "title": "Course title",
+    //       "link": "Direct course URL",
+    //       "platform": "Platform name (e.g., Udemy, Coursera)",
+    //       "difficulty": "beginner/intermediate/advanced",
+    //       "duration": "Estimated completion time",
+    //       "description": "Brief course description",
+    //       "tags": ["relevant", "skill", "tags"]
+    //     }
+    //   ]
+    // }
     
-    if (!userData) {
-      return Response.errorMessage(
-        res,
-        "User not found",
-        status.NOT_FOUND
-      );
-    }
-
-    const { careerPath, experienceLevel, learningPreference } = req.body;
-
-    if (!careerPath) {
-      return Response.errorMessage(
-        res,
-        "Please provide a career path",
-        status.BAD_REQUEST
-      );
-    }
-
-    const openai = new OpenAI({
-      apiKey: process.env.OPENAI_API_KEY,
-    });
-
-    // System directive for structured course recommendations
-    const systemPrompt = `You are an expert career counselor and tech educator. 
-    Provide course recommendations in the following JSON format:
-    {
-      "courses": [
-        {
-          "title": "Course title",
-          "link": "Direct course URL",
-          "platform": "Platform name (e.g., Udemy, Coursera)",
-          "difficulty": "beginner/intermediate/advanced",
-          "duration": "Estimated completion time",
-          "description": "Brief course description",
-          "tags": ["relevant", "skill", "tags"]
-        }
-      ]
-    }
+    // Consider:
+    // 1. Career path: ${careerPath}
+    // 2. Experience level: ${experienceLevel || "beginner"}
+    // 3. Learning style: ${learningPreference || "self-paced"}
+    // 4. User's background: ${userData.educationType}
     
-    Consider:
-    1. Career path: ${careerPath}
-    2. Experience level: ${experienceLevel || "beginner"}
-    3. Learning style: ${learningPreference || "self-paced"}
-    4. User's background: ${userData.educationType}
-    
-    Provide 5 highly relevant courses with accurate, working links from reputable platforms.
-    Focus on practical, industry-relevant skills.`;
+    // Provide 5 highly relevant courses with accurate, working links from reputable platforms.
+    // Focus on practical, industry-relevant skills.`;
 
-    const userPrompt = `Find the best online courses for a ${careerPath} career path, 
-    suitable for ${experienceLevel || "beginner"} level with ${
-      learningPreference || "self-paced"
-    } learning style.`;
+    // const userPrompt = `Find the best online courses for a ${careerPath} career path, 
+    // suitable for ${experienceLevel || "beginner"} level with ${
+    //   learningPreference || "self-paced"
+    // } learning style.`;
 
-    const response = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
-      messages: [
-        {
-          role: "system",
-          content: systemPrompt
-        },
-        { 
-          role: "user", 
-          content: userPrompt 
-        }
-      ],
-      max_tokens: 1000,
-      temperature: 0.7
-    });
+    // const response = await openai.chat.completions.create({
+    //   model: "gpt-3.5-turbo",
+    //   messages: [
+    //     {
+    //       role: "system",
+    //       content: systemPrompt
+    //     },
+    //     { 
+    //       role: "user", 
+    //       content: userPrompt 
+    //     }
+    //   ],
+    //   max_tokens: 1000,
+    //   temperature: 0.7
+    // });
 
-    const recommendations = JSON.parse(response.choices[0].message.content);
+    // const recommendations = JSON.parse(response.choices[0].message.content);
 
-    // Save course recommendations
-    const courseRecord = new Course({
-      userId,
-      careerPath,
-      courses: recommendations.courses,
-      experienceLevel: experienceLevel || 'beginner',
-      learningPreference: learningPreference || 'self-paced'
-    });
+    // // Save course recommendations
+    // const courseRecord = new Course({
+    //   userId,
+    //   careerPath,
+    //   courses: recommendations.courses,
+    //   experienceLevel: experienceLevel || 'beginner',
+    //   learningPreference: learningPreference || 'self-paced'
+    // });
 
-    await courseRecord.save();
+    // await courseRecord.save();
 
-    return Response.succesMessage(
-      res,
-      "Course recommendations generated successfully",
-      {
-        careerPath,
-        experienceLevel: experienceLevel || 'beginner',
-        learningPreference: learningPreference || 'self-paced',
-        recommendations: recommendations.courses
-      },
-      status.OK
-    );
+    // return Response.succesMessage(
+    //   res,
+    //   "Course recommendations generated successfully",
+    //   {
+    //     careerPath,
+    //     experienceLevel: experienceLevel || 'beginner',
+    //     learningPreference: learningPreference || 'self-paced',
+    //     recommendations: recommendations.courses
+    //   },
+    //   status.OK
+    // );
 
   } catch (error) {
     console.error("Error:", error);
@@ -148,7 +148,7 @@ export const getUserCourses = async (req, res) => {
   }
 };
 
-export { generateCourses, getUserCourses };
+
 
 // import { GoogleGenerativeAI } from '@google/generative-ai';
 

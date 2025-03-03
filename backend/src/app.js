@@ -6,7 +6,7 @@ import authRoute from './routes/authRoutes.js';
 import eventRoute from './routes/eventRoutes.js';
 import blogRoute from './routes/blogRoutes.js';
 import commentRoute from './routes/commentRoutes.js';
-import courseRoute from './routes/courseRoute.js';
+import courseRoute from "./routes/courseRoutes.js"
 import assessmentRoute from "./routes/assessmentsRoutes.js"
 
 const app = express();
