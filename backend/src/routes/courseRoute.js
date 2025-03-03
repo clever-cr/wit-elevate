@@ -3,6 +3,6 @@ import generateCourses from '../controllers/generateCourses.js';
 
 const router = express.Router();
 
-router.post("/generateCourses", generateCourses);
+router.post("/generateCourses/:userId", generateCourses);
 
 export default router; 

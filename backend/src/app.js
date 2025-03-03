@@ -34,7 +34,8 @@ app.use('/api', eventRoute);
 app.use('/api', blogRoute);
 app.use('/api', commentRoute);
 app.use("/api", courseRoute);
-app.use('/api', assessmentRoute);
+app.use("/api",assessmentRoute)
+// app.use('/api', assessmentRoute);
 
 // Error handling middleware
 app.use((err, req, res, next) => {

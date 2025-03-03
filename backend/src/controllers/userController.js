@@ -1,71 +1,6 @@
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
 import User from '../models/user.js';
-import status from "http-status"
-import Response from '../utils/Response.js';
 
-export const signUp = async (req, res) => {
-  try {
-    const { fullName, email, password } = req.body;
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await User.create({
-      fullName,
-      email,
-      password: hashedPassword,
-    });
-    return Response.succesMessage(
-      res,
-      "User created successfully",
-      user,
-      status.CREATED
-    );
-  } catch (error) {
-    console.log(error);
-    return Response.errorMessage(
-      res,
-      "Failed to create user",
-      status.INTERNAL_SERVER_ERROR
-    );
-  }
-};
-
-export const signIn = async (req, res) => {
-  try {
-    const { email, password } = req.body;
-    const user = await User.findOne({ email });
-    if (!user) {
-      return Response.errorMessage(
-        res,
-        "User not found",
-        status.NOT_FOUND
-      );
-    }
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      return Response.errorMessage(
-        res,
-        "Invalid credentials",
-        status.BAD_REQUEST
-      );
-    }
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET_KEY);
-    console.log("token",{ token,...user })
-    return Response.succesMessage(
-      res,
-      "Login successful",
-      { token,...user._doc },
-      status.OK
-    );
-  } catch (error) {
-    console.log(error);
-    return Response.errorMessage(
-      res,
-      "Server error",
-      status.INTERNAL_SERVER_ERROR
-    );
-  }
-}; 
-
+// Get all users
 export const getAllUsers = async (req, res) => {
   try {
     const users = await User.find()
@@ -79,6 +14,7 @@ export const getAllUsers = async (req, res) => {
   }
 };
 
+// Get single user
 export const getUser = async (req, res) => {
   try {
     const user = await User.findById(req.params.id)
@@ -95,10 +31,11 @@ export const getUser = async (req, res) => {
   }
 };
 
+// Update complete user profile
 export const updateProfile = async (req, res) => {
   try {
-    const {userId} = req.params // From auth middleware
-    console.log("user id****",userId)
+    const userId = req.user._id; // From auth middleware
+    
     const {
       // Personal Info
       firstName,
@@ -126,7 +63,8 @@ export const updateProfile = async (req, res) => {
     if (firstName) user.firstName = firstName;
     if (lastName) user.lastName = lastName;
     if (phoneNumber) user.phoneNumber = phoneNumber;
-    
+
+    // Update educational background
     if (educationType) user.educationType = educationType;
     if (rebCombination) user.rebCombination = rebCombination;
 
@@ -145,43 +83,30 @@ export const updateProfile = async (req, res) => {
         ...careerGoals
       };
     }
+
     const updatedUser = await user.save();
 
     // Remove password from response
     const userResponse = updatedUser.toObject();
     delete userResponse.password;
 
-    // res.status(200).json({
-    //   message: "Profile updated successfully",
-    //   user: userResponse
-    // });
-    return Response.succesMessage(
-      res,
-      "Profile updated successfully",
-      userResponse,
-      status.OK
-
-    )
+    res.status(200).json({
+      message: "Profile updated successfully",
+      user: userResponse
+    });
   } catch (error) {
     console.error(error);
     if (error.name === 'ValidationError') {
-        return Response.errorMessage(
-          res,
-          "Validation Error",
-          status.BAD_REQUEST
-
-        )
-     
+      return res.status(400).json({ 
+        message: "Validation Error", 
+        errors: Object.values(error.errors).map(err => err.message) 
+      });
     }
-    return Response.errorMessage(
-      res,
-      "Failed to update user profile",
-      status.BAD_REQUEST
-    )
-    
+    res.status(500).json({ message: "Server error" });
   }
 };
 
+// Get current user profile
 export const getCurrentUser = async (req, res) => {
   try {
     const userId = req.user._id;
@@ -197,4 +122,4 @@ export const getCurrentUser = async (req, res) => {
     console.error(error);
     res.status(500).json({ message: "Server error" });
   }
-};
+}; 
