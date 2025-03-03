@@ -4,32 +4,24 @@ import Form from "../components/ui/Form";
 import Header from "../components/ui/Header";
 import Input from "../components/ui/Input";
 import { formData } from "../util/types";
-import { logIn } from "../util/api";
+import { loginUserAction } from "../store/users/actions";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
 const LogIn = () => {
+  const { user } = useSelector((state: any) => state);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState<formData>({});
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-
-    logIn(formData)
-      .then((data: any) => {
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("userId", data.user.id);
-        localStorage.setItem("fullName", data.user.fullName);
-        localStorage.setItem("role", data.user.role);
-
-        navigate("/");
-      })
-      .catch((error) => {
-        console.log(error);
-        toast.warn("Invalid Email or Password");
-      });
+    const res = await loginUserAction(formData)(dispatch);
+    if (res) {
+      navigate("/portal");
+    }
   };
 
   return (
@@ -54,7 +46,7 @@ const LogIn = () => {
             />
 
             <Button
-
+              loading={user.isLoading}
               text="sign In"
               type="submit"
               className="bg-secondary text-white flex justify-center rounded-2xl"

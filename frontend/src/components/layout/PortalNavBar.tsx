@@ -1,8 +1,10 @@
 import { FaBell } from "react-icons/fa"
 import { RiArrowDropDownLine } from "react-icons/ri"
+import { useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 
 const PortalNavBar = () =>{
+  const {user}=useSelector((state:any)=>state)
 return(
   <>
   <div className="px-5 py-10 flex items-center- justify-between bg-slate-600-">
@@ -22,8 +24,8 @@ return(
               <h1 className="mt-2 text-2xl">U</h1>
               </div>
               <div>
-                <h2>Clever Umuhuza</h2>
-                <p className="text-xs">cleverumuhuza@gmail.com</p>
+                <h2>{user?.data?.firstName}</h2>
+                <p className="text-xs">{user?.data?.email}</p>
               </div>
               <div>
                 <RiArrowDropDownLine className="w-12 h-12"/>

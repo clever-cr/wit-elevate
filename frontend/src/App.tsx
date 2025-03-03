@@ -28,6 +28,9 @@ import PortalLayout from "./components/layout/PortalLayout";
 import Generate from "./pages/Generate";
 import Courses from "./pages/Courses";
 import Project from "./pages/project";
+import Forum from "./pages/Forum";
+import HomePage from "./pages/HomePage";
+import ThreadDetailPage from "./pages/ThreadDetailPage";
 
 const App = () => {
   return (
@@ -60,14 +63,18 @@ const App = () => {
             <Route path="event/list" element={<ListEvents />} />
           </Route>
           <Route path="portal" element={<PortalLayout />}>
-            {/* <Route path="" element={<Assessment />} /> */}
-            {/* <Route path="" element={<Generate />} /> */}
-            {/* <Route path="" element={<Courses />} /> */}
-            <Route path="" element={<Project />} />
+            <Route path="assessment" element={<Assessment />} />
+           <Route path="generate" element={<Generate />} /> 
+           <Route path="courses" element={<Courses />} />
+            <Route path="project" element={<Project />} />
+            <Route path="profile" element={<Profile />} />
+            <Route path="getStarted" element={<GetStarted />} /> 
+            <Route path="forum" element={<ThreadDetailPage />} />
           </Route>
-          <Route path="/profile" element={<Profile />} />
+{/*          
           <Route path="/assessment" element={<Assessment />} />
-          <Route path="/getStarted" element={<GetStarted />} />
+          */}
+           {/* <Route path="forum" element={<ThreadDetailPage />} /> */}
         </Routes>
         <ToastContainer />
       </BrowserRouter>

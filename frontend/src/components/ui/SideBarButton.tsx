@@ -2,10 +2,10 @@ import { SlArrowRight } from "react-icons/sl"
 import { Link } from "react-router-dom"
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const SideBarButton = ({text,icon}:any) =>{
+const SideBarButton = ({text,icon,path}:any) =>{
   return (
   <Link
-    to="/"
+    to={path}
     className="flex items-center  px-5 py-2 hover:bg-primary bg-white rounded-full hover:text-white justify-between"
   >
     <div className="flex items-center gap-2">

@@ -4,7 +4,7 @@ import { formData } from "./types";
 const token = localStorage.getItem("token");
 
 export async function allEvents(limit?: number) {
-  const url = `${import.meta.env.VITE_URL}/allevents?limit=${limit}`;
+  const url = `${import.meta.env.VITE_URL_SERVER_URL}/allevents?limit=${limit}`;
   try {
     const data = await axios.get(url);
     return data.data;
@@ -36,7 +36,7 @@ export async function createEvent(eventData: any) {
   }
 }
 export async function editEvent(eventData: any, id: any) {
-  const url = `${import.meta.env.VITE_URL}/updateEvent/${id}`;
+  const url = `${import.meta.env.VITE_URL_SERVER_URL}/updateEvent/${id}`;
   try {
     const data = await axios.patch(url, eventData, {
       headers: {

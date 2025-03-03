@@ -1,7 +1,10 @@
 import Button from "../components/ui/Button";
 import { BsStars } from "react-icons/bs";
+import { useSelector } from "react-redux";
 
 const Generate = () => {
+  const { user } = useSelector((state: any) => state);
+  console.log("user", user);
   return (
     <>
       <div className="flex flex-col gap-14">

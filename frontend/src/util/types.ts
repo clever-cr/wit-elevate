@@ -25,6 +25,7 @@ export interface buttonProps {
   icon?: ReactNode;
   onClick?: any;
   type?: "button" | "submit" | "reset";
+  loading?:any
 }
 
 export interface heroProps {
@@ -82,3 +83,80 @@ export interface headerProps {
 export interface formData {
   [key: string]: string;
 }
+
+export interface User {
+  id: string;
+  username: string;
+  avatar: string;
+  joinDate: string;
+  postCount: number;
+  role: 'user' | 'moderator' | 'admin';
+}
+
+export interface Post {
+  id: string;
+  content: string;
+  createdAt: string;
+  updatedAt: string | null;
+  author: User;
+  likes: number;
+  isLiked: boolean;
+  attachments?: string[];
+}
+
+export interface Thread {
+  id: string;
+  title: string;
+  createdAt: string;
+  author: User;
+  postCount: number;
+  viewCount: number;
+  lastPost: {
+    timestamp: string;
+    author: User;
+  };
+  isPinned: boolean;
+  isLocked: boolean;
+  tags: string[];
+}
+
+export interface Category {
+  id: string;
+  name: string;
+  description: string;
+  threadCount: number;
+  postCount: number;
+  lastPost?: {
+    threadId: string;
+    threadTitle: string;
+    timestamp: string;
+    author: User;
+  };
+}
+
+export interface Notification {
+  id: string;
+  type: 'reply' | 'mention' | 'like';
+  read: boolean;
+  timestamp: string;
+  thread: {
+    id: string;
+    title: string;
+  };
+  from: User;
+  preview: string;
+}
+export interface User {
+  // Add user properties based on your data structure
+  id?: string;
+  email?: string;
+  // ... other user properties
+}
+
+export interface UserState {
+  new: User | null;
+  isLoading: boolean;
+  data: User | null;
+  newUser: User | null;
+  updatedUser:any
+} 
