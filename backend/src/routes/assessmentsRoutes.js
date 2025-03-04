@@ -39,7 +39,7 @@ const router = express.Router();
 // Student routes
 router.get('/assessments', getAssessments);
 router.get('/assessments/:id',  getAssessment);
-router.post('/assessments/:id/submit', submitAssessment);
+router.post('/assessments/:studentId/submit', submitAssessment);
 router.get('/my-assessments', getStudentAssessments);
 
 // Admin routes

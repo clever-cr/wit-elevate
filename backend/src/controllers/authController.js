@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import User from '../models/user.js';
 import status from "http-status"
 import Response from '../utils/Response.js';
+import mongoose from 'mongoose';
 
 export const signUp = async (req, res) => {
   try {
@@ -95,90 +96,175 @@ export const getUser = async (req, res) => {
   }
 };
 
+// export const updateProfile = async (req, res) => {
+//   try {
+//     const {userId} = req.params // From auth middleware
+//     console.log("user id****",userId)
+//     const {
+//       // Personal Info
+//       firstName,
+//       lastName,
+//       phoneNumber,
+      
+//       // Educational Background
+//       educationType,
+//       rebCombination,
+      
+//       // Programming Skills
+//       programmingSkills,
+      
+//       // Career Goals
+//       careerGoals
+//     } = req.body;
+
+//     const user = await User.findById(userId);
+    
+//     if (!user) {
+//       return res.status(404).json({ message: "User not found" });
+//     }
+
+//     // Update personal information
+//     if (firstName) user.firstName = firstName;
+//     if (lastName) user.lastName = lastName;
+//     if (phoneNumber) user.phoneNumber = phoneNumber;
+    
+//     if (educationType) user.educationType = educationType;
+//     if (rebCombination) user.rebCombination = rebCombination;
+
+//     // Update programming skills
+//     if (programmingSkills) {
+//       user.programmingSkills = {
+//         ...user.programmingSkills,
+//         ...programmingSkills
+//       };
+//     }
+
+//     // Update career goals
+//     if (careerGoals) {
+//       user.careerGoals = {
+//         ...user.careerGoals,
+//         ...careerGoals
+//       };
+//     }
+//     const updatedUser = await user.save();
+
+//     // Remove password from response
+//     const userResponse = updatedUser.toObject();
+//     delete userResponse.password;
+
+//     // res.status(200).json({
+//     //   message: "Profile updated successfully",
+//     //   user: userResponse
+//     // });
+//     return Response.succesMessage(
+//       res,
+//       "Profile updated successfully",
+//       userResponse,
+//       status.OK
+
+//     )
+//   } catch (error) {
+//     console.error(error);
+//     if (error.name === 'ValidationError') {
+//         return Response.errorMessage(
+//           res,
+//           "Validation Error",
+//           status.BAD_REQUEST
+
+//         )
+     
+//     }
+//     return Response.errorMessage(
+//       res,
+//       "Failed to update user profile",
+//       status.BAD_REQUEST
+//     )
+    
+//   }
+// };
+
+
+
+
+
+
 export const updateProfile = async (req, res) => {
   try {
-    const {userId} = req.params // From auth middleware
-    console.log("user id****",userId)
-    const {
-      // Personal Info
-      firstName,
-      lastName,
-      phoneNumber,
-      
-      // Educational Background
-      educationType,
-      rebCombination,
-      
-      // Programming Skills
-      programmingSkills,
-      
-      // Career Goals
-      careerGoals
-    } = req.body;
+    const {userId} = req.params; // Ensure userId is available from auth middleware
+    const user = await User.findById(userId)
+    console.log("userrr ",user)
+    if (!userId) {
+      return Response.errorMessage(
+        res,
+        "Invalid user ID",
+        status.BAD_REQUEST
+      );
+    }
 
-    const user = await User.findById(userId);
+    console.log("Updating user with ID:", userId);
+
+    // Extract only valid fields from req.body
+    const allowedFields = [
+      "firstName",
+      "lastName",
+      "phoneNumber",
+      "educationType",
+      "educationCombination",
+      "programmingSkills",
+      "careerAspirations",
+      "hasProgrammingExperience",
+      "developmentInterest",
+      "priorLearningAttempts",
+      "excitingTechnology",
+    ];
+
+    // Filter out undefined fields to avoid overwriting with null
+    const updateData = {};
+    allowedFields.forEach((field) => {
+      if (req.body[field] !== undefined) {
+        updateData[field] = req.body[field];
+      }
+    });
+
+    if (Object.keys(updateData).length === 0) {
+      return Response.errorMessage(
+        res,
+        "No valid fields provided for update",
+        status.BAD_REQUEST
+      );
+    }
+
     
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
+    console.log("userId",new mongoose.Types.ObjectId(userId))
+    const updatedUser = await User.findByIdAndUpdate(
+     userId,
+      { $set: updateData }, 
+      { new: true, runValidators: true } 
+    );
+
+    if (!updatedUser) {
+      return Response.errorMessage(res, "User not found", status.NOT_FOUND);
     }
 
-    // Update personal information
-    if (firstName) user.firstName = firstName;
-    if (lastName) user.lastName = lastName;
-    if (phoneNumber) user.phoneNumber = phoneNumber;
-    
-    if (educationType) user.educationType = educationType;
-    if (rebCombination) user.rebCombination = rebCombination;
-
-    // Update programming skills
-    if (programmingSkills) {
-      user.programmingSkills = {
-        ...user.programmingSkills,
-        ...programmingSkills
-      };
-    }
-
-    // Update career goals
-    if (careerGoals) {
-      user.careerGoals = {
-        ...user.careerGoals,
-        ...careerGoals
-      };
-    }
-    const updatedUser = await user.save();
-
-    // Remove password from response
+    // Remove sensitive fields before sending response
     const userResponse = updatedUser.toObject();
     delete userResponse.password;
 
-    // res.status(200).json({
-    //   message: "Profile updated successfully",
-    //   user: userResponse
-    // });
+    console.log("Updated user:", userResponse);
+
     return Response.succesMessage(
       res,
       "Profile updated successfully",
       userResponse,
       status.OK
-
-    )
+    );
   } catch (error) {
-    console.error(error);
-    if (error.name === 'ValidationError') {
-        return Response.errorMessage(
-          res,
-          "Validation Error",
-          status.BAD_REQUEST
-
-        )
-     
-    }
+    console.error("Error updating profile:", error);
     return Response.errorMessage(
       res,
       "Failed to update user profile",
-      status.BAD_REQUEST
-    )
-    
+      status.INTERNAL_SERVER_ERROR
+    );
   }
 };
 

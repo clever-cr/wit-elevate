@@ -71,7 +71,7 @@ export const getAssessment = async (req, res) => {
 export const submitAssessment = async (req, res) => {
   try {
     const { assessmentId, answers, timeSpent } = req.body;
-    const studentId = req.user._id;
+    const {studentId} = req.params;
 
     const assessment = await Assessment.findById(assessmentId);
     if (!assessment) {

@@ -5,34 +5,34 @@ const CourseSchema = new Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
-    required: true
+    // required: true
   },
   careerPath: {
     type: String,
-    required: true,
+    // required: true,
     enum: ['frontend', 'backend', 'fullstack', 'ui/ux', 'devops']
   },
   courses: [{
     title: {
       type: String,
-      required: true
+      // required: true
     },
     link: {
       type: String,
-      required: true
+      // required: true
     },
     platform: {
       type: String,
-      required: true
+      // required: true
     },
     difficulty: {
       type: String,
       enum: ['beginner', 'intermediate', 'advanced'],
-      required: true
+      // required: true
     },
     duration: {
       type: String, // e.g., "6 weeks", "3 months"
-      required: true
+      // required: true
     },
     description: String,
     tags: [String]
