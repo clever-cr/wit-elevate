@@ -34,6 +34,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { userAction } from "./store/users";
 import Overview from "./pages/Overview";
+import ProfileDisplay from "./pages/ProfileDisplay";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -81,7 +82,9 @@ const App = () => {
             <Route path="generate" element={<Generate />} />
             <Route path="courses" element={<Courses />} />
             <Route path="project" element={<Project />} />
-            <Route path="profile" element={<Profile />} />
+            {/* <Route path="profile" element={<Profile />} /> */}
+            <Route path="profile" element={<ProfileDisplay />} />
+
             <Route path="getStarted" element={<GetStarted />} />
             <Route path="forum" element={<ThreadDetailPage />} />
           </Route>

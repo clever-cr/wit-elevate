@@ -8,6 +8,7 @@ import {
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import LoadingCard from "../components/ui/LoadingCard";
+import { Loading } from "../components/ui/Loading";
 
 interface Question {
   id: string;
@@ -31,7 +32,7 @@ const Assessment = () => {
   const [timeLeft, setTimeLeft] = useState(300); // 5 minutes for testing // Use sample data
   const [completed, setCompleted] = useState(false);
   const [score, setScore] = useState(0);
-  console.log("user", assessmentId);
+
   useEffect(() => {
     getAssessmentsAction()(dispatch);
   }, [dispatch]);
@@ -64,7 +65,7 @@ const Assessment = () => {
       }, 1000);
 
       return () => clearInterval(timer);
-    } else if (timeLeft === 4) {
+    } else if (timeLeft === 0) {
       handleSubmit();
     }
   }, [isStarted, timeLeft]);
@@ -87,7 +88,7 @@ const Assessment = () => {
     }));
   };
 
-  // console.log(selectedAnswers, "selected answer");
+  console.log(selectedAnswers, "selected answer");
 
   const handleNext = () => {
     if (currentQuestion < questions?.length - 1) {
@@ -102,29 +103,32 @@ const Assessment = () => {
   };
 
   const handleSubmit = async () => {
-    // Calculate score based on correct answers
-    submitAssessmentAction(`${user.data._id}/submit`, {
+    // Transform selectedAnswers into the required format
+    const formattedAnswers = Object.entries(selectedAnswers).map(
+      ([questionId, selectedAnswer]) => ({
+        questionId,
+        selectedAnswer,
+      })
+    );
+
+    // Construct the payload
+    const payload = {
       assessmentId: assessmentId,
-      answers: [
-        {
-          questionId: "67c5fabd884abe1b54b36a4e",
-          selectedAnswer: "B",
-        },
-      ],
-      timeSpent: 3000 - timeLeft,
-    });
-console.log("submitted");
-    // let correctCount = 0;
-    // Object.entries(selectedAnswers).forEach(([questionId, answer]) => {
-    //   const question = questions.find((q) => q.id === questionId);
-    //   if (question && question.correctAnswer === answer) {
-    //     correctCount++;
-    //   }
-    // });
-    // setScore(correctCount);
-    // if (res) {
-    //   setCompleted(true);
-    // }
+      answers: formattedAnswers,
+      timeSpent: 300 - timeLeft,
+    };
+
+    console.log("Submitting assessment:", payload);
+
+    // Submit the data
+    const res = await submitAssessmentAction(
+      `${user?.data?._id}`,
+      payload
+    )(dispatch);
+
+    if (res) {
+      setCompleted(true);
+    }
   };
 
   const handleRetake = () => {
@@ -317,7 +321,7 @@ console.log("submitted");
                     onClick={handleSubmit}
                     className="bg-[#6366F1] text-white text-lg font-medium px-8 py-3 rounded-full hover:bg-indigo-700 transition-colors"
                   >
-                    Submit
+                    {assessment?.isLoading && <Loading />} Submit
                   </button>
                 ) : (
                   <button
