@@ -64,7 +64,7 @@ const App = () => {
           </Route>
           <Route path="portal" element={<PortalLayout />}>
             <Route path="assessment" element={<Assessment />} />
-           <Route path="generate" element={<Generate />} /> 
+           {/* <Route path="generate" element={<Generate />} />  */}
            <Route path="courses" element={<Courses />} />
             <Route path="project" element={<Project />} />
             <Route path="profile" element={<Profile />} />
