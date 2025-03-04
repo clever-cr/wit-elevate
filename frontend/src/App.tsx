@@ -1,3 +1,4 @@
+import store from "store"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./components/layout/Layout";
 import Home from "./pages/Home";
@@ -28,11 +29,23 @@ import PortalLayout from "./components/layout/PortalLayout";
 import Generate from "./pages/Generate";
 import Courses from "./pages/Courses";
 import Project from "./pages/project";
-import Forum from "./pages/Forum";
-import HomePage from "./pages/HomePage";
 import ThreadDetailPage from "./pages/ThreadDetailPage";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { userAction } from "./store/users";
+import Overview from "./pages/Overview";
 
 const App = () => {
+  const dispatch = useDispatch();
+  const token = store.get("authToken");
+  const data = store.get("userData");
+  useEffect(() => {
+    if (token) {
+      dispatch(userAction.setToken(token));
+      dispatch(userAction.setData(data));
+    }
+  }, [dispatch, token, data]);
+
   return (
     <div className="bg-[#F8F9FB]">
       <BrowserRouter>
@@ -63,18 +76,19 @@ const App = () => {
             <Route path="event/list" element={<ListEvents />} />
           </Route>
           <Route path="portal" element={<PortalLayout />}>
+          <Route index element={<Overview />} />
             <Route path="assessment" element={<Assessment />} />
-           {/* <Route path="generate" element={<Generate />} />  */}
-           <Route path="courses" element={<Courses />} />
+            <Route path="generate" element={<Generate />} />
+            <Route path="courses" element={<Courses />} />
             <Route path="project" element={<Project />} />
             <Route path="profile" element={<Profile />} />
-            <Route path="getStarted" element={<GetStarted />} /> 
+            <Route path="getStarted" element={<GetStarted />} />
             <Route path="forum" element={<ThreadDetailPage />} />
           </Route>
-{/*          
+          {/*          
           <Route path="/assessment" element={<Assessment />} />
           */}
-           {/* <Route path="forum" element={<ThreadDetailPage />} /> */}
+          {/* <Route path="forum" element={<ThreadDetailPage />} /> */}
         </Routes>
         <ToastContainer />
       </BrowserRouter>

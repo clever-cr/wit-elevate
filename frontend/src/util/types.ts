@@ -158,5 +158,6 @@ export interface UserState {
   isLoading: boolean;
   data: User | null;
   newUser: User | null;
-  updatedUser:any
+  updatedUser:any,
+  token:any
 } 

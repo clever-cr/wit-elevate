@@ -14,7 +14,15 @@ export const generateCourses = async (id:any,data?: any): Promise<ServiceRespons
 export const getCoursesServices = async (id:string): Promise<ServiceResponse> => {
   return await HttpRequest.get(`${SERVER_URL}/courses/${id}`);
 }; 
-
+export const getAssessmentServices = async (): Promise<ServiceResponse> => {
+  return await HttpRequest.get(`${SERVER_URL}/assessments`);
+}; 
+export const getSelectedAssessmentServices = async (id:string): Promise<ServiceResponse> => {
+  return await HttpRequest.get(`${SERVER_URL}/assessments/${id}`);
+}; 
+export const submitAssessment = async (query:any,data?: any): Promise<ServiceResponse> => {
+  return await HttpRequest.post(`${SERVER_URL}/assessments/${query}/submit`,data);
+}; 
 // export const updateUser = async(data: any,id:string,token?:string): Promise<ServiceResponse>=>{
 //   return await HttpRequest.update(`${SERVER_URL}/updateProfile/${id}`,data,token)
 // }
