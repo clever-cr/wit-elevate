@@ -8,20 +8,12 @@ export const generateCourses = async (req, res) => {
   try {
     const { userId } = req.params;
     const userData = await User.findById(userId);
-    console.log("userData", userData);
+ 
     if (!userData) {
       return Response.errorMessage(res, "User not found", status.NOT_FOUND);
     }
 
-    // const { careerPath, experienceLevel, learningPreference } = req.body;
-
-    // if (!careerPath) {
-    //   return Response.errorMessage(
-    //     res,
-    //     "Please provide a career path",
-    //     status.BAD_REQUEST
-    //   );
-    // }
+    
 
     const openai = new OpenAI({
       apiKey: process.env.OPENAI_API_KEY,
@@ -57,15 +49,15 @@ In high school, I studied **${
 Please provide recommendations in **structured JSON format**, ensuring the courses are **practical, career-oriented, and aligned with current industry demands**.`;
     } else {
       userPrompt = `Find **beginner-friendly online courses** to help me start learning programming.  
-    I am interested in **${userData.excitingTechnology}** and this is my carrer aspirations **${userData.careerAspirations}**, and my background is **${userData?.educationType}** and I took this courses  **${userData.educationCombination}**.  
+    I am interested in **${userData.developmentInterest}** and this is my carrer aspirations **${userData.careerAspirations}**, and my background is **${userData?.educationType}** and I took this courses  **${userData.educationCombination}**.  
     Recommend structured courses with **step-by-step guidance, no prior coding experience required**,  
     and a **practical approach** to learning.`;
     }
 
-    // System directive for structured course recommendations
+
 
     const systemPrompt = `You are an expert career counselor and tech educator. 
-    Provide course recommendations in the following JSON format:
+    Provide course recommendations related to only ${userData.developmentInterest} in the following JSON format:
     {
       "courses": [
         {
@@ -82,13 +74,10 @@ Please provide recommendations in **structured JSON format**, ensuring the cours
     
   
     
-    Provide 5 highly relevant courses with accurate, working links from reputable platforms.
+    Provide 3 highly  courses related to only ${userData.developmentInterest} with accurate, working links from reputable platforms.
     Focus on practical, industry-relevant skills.`;
 
-    // const userPrompt = `Find the best online courses for a ${careerPath} career path,
-    // suitable for ${experienceLevel || "beginner"} level with ${
-    //   learningPreference || "self-paced"
-    // } learning style.`;
+  
 
     const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
@@ -108,7 +97,7 @@ Please provide recommendations in **structured JSON format**, ensuring the cours
 
     const recommendations = JSON.parse(response.choices[0].message.content);
 
-    // Save course recommendations
+
     const courseRecord = new Course({
       userId,
    
@@ -123,7 +112,7 @@ Please provide recommendations in **structured JSON format**, ensuring the cours
       res,
       "Course recommendations generated successfully",
       {
-        // careerPath,
+        careerPath:userData.excitingTechnology,
         experienceLevel: "beginner",
         learningPreference:  "self-paced",
         recommendations: recommendations.courses,
@@ -140,7 +129,7 @@ Please provide recommendations in **structured JSON format**, ensuring the cours
   }
 };
 
-// Get user's course recommendations
+
 export const getUserCourses = async (req, res) => {
   try {
     const { userId } = req.params;
@@ -174,48 +163,4 @@ export const getUserCourses = async (req, res) => {
   }
 };
 
-// import { GoogleGenerativeAI } from '@google/generative-ai';
 
-// const generateCourses = async (req, res) => {
-//   try {
-//     // Initialize Gemini API with your API key
-//     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-//     // Use the correct model name
-//     const model = genAI.getGenerativeModel({ model: "gemini-1.0-pro" });
-
-//     const { careerPath, experienceLevel, learningPreference } = req.body;
-
-//     if (!careerPath) {
-//       return res.status(400).json({
-//         error: "Please provide a career path (e.g., frontend, backend, UI/UX)."
-//       });
-//     }
-
-//     const prompt = `Recommend online courses for someone interested in a ${careerPath} tech career. They have ${
-//       experienceLevel || "beginner"
-//     } experience and prefer ${learningPreference || "self-paced"} learning. Please provide specific course names and platforms.`;
-
-//     const result = await model.generateContent({
-//       contents: [{ role: "user", parts: [{ text: prompt }] }],
-//     });
-
-//     const response = await result.response;
-//     const recommendations = response.text();
-
-//     res.json({
-//       careerPath,
-//       experienceLevel: experienceLevel || 'beginner',
-//       learningPreference: learningPreference || 'self-paced',
-//       recommendations
-//     });
-
-//   } catch (error) {
-//     console.error('Gemini API Error:', error);
-//     res.status(500).json({
-//       message: "Server error",
-//       details: error.message
-//     });
-//   }
-// };
-
-// export default generateCourses;

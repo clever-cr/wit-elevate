@@ -10,10 +10,10 @@ const Hero = () => {
       <div className="flex flex-col  gap-12">
         <div className="gap-7 flex  flex-col">
           <h1 className="font-bold text-5xl max-w-xl leading-[52.8px]">
-            We’re the <br></br>leading Platform to connect women in Tech.
+            We’re the <br></br>leading Platform to empower women in Tech.
           </h1>
           <p className="text-lg text-grey  max-w-lg">
-            Join WIT Elevate Connect Mission of connecting women in tech and
+            Join WIT Elevate Connect Mission of elevating women in tech and
             inspiring them to come together for the greater good
           </p>
         </div>

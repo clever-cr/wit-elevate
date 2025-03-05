@@ -34,6 +34,7 @@ import ThreadDetailPage from "./pages/ThreadDetailPage";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { userAction } from "./store/users";
+import { courseAction } from "./store/courses";
 import Overview from "./pages/Overview";
 import ProfileDisplay from "./pages/ProfileDisplay";
 import ProjectDetails from "./pages/ProjectDetails";
@@ -42,12 +43,14 @@ const App = () => {
   const dispatch = useDispatch();
   const token = store.get("authToken");
   const data = store.get("userData");
+  const userCourses = store.get("userCourses")
   useEffect(() => {
     if (token) {
       dispatch(userAction.setToken(token));
       dispatch(userAction.setData(data));
+      dispatch(courseAction.setUserCourses(userCourses))
     }
-  }, [dispatch, token, data]);
+  }, [dispatch, token, data,userCourses]);
 
   return (
     <div className="bg-[#F8F9FB]">

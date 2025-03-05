@@ -58,7 +58,7 @@ class HttpRequest {
         method: "GET",
         url,
         headers: {
-          authToken: `${token}`,
+          Authorization: token,
         },
       });
       return res.data;
@@ -73,7 +73,7 @@ class HttpRequest {
         method: "POST",
         url,
         headers: {
-          authToken: `${token}`,
+          Authorization: token,
         },
         data,
       });
@@ -91,7 +91,7 @@ class HttpRequest {
         method: "DELETE",
         url,
         headers: {
-          authToken: `${token}`,
+          Authorization: token,
         },
         data,
       });
@@ -109,7 +109,7 @@ class HttpRequest {
         method: "PUT",
         url,
         headers: {
-          authToken: `${token}`,
+          Authorization: token,
         },
         data,
       });
@@ -128,7 +128,7 @@ class HttpRequest {
         data,
         headers: {
           "content-type": "multipart/form-data",
-          authToken: `${token}`,
+          Authorization: token,
         },
       });
 

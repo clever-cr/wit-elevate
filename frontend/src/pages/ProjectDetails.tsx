@@ -115,7 +115,7 @@ const ProjectDetails = () => {
 
   const handleSubmitComment = () => {
     if (newComment.trim()) {
-      // Add comment logic here
+   
       setNewComment('');
     }
   };

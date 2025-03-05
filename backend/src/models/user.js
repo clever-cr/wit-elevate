@@ -6,37 +6,36 @@ const UserSchema = new Schema(
 
     firstName: {
       type: String,
-      // required: true,
+     
     },
     lastName: {
       type: String,
-      // required: true,
+      
     },
     email: {
       type: String,
-      // required: true,
-      // unique: true,
+      
+     
     },
     password: {
       type: String,
-      // required: true,
+ 
     },
     phoneNumber: {
       type: String,
-      // required: true,
+   
     },
 
 
     educationType: {
       type: String,
       default:""
-      // enum: ['REB Curriculum', 'TVET Curriculum', 'Other'],
-      // required: true,
+      
     },
     educationCombination: {
       type: String,
       default:""
-      // Only required if educationType is REB Curriculum
+     
     },
 
     hasProgrammingExperience: { type: Boolean },
@@ -61,7 +60,7 @@ const UserSchema = new Schema(
     role: {
       type: String,
       default: "student",
-      // enum: ['student', 'mentor', 'admin']
+      
     },
 
     createdAt: {

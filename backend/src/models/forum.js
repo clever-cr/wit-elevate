@@ -1,44 +1,91 @@
 import mongoose from 'mongoose';
-const { Schema } = mongoose;
+
+const Schema = mongoose.Schema;
 
 const ForumPostSchema = new Schema({
   title: {
     type: String,
-    required: true
+    required: true,
   },
   content: {
     type: String,
-    required: true
-  },
-  author: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
+    required: true,
   },
   category: {
     type: String,
     required: true,
-    enum: ['general', 'frontend', 'backend', 'career', 'projects', 'help']
   },
-  // If parentId exists, it's a reply. If null, it's a main thread
-  parentId: {
+  createdBy: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'ForumPost',
-    default: null
-  },
-  isResolved: {
-    type: Boolean,
-    default: false
+    ref: 'User',
+    required: true,
   },
   likes: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   }],
-  views: {
-    type: Number,
-    default: 0
-  }
-}, { timestamps: true });
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+  updatedAt: {
+    type: Date,
+    default: Date.now,
+  },
+});
+
+const ForumReplySchema = new Schema({
+  postId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'ForumPost',
+    required: true,
+  },
+  content: {
+    type: String,
+    required: true,
+  },
+  createdBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+  },
+  likes: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }],
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+  updatedAt: {
+    type: Date,
+    default: Date.now,
+  },
+});
+
+const ForumCategorySchema = new Schema({
+  name: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+  createdBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+});
 
 const ForumPost = mongoose.model('ForumPost', ForumPostSchema);
-export default ForumPost; 
+const ForumReply = mongoose.model('ForumReply', ForumReplySchema);
+const ForumCategory = mongoose.model('ForumCategory', ForumCategorySchema);
+
+export {ForumPost, ForumReply, ForumCategory}

@@ -1,5 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import {  User } from "../../util/types";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState: any = {
   isLoading: false,
@@ -12,13 +11,13 @@ const courseSlice = createSlice({
   name: "course",
   initialState,
   reducers: {
-    setIsLoading(state, action: PayloadAction<boolean>) {
+    setIsLoading(state, action) {
       state.isLoading = action.payload;
     },
-    setUserCourses(state, action: PayloadAction<User | null>) {
+    setUserCourses(state, action) {
       state.userCourses = action.payload;
     },
-    setNewCourse(state, action: PayloadAction<User | null>) {
+    setNewCourse(state, action) {
       state.newCourse = action.payload;
     },
   },

@@ -1,24 +1,43 @@
-import express from 'express';
-import { 
-  getThreads,
-  getThread,
-  createThread,
-  createReply,
-  toggleLike,
-  toggleResolved
-} from '../controllers/forumController.js';
-import { authenticateUser } from '../middleware/auth.js';
+import express from "express"
+import {
+  createCategory, 
+  getAllCategories, 
+  createPost, 
+  getAllPosts, 
+  getPostById, 
+  updatePost, 
+  deletePost, 
+  likePost, 
+  createReply, 
+  updateReply, 
+  deleteReply, 
+  likeReply, 
+  searchForum 
+} from "../controllers/forumController.js"
+import {verifyUserToken} from "../middleware/verifyToken.js"
+
 
 const router = express.Router();
 
-// Public routes
-router.get('/threads', getThreads);
-router.get('/threads/:id', getThread);
+// Category routes
+router.post('/forum/categories', verifyUserToken, createCategory);
+router.get('/forum/categories', getAllCategories);
 
-// Protected routes
-router.post('/threads', authenticateUser, createThread);
-router.post('/threads/:threadId/replies', authenticateUser, createReply);
-router.post('/posts/:id/like', authenticateUser, toggleLike);
-router.patch('/threads/:id/resolve', authenticateUser, toggleResolved);
+// Post routes
+router.post('/forum/posts', verifyUserToken, createPost);
+router.get('/forum/posts', getAllPosts);
+router.get('/forum/posts/:postId', getPostById);
+router.put('/forum/posts/:postId', verifyUserToken, updatePost);
+router.delete('/forum/posts/:postId', verifyUserToken, deletePost);
+router.post('/forum/posts/:postId/like', verifyUserToken, likePost);
 
-export default router; 
+// Reply routes
+router.post('/forum/posts/:postId/replies', verifyUserToken, createReply);
+router.put('/forum/replies/:replyId', verifyUserToken, updateReply);
+router.delete('/forum/replies/:replyId', verifyUserToken, deleteReply);
+router.post('/forum/replies/:replyId/like', verifyUserToken, likeReply);
+
+// Search route
+router.get('/forum/search', searchForum);
+
+export default router;

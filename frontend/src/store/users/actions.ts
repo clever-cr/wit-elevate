@@ -51,3 +51,25 @@ export const updateUserAction = (data:any,id:string,token?:string,) =>{
     }
   };
 }
+
+export const signOutAction = () => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      // Clear local storage
+      store.clearAll();
+      
+      // Clear Redux state
+      dispatch(userAction.setData(null));
+      dispatch(userAction.setToken(null));
+      dispatch(userAction.setNewUser(null));
+      dispatch(userAction.setUpdatedUser(null));
+      
+      toast.success("Signed out successfully");
+      return { type: true };
+    } catch (err) {
+      console.error("Signout error:", err);
+      toast.error("Failed to sign out");
+      return { type: false };
+    }
+  };
+};

@@ -27,8 +27,8 @@ const Profile = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch()
-  const { user } = useSelector((state: any) => state);
-  console.log("usrrrr",user)
+  const { user,course } = useSelector((state: any) => state);
+  console.log("usrrrr",course.userCourses)
   // const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
   //   setFormData({ ...formData, [e.target.name]: e.target.value });
   // };
@@ -86,13 +86,12 @@ const Profile = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const res = await updateUserAction(profileData,user.data._id)(dispatch)
-   
-   if(res){
-console.log("ress")
+       if(res ){
+
 navigate("/portal/generate");
    }
+   
 
-    // Navigate to the portal or another page after submission
    
   };
 
@@ -105,7 +104,7 @@ navigate("/portal/generate");
     }
   };
 
-  // Common programming languages in Rwanda
+
   const commonLanguages = [
     "JavaScript",
     "Python",

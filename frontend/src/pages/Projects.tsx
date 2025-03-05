@@ -14,7 +14,7 @@ import { Progress } from "../components/ui/Progress";
 import { Badge } from "../components/ui/badge";
 import { Link } from 'react-router-dom';
 
-// Mock project data
+
 const projectsData = [
   {
     id: 1,
@@ -46,7 +46,7 @@ const Projects = () => {
   return (
   
       <div className="p-6">
-        {/* Header */}
+
         <div className="flex justify-between items-center mb-8">
           <div>
             <h1 className="text-2xl font-semibold text-gray-900">Projects</h1>
@@ -55,16 +55,10 @@ const Projects = () => {
             </p>
           </div>
           
-          <Link 
-            to="/portal/project/new"
-            className="inline-flex items-center px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
-          >
-            <Plus className="w-5 h-5 mr-2" />
-            New Project
-          </Link>
+          
         </div>
 
-        {/* Filters & Search */}
+        
         <div className="flex items-center justify-between mb-6">
           <div className="flex gap-2">
             {['All', 'Active', 'Completed', 'Planning'].map((status) => (
@@ -99,7 +93,7 @@ const Projects = () => {
           </div>
         </div>
 
-        {/* Projects Grid */}
+       
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {projectsData.map((project) => (
             <Card key={project.id} className="overflow-hidden hover:shadow-lg transition-shadow">
@@ -122,7 +116,7 @@ const Projects = () => {
                     </div>
                   </div>
 
-                  {/* Progress Bar */}
+       
                   <div className="mb-4">
                     <div className="flex justify-between text-sm mb-1">
                       <span className="text-gray-600">Progress</span>
@@ -131,12 +125,12 @@ const Projects = () => {
                     <Progress value={project.progress} className="h-2" />
                   </div>
 
-                  {/* Project Info */}
+            
                   <p className="text-gray-600 text-sm mb-4 line-clamp-2">
                     {project.description}
                   </p>
 
-                  {/* Tech Stack */}
+  
                   <div className="flex flex-wrap gap-2 mb-4">
                     {project.techStack.map((tech) => (
                       <span 
@@ -148,7 +142,7 @@ const Projects = () => {
                     ))}
                   </div>
 
-                  {/* Footer */}
+
                   <div className="flex items-center justify-between pt-4 border-t">
                     <div className="flex items-center gap-4 text-sm text-gray-500">
                       <div className="flex items-center">

@@ -1,6 +1,6 @@
 import User from '../models/user.js';
 
-// Get all users
+
 export const getAllUsers = async (req, res) => {
   try {
     const users = await User.find()
@@ -14,7 +14,7 @@ export const getAllUsers = async (req, res) => {
   }
 };
 
-// Get single user
+
 export const getUser = async (req, res) => {
   try {
     const user = await User.findById(req.params.id)
@@ -31,25 +31,19 @@ export const getUser = async (req, res) => {
   }
 };
 
-// Update complete user profile
+
 export const updateProfile = async (req, res) => {
   try {
-    const userId = req.user._id; // From auth middleware
-    
+    const userId = req.user._id; 
     const {
-      // Personal Info
+     
       firstName,
       lastName,
       phoneNumber,
-      
-      // Educational Background
       educationType,
       rebCombination,
-      
-      // Programming Skills
       programmingSkills,
       
-      // Career Goals
       careerGoals
     } = req.body;
 
@@ -59,16 +53,16 @@ export const updateProfile = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Update personal information
+
     if (firstName) user.firstName = firstName;
     if (lastName) user.lastName = lastName;
     if (phoneNumber) user.phoneNumber = phoneNumber;
 
-    // Update educational background
+
     if (educationType) user.educationType = educationType;
     if (rebCombination) user.rebCombination = rebCombination;
 
-    // Update programming skills
+
     if (programmingSkills) {
       user.programmingSkills = {
         ...user.programmingSkills,
@@ -76,7 +70,7 @@ export const updateProfile = async (req, res) => {
       };
     }
 
-    // Update career goals
+
     if (careerGoals) {
       user.careerGoals = {
         ...user.careerGoals,
@@ -86,7 +80,7 @@ export const updateProfile = async (req, res) => {
 
     const updatedUser = await user.save();
 
-    // Remove password from response
+
     const userResponse = updatedUser.toObject();
     delete userResponse.password;
 
@@ -106,7 +100,7 @@ export const updateProfile = async (req, res) => {
   }
 };
 
-// Get current user profile
+
 export const getCurrentUser = async (req, res) => {
   try {
     const userId = req.user._id;

@@ -8,7 +8,7 @@ import {
 import { MdOutlineQuiz, MdClose } from 'react-icons/md';
 import { toast } from 'react-toastify';
 
-// Course Modal Component
+
 const CourseModal: React.FC<{
   isOpen: boolean, 
   onClose: () => void, 
@@ -23,7 +23,7 @@ const CourseModal: React.FC<{
 
   const handleEnroll = async () => {
     try {
-      // Replace with actual API call to enroll in course
+   
       const response = await fetch('/api/courses/enroll', {
         method: 'POST',
         headers: {
@@ -37,10 +37,10 @@ const CourseModal: React.FC<{
       }
 
       setIsEnrolled(true);
-      toast.success(`Successfully enrolled in ${course.title}!`);
+  
       onClose();
     } catch (error) {
-      toast.error('Failed to enroll. Please try again.');
+
       console.error('Enrollment error:', error);
     }
   };
@@ -79,7 +79,7 @@ const CourseModal: React.FC<{
   );
 };
 
-// Mentorship Booking Modal
+
 const MentorshipModal: React.FC<{
   isOpen: boolean, 
   onClose: () => void
@@ -98,7 +98,7 @@ const MentorshipModal: React.FC<{
     }
 
     try {
-      // Replace with actual API call to book mentorship
+     
       const response = await fetch('/api/mentorship/book', {
         method: 'POST',
         headers: {
@@ -114,7 +114,7 @@ const MentorshipModal: React.FC<{
       toast.success(`Mentorship session booked for ${selectedSlot}`);
       onClose();
     } catch (error) {
-      toast.error('Failed to book session. Please try again.');
+     
       console.error('Mentorship booking error:', error);
     }
   };
@@ -185,13 +185,13 @@ const Overview=() => {
       try {
         const response = await fetch('/api/user/overview');
         if (!response.ok) {
-          throw new Error('Failed to fetch user data');
+          // throw new Error('Failed to fetch user data');
         }
         const data = await response.json();
         setUserData(data);
       } catch (error) {
         console.error('Error fetching user data:', error);
-        toast.error('Failed to load user data');
+        // toast.error('Failed to load user data');
       }
     };
 
@@ -284,7 +284,7 @@ const Overview=() => {
         {/* Recent Activities Section */}
         <div className="bg-white rounded-xl shadow-md p-6">
           <h2 className="text-xl font-semibold mb-4">Recent Activities</h2>
-          <ul className="space-y-4">
+          {/* <ul className="space-y-4">
             <li className="flex justify-between items-center border-b pb-2">
               <span>Completed Python Programming Course</span>
               <span className="text-sm text-gray-500">2 days ago</span>
@@ -297,13 +297,13 @@ const Overview=() => {
               <span>Started Machine Learning Project</span>
               <span className="text-sm text-gray-500">1 week ago</span>
             </li>
-          </ul>
+          </ul> */}
         </div>
 
         {/* Upcoming Events/Recommendations */}
         <div className="bg-white rounded-xl shadow-md p-6">
           <h2 className="text-xl font-semibold mb-4">Recommended for You</h2>
-          <ul className="space-y-4">
+          {/* <ul className="space-y-4">
             {courses.map((course, index) => (
               <li key={index} className="flex justify-between items-center border-b pb-2">
                 <div>
@@ -330,7 +330,7 @@ const Overview=() => {
                 Schedule
               </button>
             </li>
-          </ul>
+          </ul> */}
         </div>
       </div>
 

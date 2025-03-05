@@ -12,7 +12,7 @@ const ProfileDisplay = () => {
   return (
     <div className="min-h-screen bg-[#F8F9FB] p-4 md:p-8">
       <div className="max-w-3xl mx-auto bg-white rounded-lg shadow-md">
-        {/* Header Section */}
+     
         <div className="relative h-32 bg-indigo-600 rounded-t-lg">
           <div className="absolute -bottom-16 left-8">
             <div className="w-32 h-32 rounded-full border-4 border-white bg-gray-200 flex items-center justify-center">
@@ -60,7 +60,7 @@ const ProfileDisplay = () => {
             </div>
           </div>
 
-          {/* Programming Skills */}
+
           <div className="mt-8">
             <h2 className="text-lg font-semibold text-gray-900 mb-4">Programming Skills</h2>
             <div className="bg-gray-50 p-4 rounded-lg">
@@ -88,7 +88,7 @@ const ProfileDisplay = () => {
             </div>
           </div>
 
-          {/* Career Interests */}
+  
           <div className="mt-8">
             <h2 className="text-lg font-semibold text-gray-900 mb-4">Career Interests</h2>
             <div className="bg-gray-50 p-4 rounded-lg">
