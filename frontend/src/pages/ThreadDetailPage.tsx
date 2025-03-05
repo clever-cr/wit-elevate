@@ -144,3 +144,4 @@ const ThreadDetailPage: React.FC = () => {
 };
 
 export default ThreadDetailPage;
+
