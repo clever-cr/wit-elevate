@@ -4,6 +4,7 @@ import { BsStars } from "react-icons/bs";
 import { useSelector, useDispatch } from "react-redux";
 import { AppDispatch } from "../store";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import { Loading } from "../components/ui/Loading";
 import {
   generateCoursesAction,
@@ -11,6 +12,7 @@ import {
 } from "../store/courses/action";
 
 const Generate = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const { user, course } = useSelector((state: any) => state);
 
@@ -40,8 +42,11 @@ const Generate = () => {
     }
   };
 
-  const handleGenerateCourse = () => {
-    generateCoursesAction("67c4b6c049730346fcb69fd8")(dispatch);
+  const handleGenerateCourse =async () => {
+    const res =await generateCoursesAction("67c4b6c049730346fcb69fd8")(dispatch);
+    if(res){
+      navigate("/portal/courses")
+    }
   };
 
   return (

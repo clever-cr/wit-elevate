@@ -150,6 +150,7 @@ export interface User {
   // Add user properties based on your data structure
   id?: string;
   email?: string;
+  token?: string;
   // ... other user properties
 }
 

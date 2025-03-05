@@ -24,20 +24,22 @@ interface ProfileData {
 }
 
 const Profile = () => {
+
   const navigate = useNavigate();
   const dispatch = useDispatch()
   const { user } = useSelector((state: any) => state);
+  console.log("usrrrr",user)
   // const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
   //   setFormData({ ...formData, [e.target.name]: e.target.value });
   // };
   const [currentStep, setCurrentStep] = useState(1);
   const [profileData, setProfileData] = useState<ProfileData>({
-    lastName: "",
-    firstName: "",
-    phoneNumber: "",
+    lastName: user?.data?.lastName,
+    firstName: user?.data?.firstName,
+    phoneNumber: user?.data?.phoneNumber,
     educationType: "REB",
-    rebCombination: "MCE",
-    tvetSpecialization: "Software Development",
+    rebCombination: "",
+    tvetSpecialization: "",
     otherEducation: "",
     hasProgrammingExperience: false,
     programmingLanguages: [],
@@ -87,6 +89,7 @@ const Profile = () => {
    
    if(res){
 console.log("ress")
+navigate("/portal/generate");
    }
 
     // Navigate to the portal or another page after submission

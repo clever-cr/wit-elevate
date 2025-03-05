@@ -127,7 +127,7 @@ const ProjectDetails = () => {
         <div className="bg-white border-b">
           <div className="max-w-7xl mx-auto px-6 py-8">
             <Link 
-              to="/portal/project"
+              to="/portal/projects"
               className="inline-flex items-center text-sm text-gray-500 hover:text-gray-900 mb-6"
             >
               <ArrowLeft className="w-4 h-4 mr-2" />

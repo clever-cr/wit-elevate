@@ -28,13 +28,15 @@ import GetStarted from "./pages/GetStarted";
 import PortalLayout from "./components/layout/PortalLayout";
 import Generate from "./pages/Generate";
 import Courses from "./pages/Courses";
-import Project from "./pages/project";
+// import Project from "./pages/project";
+import Projects from "./pages/Projects";
 import ThreadDetailPage from "./pages/ThreadDetailPage";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { userAction } from "./store/users";
 import Overview from "./pages/Overview";
 import ProfileDisplay from "./pages/ProfileDisplay";
+import ProjectDetails from "./pages/ProjectDetails";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -81,8 +83,9 @@ const App = () => {
             <Route path="assessment" element={<Assessment />} />
             <Route path="generate" element={<Generate />} />
             <Route path="courses" element={<Courses />} />
-            <Route path="project" element={<Project />} />
-            {/* <Route path="profile" element={<Profile />} /> */}
+            <Route path="projects" element={<Projects />} />
+            <Route path="projectDetails" element={<ProjectDetails />} />
+            <Route path="profileUpdate" element={<Profile />} />
             <Route path="profile" element={<ProfileDisplay />} />
 
             <Route path="getStarted" element={<GetStarted />} />

@@ -1,5 +1,5 @@
 import { AppDispatch } from "..";
-import { User } from "../../util/types";
+
 import { courseAction } from ".";
 import { generateCourses, getCoursesServices } from "./service";
 
