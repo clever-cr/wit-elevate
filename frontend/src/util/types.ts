@@ -150,6 +150,7 @@ export interface User {
   // Add user properties based on your data structure
   id?: string;
   email?: string;
+  token?: string;
   // ... other user properties
 }
 
@@ -158,5 +159,6 @@ export interface UserState {
   isLoading: boolean;
   data: User | null;
   newUser: User | null;
-  updatedUser:any
+  updatedUser:any,
+  token:any
 } 

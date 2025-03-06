@@ -26,7 +26,7 @@ const AssessmentSchema = new Schema({
     }
   }],
   duration: {
-    type: Number, // in minutes
+    type: Number, 
     required: true
   },
   totalQuestions: {

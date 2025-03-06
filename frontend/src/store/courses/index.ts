@@ -1,33 +1,25 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import {  User } from "../../util/types";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState: any = {
-  new: null,
   isLoading: false,
-  data: null,
-  // newUser: null,
-  // updatedUser:null
+  userCourses: null,
+  newCourse:null
+
 };
 
 const courseSlice = createSlice({
   name: "course",
   initialState,
   reducers: {
-    setIsLoading(state, action: PayloadAction<boolean>) {
+    setIsLoading(state, action) {
       state.isLoading = action.payload;
     },
-    setData(state, action: PayloadAction<User | null>) {
-      state.data = action.payload;
+    setUserCourses(state, action) {
+      state.userCourses = action.payload;
     },
-    setNew(state, action: PayloadAction<User | null>) {
-      state.new = action.payload;
+    setNewCourse(state, action) {
+      state.newCourse = action.payload;
     },
-    setNewUser(state, action: PayloadAction<User | null>) {
-      state.newUser = action.payload;
-    },
-    setUpdatedUser(state,action: PayloadAction<User | null>){
-      state.updatedUser = action.payload
-    }
   },
 });
 

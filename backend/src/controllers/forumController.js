@@ -1,171 +1,493 @@
-import ForumPost from '../models/forum.js';
-import Response from '../utils/Response.js';
-import status from 'http-status';
+import {ForumPost, ForumReply, ForumCategory }  from "../models/forum.js"
+import User from "../models/user.js"
 
-// Get all threads (posts without parentId)
-export const getThreads = async (req, res) => {
+
+
+export const createCategory = async (req, res) => {
   try {
-    const { category, page = 1, limit = 10 } = req.query;
-    const query = { parentId: null };
-    if (category) query.category = category;
+    const { name, description } = req.body;
+    
 
-    const threads = await ForumPost.find(query)
-      .populate('author', 'name avatar')
-      .sort('-createdAt')
-      .limit(limit * 1)
-      .skip((page - 1) * limit);
-
-    const count = await ForumPost.countDocuments(query);
-
-    return Response.succesMessage(
-      res,
-      "Threads retrieved successfully",
-      {
-        threads,
-        totalPages: Math.ceil(count / limit),
-        currentPage: page
-      },
-      status.OK
-    );
-  } catch (error) {
-    return Response.errorMessage(
-      res,
-      "Failed to fetch threads",
-      status.INTERNAL_SERVER_ERROR
-    );
-  }
-};
-
-// Get single thread with its replies
-export const getThread = async (req, res) => {
-  try {
-    const thread = await ForumPost.findById(req.params.id)
-      .populate('author', 'name avatar');
-
-    if (!thread) {
-      return res.status(404).json({ message: 'Thread not found' });
+    const categoryExists = await ForumCategory.findOne({ name });
+    if (categoryExists) {
+      return res.status(400).json({
+        message: "Category already exists",
+      });
     }
 
-    // Increment view count
-    thread.views += 1;
-    await thread.save();
 
-    // Get replies
-    const replies = await ForumPost.find({ parentId: req.params.id })
-      .populate('author', 'name avatar')
-      .sort('createdAt');
+    const category = await ForumCategory.create({
+      name,
+      description,
+      createdBy: req.user._id,
+    });
 
-    res.json({ thread, replies });
+    return res.status(201).json({
+      message: "Category created successfully",
+      category,
+    });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.log(error);
+    return res.status(500).json({ 
+      message: "Failed to create category", 
+      error: error.message 
+    });
   }
 };
 
-// Create new thread
-export const createThread = async (req, res) => {
+export const getAllCategories = async (req, res) => {
+  try {
+    const categories = await ForumCategory.find().sort({ createdAt: -1 });
+    
+    return res.status(200).json({
+      message: "Categories fetched successfully",
+      categories,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ 
+      message: "Failed to fetch categories", 
+      error: error.message 
+    });
+  }
+};
+
+
+export const createPost = async (req, res) => {
   try {
     const { title, content, category } = req.body;
     
-    const thread = new ForumPost({
+
+    const categoryExists = await ForumCategory.findOne({ name: category });
+    if (!categoryExists) {
+      return res.status(404).json({
+        message: "Category not found",
+      });
+    }
+
+
+    const post = await ForumPost.create({
       title,
       content,
       category,
-      author: req.user._id
+      createdBy: req.user._id,
     });
 
-    await thread.save();
-    
-    const populatedThread = await ForumPost.findById(thread._id)
-      .populate('author', 'name avatar');
 
-    return Response.succesMessage(
-      res,
-      "Thread created successfully",
-      populatedThread,
-      status.CREATED
-    );
+    const populatedPost = await ForumPost.findById(post._id).populate({
+      path: 'createdBy',
+      select: 'fullName email'
+    });
+
+    return res.status(201).json({
+      message: "Post created successfully",
+      post: populatedPost,
+    });
   } catch (error) {
-    return Response.errorMessage(
-      res,
-      "Failed to create thread",
-      status.INTERNAL_SERVER_ERROR
-    );
+    console.log(error);
+    return res.status(500).json({ 
+      message: "Failed to create post", 
+      error: error.message 
+    });
   }
 };
 
-// Create reply
+export const getAllPosts = async (req, res) => {
+  try {
+    const { category } = req.query;
+    
+    let query = {};
+    if (category) {
+      query.category = category;
+    }
+    
+    const posts = await ForumPost.find(query)
+      .populate({
+        path: 'createdBy',
+        select: 'fullName email'
+      })
+      .sort({ createdAt: -1 });
+    
+    return res.status(200).json({
+      message: "Posts fetched successfully",
+      posts,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ 
+      message: "Failed to fetch posts", 
+      error: error.message 
+    });
+  }
+};
+
+export const getPostById = async (req, res) => {
+  try {
+    const { postId } = req.params;
+    
+    const post = await ForumPost.findById(postId)
+      .populate({
+        path: 'createdBy',
+        select: 'fullName email'
+      });
+    
+    if (!post) {
+      return res.status(404).json({
+        message: "Post not found",
+      });
+    }
+    
+    // Fetch replies for this post
+    const replies = await ForumReply.find({ postId })
+      .populate({
+        path: 'createdBy',
+        select: 'fullName email'
+      })
+      .sort({ createdAt: 1 });
+    
+    return res.status(200).json({
+      message: "Post fetched successfully",
+      post,
+      replies,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ 
+      message: "Failed to fetch post", 
+      error: error.message 
+    });
+  }
+};
+
+export const updatePost = async (req, res) => {
+  try {
+    const { postId } = req.params;
+    const { title, content } = req.body;
+    
+    const post = await ForumPost.findById(postId);
+    
+    if (!post) {
+      return res.status(404).json({
+        message: "Post not found",
+      });
+    }
+    
+    // Check if user is the creator of the post
+    if (post.createdBy.toString() !== req.user._id.toString()) {
+      return res.status(403).json({
+        message: "Not authorized to update this post",
+      });
+    }
+    
+    // Update post
+    post.title = title || post.title;
+    post.content = content || post.content;
+    post.updatedAt = Date.now();
+    
+    await post.save();
+    
+    const updatedPost = await ForumPost.findById(postId)
+      .populate({
+        path: 'createdBy',
+        select: 'fullName email'
+      });
+    
+    return res.status(200).json({
+      message: "Post updated successfully",
+      post: updatedPost,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ 
+      message: "Failed to update post", 
+      error: error.message 
+    });
+  }
+};
+
+export const deletePost = async (req, res) => {
+  try {
+    const { postId } = req.params;
+    
+    const post = await ForumPost.findById(postId);
+    
+    if (!post) {
+      return res.status(404).json({
+        message: "Post not found",
+      });
+    }
+    
+    // Check if user is the creator of the post or an admin
+    if (post.createdBy.toString() !== req.user._id.toString() && req.user.role !== 'admin') {
+      return res.status(403).json({
+        message: "Not authorized to delete this post",
+      });
+    }
+    
+    // Delete all replies to this post
+    await ForumReply.deleteMany({ postId });
+    
+    // Delete the post
+    await ForumPost.findByIdAndDelete(postId);
+    
+    return res.status(200).json({
+      message: "Post and all replies deleted successfully",
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ 
+      message: "Failed to delete post", 
+      error: error.message 
+    });
+  }
+};
+
+export const likePost = async (req, res) => {
+  try {
+    const { postId } = req.params;
+    
+    const post = await ForumPost.findById(postId);
+    
+    if (!post) {
+      return res.status(404).json({
+        message: "Post not found",
+      });
+    }
+    
+    // Check if user already liked the post
+    if (post.likes.includes(req.user._id)) {
+      // Unlike the post
+      post.likes = post.likes.filter(like => like.toString() !== req.user._id.toString());
+    } else {
+      // Like the post
+      post.likes.push(req.user._id);
+    }
+    
+    await post.save();
+    
+    const updatedPost = await ForumPost.findById(postId)
+      .populate({
+        path: 'createdBy',
+        select: 'fullName email'
+      });
+    
+    return res.status(200).json({
+      message: "Post like status updated",
+      post: updatedPost,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ 
+      message: "Failed to update like status", 
+      error: error.message 
+    });
+  }
+};
+
+// Forum Reply Controllers
 export const createReply = async (req, res) => {
   try {
+    const { postId } = req.params;
     const { content } = req.body;
-    const parentId = req.params.threadId;
-
-    // Verify parent thread exists
-    const parentThread = await ForumPost.findById(parentId);
-    if (!parentThread) {
-      return res.status(404).json({ message: 'Thread not found' });
+    
+    // Validate post exists
+    const postExists = await ForumPost.findById(postId);
+    if (!postExists) {
+      return res.status(404).json({
+        message: "Post not found",
+      });
     }
 
-    const reply = new ForumPost({
-      title: `Re: ${parentThread.title}`,
+    // Create new reply
+    const reply = await ForumReply.create({
+      postId,
       content,
-      category: parentThread.category,
-      author: req.user._id,
-      parentId
+      createdBy: req.user._id,
     });
 
+    // Populate user info
+    const populatedReply = await ForumReply.findById(reply._id).populate({
+      path: 'createdBy',
+      select: 'fullName email'
+    });
+
+    return res.status(201).json({
+      message: "Reply created successfully",
+      reply: populatedReply,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ 
+      message: "Failed to create reply", 
+      error: error.message 
+    });
+  }
+};
+
+export const updateReply = async (req, res) => {
+  try {
+    const { replyId } = req.params;
+    const { content } = req.body;
+    
+    const reply = await ForumReply.findById(replyId);
+    
+    if (!reply) {
+      return res.status(404).json({
+        message: "Reply not found",
+      });
+    }
+    
+    // Check if user is the creator of the reply
+    if (reply.createdBy.toString() !== req.user._id.toString()) {
+      return res.status(403).json({
+        message: "Not authorized to update this reply",
+      });
+    }
+    
+    // Update reply
+    reply.content = content;
+    reply.updatedAt = Date.now();
+    
     await reply.save();
-
-    const populatedReply = await ForumPost.findById(reply._id)
-      .populate('author', 'name avatar');
-
-    res.status(201).json(populatedReply);
+    
+    const updatedReply = await ForumReply.findById(replyId)
+      .populate({
+        path: 'createdBy',
+        select: 'fullName email'
+      });
+    
+    return res.status(200).json({
+      message: "Reply updated successfully",
+      reply: updatedReply,
+    });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.log(error);
+    return res.status(500).json({ 
+      message: "Failed to update reply", 
+      error: error.message 
+    });
   }
 };
 
-// Toggle like on post
-export const toggleLike = async (req, res) => {
+export const deleteReply = async (req, res) => {
   try {
-    const post = await ForumPost.findById(req.params.id);
-    if (!post) {
-      return res.status(404).json({ message: 'Post not found' });
+    const { replyId } = req.params;
+    
+    const reply = await ForumReply.findById(replyId);
+    
+    if (!reply) {
+      return res.status(404).json({
+        message: "Reply not found",
+      });
     }
+    
+    // Check if user is the creator of the reply or an admin
+    if (reply.createdBy.toString() !== req.user._id.toString() && req.user.role !== 'admin') {
+      return res.status(403).json({
+        message: "Not authorized to delete this reply",
+      });
+    }
+    
+    // Delete the reply
+    await ForumReply.findByIdAndDelete(replyId);
+    
+    return res.status(200).json({
+      message: "Reply deleted successfully",
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ 
+      message: "Failed to delete reply", 
+      error: error.message 
+    });
+  }
+};
 
-    const userId = req.user._id;
-    const likeIndex = post.likes.indexOf(userId);
-
-    if (likeIndex === -1) {
-      post.likes.push(userId);
+export const likeReply = async (req, res) => {
+  try {
+    const { replyId } = req.params;
+    
+    const reply = await ForumReply.findById(replyId);
+    
+    if (!reply) {
+      return res.status(404).json({
+        message: "Reply not found",
+      });
+    }
+    
+    // Check if user already liked the reply
+    if (reply.likes.includes(req.user._id)) {
+      // Unlike the reply
+      reply.likes = reply.likes.filter(like => like.toString() !== req.user._id.toString());
     } else {
-      post.likes.splice(likeIndex, 1);
+      // Like the reply
+      reply.likes.push(req.user._id);
     }
-
-    await post.save();
-    res.json({ likes: post.likes.length });
+    
+    await reply.save();
+    
+    const updatedReply = await ForumReply.findById(replyId)
+      .populate({
+        path: 'createdBy',
+        select: 'fullName email'
+      });
+    
+    return res.status(200).json({
+      message: "Reply like status updated",
+      reply: updatedReply,
+    });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.log(error);
+    return res.status(500).json({ 
+      message: "Failed to update like status", 
+      error: error.message 
+    });
   }
 };
 
-// Mark thread as resolved
-export const toggleResolved = async (req, res) => {
+// Search functionality
+export const searchForum = async (req, res) => {
   try {
-    const post = await ForumPost.findById(req.params.id);
-    if (!post) {
-      return res.status(404).json({ message: 'Post not found' });
+    const { query } = req.query;
+    
+    if (!query) {
+      return res.status(400).json({
+        message: "Search query is required",
+      });
     }
-
-    // Only thread author can mark as resolved
-    if (post.author.toString() !== req.user._id.toString()) {
-      return res.status(403).json({ message: 'Not authorized' });
-    }
-
-    post.isResolved = !post.isResolved;
-    await post.save();
-
-    res.json({ isResolved: post.isResolved });
+    
+    // Search in posts (title and content)
+    const posts = await ForumPost.find({
+      $or: [
+        { title: { $regex: query, $options: 'i' } },
+        { content: { $regex: query, $options: 'i' } }
+      ]
+    }).populate({
+      path: 'createdBy',
+      select: 'fullName email'
+    }).sort({ createdAt: -1 });
+    
+    // Search in replies (content)
+    const replies = await ForumReply.find({
+      content: { $regex: query, $options: 'i' }
+    }).populate({
+      path: 'createdBy',
+      select: 'fullName email'
+    }).populate('postId').sort({ createdAt: -1 });
+    
+    return res.status(200).json({
+      message: "Search results fetched successfully",
+      results: {
+        posts,
+        replies
+      }
+    });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.log(error);
+    return res.status(500).json({ 
+      message: "Failed to search forum", 
+      error: error.message 
+    });
   }
-}; 
+};
+

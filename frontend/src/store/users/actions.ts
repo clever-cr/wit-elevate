@@ -1,3 +1,4 @@
+import store from "store";
 import { toast } from "react-toastify";
 import { userAction } from ".";
 import { AppDispatch } from "..";
@@ -11,13 +12,18 @@ export const loginUserAction = (data: User) => {
       const res = await loginServiceUser(data);
 
       if (res?.status === 200) {
-        dispatch(userAction.setData(res.data));
         dispatch(userAction.setIsLoading(false));
+        console.log(res.data?.token,"resp")
+        store.set("authToken", res?.data?.token);
+        store.set("userData", res?.data);
+        dispatch(userAction.setData(res.data));
+        dispatch(userAction.setToken(res.data?.token));
         toast.success("Login Successfully");
         return { type: true };
         
       }
       dispatch(userAction.setIsLoading(false));
+      toast.error(res.response.data.error);
     } catch (err) {
       console.error(err);
       dispatch(userAction.setIsLoading(false));
@@ -45,3 +51,25 @@ export const updateUserAction = (data:any,id:string,token?:string,) =>{
     }
   };
 }
+
+export const signOutAction = () => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      // Clear local storage
+      store.clearAll();
+      
+      // Clear Redux state
+      dispatch(userAction.setData(null));
+      dispatch(userAction.setToken(null));
+      dispatch(userAction.setNewUser(null));
+      dispatch(userAction.setUpdatedUser(null));
+      
+      toast.success("Signed out successfully");
+      return { type: true };
+    } catch (err) {
+      console.error("Signout error:", err);
+      toast.error("Failed to sign out");
+      return { type: false };
+    }
+  };
+};

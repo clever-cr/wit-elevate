@@ -1,9 +1,10 @@
+
 import Assessment from "../models/assessments.js";
 import AssessmentAttempt from "../models/assessmentAttempts.js";
 import Response from "../utils/Response.js";
 import status from "http-status";
 
-// Get all available assessments
+
 export const getAssessments = async (req, res) => {
   try {
     const { category, skillLevel } = req.query;
@@ -70,8 +71,16 @@ export const getAssessment = async (req, res) => {
 // Submit an assessment attempt
 export const submitAssessment = async (req, res) => {
   try {
-    const { assessmentId, answers, timeSpent } = req.body;
-    const {studentId} = req.params;
+    const { answers, timeSpent } = req.body;
+    const assessmentId = req.params.id;
+    const studentId = req.user._id;
+
+    console.log("Submitting assessment:", {
+      assessmentId,
+      studentId,
+      answers,
+      timeSpent
+    });
 
     const assessment = await Assessment.findById(assessmentId);
     if (!assessment) {
@@ -100,6 +109,9 @@ export const submitAssessment = async (req, res) => {
     let score = 0;
     const gradedAnswers = answers.map(answer => {
       const question = assessment.questions.find(q => q._id.toString() === answer.questionId);
+      if (!question) {
+        throw new Error(`Question not found: ${answer.questionId}`);
+      }
       const isCorrect = question.correctAnswer === answer.selectedAnswer;
       if (isCorrect) score += question.points;
       
@@ -134,10 +146,10 @@ export const submitAssessment = async (req, res) => {
       status.OK
     );
   } catch (error) {
-    console.error(error);
+    console.error("Assessment submission error:", error);
     return Response.errorMessage(
       res,
-      "Failed to submit assessment",
+      error.message || "Failed to submit assessment",
       status.INTERNAL_SERVER_ERROR
     );
   }
@@ -281,4 +293,4 @@ export const deleteAssessment = async (req, res) => {
       status.INTERNAL_SERVER_ERROR
     );
   }
-}; 
+};

@@ -1,26 +1,43 @@
-import { toast } from "react-toastify";
-import { userAction } from ".";
 import { AppDispatch } from "..";
-import { User } from "../../util/types";
-import { loginServiceUser, updateUser } from "./services";
 
-export const loginUserAction = (data: User) => {
+import { courseAction } from ".";
+import { generateCourses, getCoursesServices } from "./service";
+
+export const getUserCoursesAction = (id:string) => {
   return async (dispatch: AppDispatch) => {
     try {
-      dispatch(userAction.setIsLoading(true));
-      const res = await loginServiceUser(data);
+      dispatch(courseAction.setIsLoading(true));
+      const res = await getCoursesServices(id);
 
       if (res?.status === 200) {
-        dispatch(userAction.setData(res.data));
-        dispatch(userAction.setIsLoading(false));
-        toast.success("Login Successfully");
+        dispatch(courseAction.setUserCourses(res.data));
+        dispatch(courseAction.setIsLoading(false));
         return { type: true };
         
       }
-      dispatch(userAction.setIsLoading(false));
+      dispatch(courseAction.setIsLoading(false));
     } catch (err) {
       console.error(err);
-      dispatch(userAction.setIsLoading(false));
+      dispatch(courseAction.setIsLoading(false));
+    }
+  };
+}; 
+export const generateCoursesAction = (id:string,data?:any) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      dispatch(courseAction.setIsLoading(true));
+      const res = await generateCourses(id,data);
+
+      if (res?.status === 200) {
+        dispatch(courseAction.setNewCourse(res.data));
+        dispatch(courseAction.setIsLoading(false));
+        return { type: true };
+        
+      }
+      dispatch(courseAction.setIsLoading(false));
+    } catch (err) {
+      console.error(err);
+      dispatch(courseAction.setIsLoading(false));
     }
   };
 }; 

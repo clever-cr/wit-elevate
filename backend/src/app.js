@@ -8,6 +8,7 @@ import blogRoute from './routes/blogRoutes.js';
 import commentRoute from './routes/commentRoutes.js';
 import courseRoute from "./routes/courseRoutes.js"
 import assessmentRoute from "./routes/assessmentsRoutes.js"
+import forumRoute from "./routes/forumRoutes.js"
 
 const app = express();
 dotenv.config();
@@ -35,15 +36,14 @@ app.use('/api', blogRoute);
 app.use('/api', commentRoute);
 app.use("/api", courseRoute);
 app.use("/api",assessmentRoute)
-// app.use('/api', assessmentRoute);
+app.use('/api', forumRoute);
 
-// Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ message: "Something went wrong!" });
 });
 
-// Handle 404
+
 app.use((req, res) => {
   res.status(404).json({ message: "Route not found" });
 }); 

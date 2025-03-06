@@ -1,3 +1,4 @@
+import store from "store"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./components/layout/Layout";
 import Home from "./pages/Home";
@@ -27,12 +28,30 @@ import GetStarted from "./pages/GetStarted";
 import PortalLayout from "./components/layout/PortalLayout";
 import Generate from "./pages/Generate";
 import Courses from "./pages/Courses";
-import Project from "./pages/project";
-import Forum from "./pages/Forum";
-import HomePage from "./pages/HomePage";
+// import Project from "./pages/project";
+import Projects from "./pages/Projects";
 import ThreadDetailPage from "./pages/ThreadDetailPage";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { userAction } from "./store/users";
+import { courseAction } from "./store/courses";
+import Overview from "./pages/Overview";
+import ProfileDisplay from "./pages/ProfileDisplay";
+import ProjectDetails from "./pages/ProjectDetails";
 
 const App = () => {
+  const dispatch = useDispatch();
+  const token = store.get("authToken");
+  const data = store.get("userData");
+  const userCourses = store.get("userCourses")
+  useEffect(() => {
+    if (token) {
+      dispatch(userAction.setToken(token));
+      dispatch(userAction.setData(data));
+      dispatch(courseAction.setUserCourses(userCourses))
+    }
+  }, [dispatch, token, data,userCourses]);
+
   return (
     <div className="bg-[#F8F9FB]">
       <BrowserRouter>
@@ -63,18 +82,22 @@ const App = () => {
             <Route path="event/list" element={<ListEvents />} />
           </Route>
           <Route path="portal" element={<PortalLayout />}>
+          <Route index element={<Overview />} />
             <Route path="assessment" element={<Assessment />} />
-           {/* <Route path="generate" element={<Generate />} />  */}
-           <Route path="courses" element={<Courses />} />
-            <Route path="project" element={<Project />} />
-            <Route path="profile" element={<Profile />} />
-            <Route path="getStarted" element={<GetStarted />} /> 
+            <Route path="generate" element={<Generate />} />
+            <Route path="courses" element={<Courses />} />
+            <Route path="projects" element={<Projects />} />
+            <Route path="projectDetails" element={<ProjectDetails />} />
+            <Route path="profileUpdate" element={<Profile />} />
+            <Route path="profile" element={<ProfileDisplay />} />
+
+            <Route path="getStarted" element={<GetStarted />} />
             <Route path="forum" element={<ThreadDetailPage />} />
           </Route>
-{/*          
+          {/*          
           <Route path="/assessment" element={<Assessment />} />
           */}
-           {/* <Route path="forum" element={<ThreadDetailPage />} /> */}
+          {/* <Route path="forum" element={<ThreadDetailPage />} /> */}
         </Routes>
         <ToastContainer />
       </BrowserRouter>

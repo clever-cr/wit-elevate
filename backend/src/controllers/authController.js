@@ -96,92 +96,6 @@ export const getUser = async (req, res) => {
   }
 };
 
-// export const updateProfile = async (req, res) => {
-//   try {
-//     const {userId} = req.params // From auth middleware
-//     console.log("user id****",userId)
-//     const {
-//       // Personal Info
-//       firstName,
-//       lastName,
-//       phoneNumber,
-      
-//       // Educational Background
-//       educationType,
-//       rebCombination,
-      
-//       // Programming Skills
-//       programmingSkills,
-      
-//       // Career Goals
-//       careerGoals
-//     } = req.body;
-
-//     const user = await User.findById(userId);
-    
-//     if (!user) {
-//       return res.status(404).json({ message: "User not found" });
-//     }
-
-//     // Update personal information
-//     if (firstName) user.firstName = firstName;
-//     if (lastName) user.lastName = lastName;
-//     if (phoneNumber) user.phoneNumber = phoneNumber;
-    
-//     if (educationType) user.educationType = educationType;
-//     if (rebCombination) user.rebCombination = rebCombination;
-
-//     // Update programming skills
-//     if (programmingSkills) {
-//       user.programmingSkills = {
-//         ...user.programmingSkills,
-//         ...programmingSkills
-//       };
-//     }
-
-//     // Update career goals
-//     if (careerGoals) {
-//       user.careerGoals = {
-//         ...user.careerGoals,
-//         ...careerGoals
-//       };
-//     }
-//     const updatedUser = await user.save();
-
-//     // Remove password from response
-//     const userResponse = updatedUser.toObject();
-//     delete userResponse.password;
-
-//     // res.status(200).json({
-//     //   message: "Profile updated successfully",
-//     //   user: userResponse
-//     // });
-//     return Response.succesMessage(
-//       res,
-//       "Profile updated successfully",
-//       userResponse,
-//       status.OK
-
-//     )
-//   } catch (error) {
-//     console.error(error);
-//     if (error.name === 'ValidationError') {
-//         return Response.errorMessage(
-//           res,
-//           "Validation Error",
-//           status.BAD_REQUEST
-
-//         )
-     
-//     }
-//     return Response.errorMessage(
-//       res,
-//       "Failed to update user profile",
-//       status.BAD_REQUEST
-//     )
-    
-//   }
-// };
 
 
 
@@ -190,7 +104,7 @@ export const getUser = async (req, res) => {
 
 export const updateProfile = async (req, res) => {
   try {
-    const {userId} = req.params; // Ensure userId is available from auth middleware
+    const {userId} = req.params; 
     const user = await User.findById(userId)
     console.log("userrr ",user)
     if (!userId) {
@@ -203,7 +117,7 @@ export const updateProfile = async (req, res) => {
 
     console.log("Updating user with ID:", userId);
 
-    // Extract only valid fields from req.body
+
     const allowedFields = [
       "firstName",
       "lastName",
@@ -218,7 +132,7 @@ export const updateProfile = async (req, res) => {
       "excitingTechnology",
     ];
 
-    // Filter out undefined fields to avoid overwriting with null
+
     const updateData = {};
     allowedFields.forEach((field) => {
       if (req.body[field] !== undefined) {
@@ -246,11 +160,11 @@ export const updateProfile = async (req, res) => {
       return Response.errorMessage(res, "User not found", status.NOT_FOUND);
     }
 
-    // Remove sensitive fields before sending response
+
     const userResponse = updatedUser.toObject();
     delete userResponse.password;
 
-    console.log("Updated user:", userResponse);
+
 
     return Response.succesMessage(
       res,
@@ -259,7 +173,7 @@ export const updateProfile = async (req, res) => {
       status.OK
     );
   } catch (error) {
-    console.error("Error updating profile:", error);
+
     return Response.errorMessage(
       res,
       "Failed to update user profile",
