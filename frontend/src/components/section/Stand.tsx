@@ -24,7 +24,7 @@ const Stand = () => {
         <div className="flex gap-8 ">
           <input
             placeholder="name@email.com"
-            className="bg-bright py-5 px-4 rounded-md w-[513px]"
+            className="bg-bright lg:py-5 lg:px-4 rounded-md lg:w-[513px]"
           />
           <button className="bg-secondary text-white px-12 rounded-md">
             Subscribe
@@ -35,12 +35,12 @@ const Stand = () => {
           regulars.{" "}
         </p>
       </div>
-      <div className="flex flex-col gap-5">
+      <div className="md:flex flex-col gap-5 hidden">
         <div className="flex items-center gap-56 justify-center">
           <img src={rectangle22} alt="image" />
           <img src={rectangle25} alt="image" />
         </div>
-        <div className="flex gap-5">
+        <div className="md:flex gap-5 hidden ">
           <img src={rectangle13} alt="image" className="h-[215px]" />
           <img src={rectangle21} alt="image" />
           <img src={rectangle23} alt="image" className="h-[215px]" />

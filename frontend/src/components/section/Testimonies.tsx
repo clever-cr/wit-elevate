@@ -10,7 +10,7 @@ const Testimonies = () => {
         What are <span className="text-secondary">they</span> saying
       </h1>
 
-      <div className="grid grid-cols-3 gap-8">
+      <div className="grid lg:grid-cols-3 gap-8">
         {testimonies.map(({ testimony, name, title }) => {
           return (
             <div>

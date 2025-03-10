@@ -38,7 +38,7 @@ const Faqs = () => {
   return (
     <div className="flex flex-col gap-12">
       <h1 className="font-semibold text-3xl leading-10 text-darkGrey">FAQs</h1>
-      <div className="grid grid-cols-2 gap-5">
+      <div className="grid lg:grid-cols-2 gap-5">
         {datas.map(({ fact, description }, index: number) => {
           return (
             <>

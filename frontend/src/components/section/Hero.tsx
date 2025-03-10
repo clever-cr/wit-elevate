@@ -6,10 +6,10 @@ import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
-    <div className="flex items-center gap-48">
-      <div className="flex flex-col  gap-12">
-        <div className="gap-7 flex  flex-col">
-          <h1 className="font-bold text-5xl max-w-xl leading-[52.8px]">
+    <div className="lg:flex items-center gap-48 ">
+      <div className="flex flex-col gap-5 md:gap-12">
+        <div className=" gap-5 md:gap-7 flex  flex-col">
+          <h1 className=" text-2xl max-w-md font-bold lg:text-5xl lg:max-w-xl lg:leading-[52.8px] ">
             We’re the <br></br>leading Platform to empower women in Tech.
           </h1>
           <p className="text-lg text-grey  max-w-lg">
@@ -30,7 +30,7 @@ const Hero = () => {
           <Button text="learn more" className="bg-lighty text-dark" />
         </div>
       </div>
-      <div className="relative">
+      <div className="relative hidden md:block">
         <img src={hero} />
         <div className="absolute bg-white opacity-90   w-[228px]   backdrop-blur-2xl- bottom-[68px]  -left-10  h-[228px] rounded-xl flex flex-col items-center py-8  px-5">
           <div className=" bg-white w-16 h-16 rounded-full relative">
@@ -50,3 +50,5 @@ const Hero = () => {
   );
 };
 export default Hero;
+
+

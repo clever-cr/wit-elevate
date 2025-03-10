@@ -19,7 +19,7 @@ const Events = () => {
       <h2 className="font-semibold text-3xl leading-10 max-w-xl">
         Choose from the recent and Our Featured Events
       </h2>
-      <div className="grid grid-cols-2 gap-5 w-[1200px] ">
+      <div className="grid md:grid-cols-2 gap-5 md:w-[1200px] ">
         {events?.map(({ title, _id, picture }: eventProps) => {
           return (
             <>
