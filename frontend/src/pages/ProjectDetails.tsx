@@ -436,24 +436,24 @@ const ProjectDetails = () => {
                 <span className="hidden sm:inline">Repository</span>
                 <span className="inline sm:hidden">Repo</span>
               </button>
-              <button className="inline-flex items-center px-3 sm:px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-lg hover:bg-indigo-700">
+              {/* <button className="inline-flex items-center px-3 sm:px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-lg hover:bg-indigo-700">
                 <MessageSquare className="w-4 h-4 mr-1 sm:mr-2" />
                 <span className="hidden sm:inline">Discussion</span>
                 <span className="inline sm:hidden">Chat</span>
-              </button>
+              </button> */}
             </div>
           </div>
 
           {/* Project Navigation */}
           <div className="mt-6 sm:mt-8 overflow-x-auto">
-            <Tabs defaultValue="overview" className="w-full">
+            {/* <Tabs defaultValue="overview" className="w-full">
               <TabsList className="w-full sm:w-auto">
                 <TabsTrigger value="overview">Overview</TabsTrigger>
                 <TabsTrigger value="milestones">Milestones</TabsTrigger>
                 <TabsTrigger value="discussions">Discussions</TabsTrigger>
                 <TabsTrigger value="documents">Documents</TabsTrigger>
               </TabsList>
-            </Tabs>
+            </Tabs> */}
           </div>
         </div>
       </div>

@@ -38,6 +38,10 @@ import { courseAction } from "./store/courses";
 import Overview from "./pages/Overview";
 import ProfileDisplay from "./pages/ProfileDisplay";
 import ProjectDetails from "./pages/ProjectDetails";
+import { AdminAssessmentList } from "./pages/AdminAssessmentList";
+import { AssessmentForm } from "./components/ui/AssessmentForm";
+import { CreateAssessment } from "./pages/CreateAssessment";
+import { EditAssessment } from "./pages/EditAssessment";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -83,14 +87,16 @@ const App = () => {
           </Route>
           <Route path="portal" element={<PortalLayout />}>
           <Route index element={<Overview />} />
-            <Route path="assessment" element={<Assessment />} />
+            {/* <Route path="assessment" element={<Assessment />} /> */}
+            <Route path="create" element={<CreateAssessment />} />
+            <Route path="assessment" element={<AdminAssessmentList />} />
+            <Route path="EditAssessment/:id" element={<EditAssessment />} />
             <Route path="generate" element={<Generate />} />
             <Route path="courses" element={<Courses />} />
             <Route path="projects" element={<Projects />} />
             <Route path="projectDetails" element={<ProjectDetails />} />
             <Route path="profileUpdate" element={<Profile />} />
             <Route path="profile" element={<ProfileDisplay />} />
-
             <Route path="getStarted" element={<GetStarted />} />
             <Route path="forum" element={<ThreadDetailPage />} />
           </Route>

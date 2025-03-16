@@ -1,6 +1,6 @@
 import axios from "axios";
 import { formData } from "./types";
-
+import { Assessment, AssessmentListItem } from './types';
 const token = localStorage.getItem("token");
 
 export async function allEvents(limit?: number) {
@@ -169,3 +169,67 @@ export async function signUp(formdata: formData) {
     console.log(error);
   }
 }
+
+
+
+
+const API_URL = import.meta.env.VITE_UR || 'http://localhost:3000/api';
+
+export const fetchAssessments = async (category?: string, skillLevel?: string): Promise<AssessmentListItem[]> => {
+  try {
+    let url = `${API_URL}/assessments`;
+    const params = new URLSearchParams();
+    
+    if (category) params.append('category', category);
+    if (skillLevel) params.append('skillLevel', skillLevel);
+    
+    if (params.toString()) {
+      url += `?${params.toString()}`;
+    }
+    
+    const response = await axios.get(url);
+    return response.data.data;
+  } catch (error) {
+    console.error('Error fetching assessments:', error);
+    throw error;
+  }
+};
+
+export const fetchAssessmentById = async (id: string): Promise<Assessment> => {
+  try {
+    const response = await axios.get(`${API_URL}/assessments/${id}`);
+    return response.data.data;
+  } catch (error) {
+    console.error('Error fetching assessment:', error);
+    throw error;
+  }
+};
+
+export const createAssessment = async (assessment: Omit<Assessment, '_id'>): Promise<Assessment> => {
+  try {
+    const response = await axios.post(`${API_URL}/assessments`, assessment);
+    return response.data.data;
+  } catch (error) {
+    console.error('Error creating assessment:', error);
+    throw error;
+  }
+};
+
+export const updateAssessment = async (id: string, assessment: Partial<Assessment>): Promise<Assessment> => {
+  try {
+    const response = await axios.put(`${API_URL}/assessments/${id}`, assessment);
+    return response.data.data;
+  } catch (error) {
+    console.error('Error updating assessment:', error);
+    throw error;
+  }
+};
+
+export const deleteAssessment = async (id: string): Promise<void> => {
+  try {
+    await axios.delete(`${API_URL}/assessments/${id}`);
+  } catch (error) {
+    console.error('Error deleting assessment:', error);
+    throw error;
+  }
+};
