@@ -21,7 +21,7 @@ export const signUp = async (req, res) => {
       status.CREATED
     );
   } catch (error) {
-    console.log(error);
+  
     return Response.errorMessage(
       res,
       "Failed to create user",
@@ -49,8 +49,8 @@ export const signIn = async (req, res) => {
         status.BAD_REQUEST
       );
     }
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET_KEY);
-    console.log("token",{ token,...user })
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+    
     return Response.succesMessage(
       res,
       "Login successful",
@@ -58,7 +58,7 @@ export const signIn = async (req, res) => {
       status.OK
     );
   } catch (error) {
-    console.log(error);
+
     return Response.errorMessage(
       res,
       "Server error",
@@ -75,7 +75,7 @@ export const getAllUsers = async (req, res) => {
     
     res.status(200).json(users);
   } catch (error) {
-    console.error(error);
+
     res.status(500).json({ message: "Server error" });
   }
 };
@@ -91,22 +91,14 @@ export const getUser = async (req, res) => {
     
     res.status(200).json(user);
   } catch (error) {
-    console.error(error);
     res.status(500).json({ message: "Server error" });
   }
 };
-
-
-
-
-
-
 
 export const updateProfile = async (req, res) => {
   try {
     const {userId} = req.params; 
     const user = await User.findById(userId)
-    console.log("userrr ",user)
     if (!userId) {
       return Response.errorMessage(
         res,
@@ -114,10 +106,6 @@ export const updateProfile = async (req, res) => {
         status.BAD_REQUEST
       );
     }
-
-    console.log("Updating user with ID:", userId);
-
-
     const allowedFields = [
       "firstName",
       "lastName",
@@ -131,8 +119,6 @@ export const updateProfile = async (req, res) => {
       "priorLearningAttempts",
       "excitingTechnology",
     ];
-
-
     const updateData = {};
     allowedFields.forEach((field) => {
       if (req.body[field] !== undefined) {
@@ -147,25 +133,16 @@ export const updateProfile = async (req, res) => {
         status.BAD_REQUEST
       );
     }
-
-    
-    console.log("userId",new mongoose.Types.ObjectId(userId))
     const updatedUser = await User.findByIdAndUpdate(
      userId,
       { $set: updateData }, 
       { new: true, runValidators: true } 
     );
-
     if (!updatedUser) {
       return Response.errorMessage(res, "User not found", status.NOT_FOUND);
     }
-
-
     const userResponse = updatedUser.toObject();
     delete userResponse.password;
-
-
-
     return Response.succesMessage(
       res,
       "Profile updated successfully",
@@ -173,7 +150,6 @@ export const updateProfile = async (req, res) => {
       status.OK
     );
   } catch (error) {
-
     return Response.errorMessage(
       res,
       "Failed to update user profile",
@@ -194,7 +170,6 @@ export const getCurrentUser = async (req, res) => {
     
     res.status(200).json(user);
   } catch (error) {
-    console.error(error);
     res.status(500).json({ message: "Server error" });
   }
 };

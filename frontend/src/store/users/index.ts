@@ -1,12 +1,28 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
+interface UserData {
+  _id: string;
+  username: string;
+  email: string;
+  name: string;
+}
+
+interface UserState {
+  new: UserData | null;
+  isLoading: boolean;
+  data: UserData | null;
+  newUser: UserData | null;
+  updatedUser: UserData | null;
+  token: string | null;
+}
+
+const initialState: UserState = {
   new: null,
   isLoading: false,
   data: null,
   newUser: null,
-  updatedUser:null,
-  token:null
+  updatedUser: null,
+  token: null
 };
 
 const userSlice = createSlice({
@@ -25,11 +41,11 @@ const userSlice = createSlice({
     setNewUser(state, action) {
       state.newUser = action.payload;
     },
-    setUpdatedUser(state,action){
-      state.updatedUser = action.payload
+    setUpdatedUser(state, action) {
+      state.updatedUser = action.payload;
     },
-    setToken(state,action){
-      state.token = action.payload
+    setToken(state, action) {
+      state.token = action.payload;
     },
   },
 });

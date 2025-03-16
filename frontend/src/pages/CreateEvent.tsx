@@ -53,7 +53,6 @@ const CreateEvent = () => {
     dateString
   ) => {
     setEventContent({ ...eventContent, time: dateString });
-    console.log("stringg", dateString);
   };
 
   const handleChange = (e: any) => {
@@ -64,7 +63,6 @@ const CreateEvent = () => {
     e.preventDefault();
     createEvent(eventContent).then((data: SetStateAction<formData>) => {
       setEventContent(data);
-      console.log("created successfully");
       navigate("/dashboard/event/list");
     });
   };

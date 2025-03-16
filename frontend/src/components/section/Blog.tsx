@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { allBlogs } from "../../util/api";
 import { blogProps } from "../../util/types";
-import blogg from "../../assets/blogg.png";
 import { Link } from "react-router-dom";
 import Right from "../../assets/Right";
 import Button from "../ui/Button";

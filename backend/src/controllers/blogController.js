@@ -12,7 +12,7 @@ export const createBlog = async (req, res) => {
       status.CREATED
     );
   } catch (error) {
-    console.log(error);
+
     return Response.errorMessage(
       res,
       "Failed to create blog",
@@ -34,7 +34,7 @@ export const allBlogs = async (req, res) => {
       status.OK
     );
   } catch (error) {
-    console.log(error);
+
     return Response.errorMessage(
       res,
       "Failed to fetch blogs",
@@ -60,7 +60,6 @@ export const oneBlog = async (req, res) => {
       status.OK
     );
   } catch (error) {
-    console.log(error);
     return Response.errorMessage(
       res,
       "Failed to fetch blog",
@@ -80,7 +79,6 @@ export const deleteBlog = async (req, res) => {
     
     res.status(200).json({ message: "Blog deleted successfully", blog });
   } catch (error) {
-    console.log(error);
     res.status(500).json({ message: "Server error" });
   }
 };
@@ -96,7 +94,6 @@ export const updateBlog = async (req, res) => {
     
     res.status(200).json(blog);
   } catch (error) {
-    console.log(error);
     res.status(500).json({ message: "Server error" });
   }
 }; 

@@ -13,9 +13,6 @@ export const CreateAssessment: React.FC = () => {
       setIsLoading(true);
       await createAssessment(data);
       navigate('/portal/assessment');
-    } catch (error) {
-      console.error('Error creating assessment:', error);
-      throw error;
     } finally {
       setIsLoading(false);
     }

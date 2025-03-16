@@ -200,3 +200,24 @@ export interface AssessmentListItem {
     lastName: string;
   };
 }
+
+export interface Badge {
+  _id: string;
+  name: string;
+  description: string;
+  category: string;
+  level: string;
+  image: string;
+  criteria: {
+    assessmentScore: number;
+    requiredAssessments: string[];
+  };
+}
+
+export interface UserBadge {
+  _id: string;
+  user: string;
+  badge: Badge;
+  earnedAt: string;
+  assessments: string[];
+}

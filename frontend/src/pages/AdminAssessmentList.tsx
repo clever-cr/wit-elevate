@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { fetchAssessments, deleteAssessment } from '../util/api';
 import { AssessmentListItem } from '../util/types';
+import AssessmentStatistics from '../components/AssessmentStatistics';
 
 export const AdminAssessmentList = () => {
   const [assessments, setAssessments] = useState<AssessmentListItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [selectedAssessmentId, setSelectedAssessmentId] = useState<string | null>(null);
   const [filters, setFilters] = useState({
     category: '',
     skillLevel: ''
@@ -37,7 +39,6 @@ export const AdminAssessmentList = () => {
     if (window.confirm('Are you sure you want to delete this assessment?')) {
       try {
         await deleteAssessment(id);
-        // Refresh assessment list
         loadAssessments();
       } catch (err) {
         setError('Failed to delete assessment');
@@ -63,53 +64,43 @@ export const AdminAssessmentList = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Manage Assessments</h1>
-        <Link
-          to="/portal/create"
-          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
+      <div className="mb-6">
+        <h1 className="text-2xl font-bold">Assessment Management</h1>
+        <p className="text-gray-600">View and manage all assessments</p>
+      </div>
+
+      <div className="mb-6 flex space-x-4">
+        <select
+          name="category"
+          value={filters.category}
+          onChange={handleFilterChange}
+          className="border border-gray-300 rounded px-3 py-2"
         >
-          Create New Assessment
-        </Link>
+          <option value="">All Categories</option>
+          <option value="frontend">Frontend</option>
+          <option value="backend">Backend</option>
+          <option value="fullstack">Fullstack</option>
+          <option value="general">General</option>
+        </select>
+
+        <select
+          name="skillLevel"
+          value={filters.skillLevel}
+          onChange={handleFilterChange}
+          className="border border-gray-300 rounded px-3 py-2"
+        >
+          <option value="">All Levels</option>
+          <option value="beginner">Beginner</option>
+          <option value="intermediate">Intermediate</option>
+          <option value="advanced">Advanced</option>
+        </select>
       </div>
 
       {error && (
-        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4" role="alert">
-          <p>{error}</p>
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+          {error}
         </div>
       )}
-
-      <div className="mb-6 flex gap-4">
-        <div className="w-1/4">
-          <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
-          <select
-            name="category"
-            value={filters.category}
-            onChange={handleFilterChange}
-            className="w-full border border-gray-300 rounded px-3 py-2"
-          >
-            <option value="">All Categories</option>
-            <option value="frontend">Frontend</option>
-            <option value="backend">Backend</option>
-            <option value="fullstack">Full Stack</option>
-            <option value="database">Database</option>
-          </select>
-        </div>
-        <div className="w-1/4">
-          <label className="block text-sm font-medium text-gray-700 mb-1">Skill Level</label>
-          <select
-            name="skillLevel"
-            value={filters.skillLevel}
-            onChange={handleFilterChange}
-            className="w-full border border-gray-300 rounded px-3 py-2"
-          >
-            <option value="">All Levels</option>
-            <option value="beginner">Beginner</option>
-            <option value="intermediate">Intermediate</option>
-            <option value="advanced">Advanced</option>
-          </select>
-        </div>
-      </div>
 
       <div className="bg-white shadow-md rounded-lg overflow-hidden">
         <table className="min-w-full divide-y divide-gray-200">
@@ -140,6 +131,12 @@ export const AdminAssessmentList = () => {
                   <td className="px-6 py-4 whitespace-nowrap">{assessment.duration} min</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm">
                     <div className="flex space-x-2">
+                      <button
+                        onClick={() => setSelectedAssessmentId(assessment._id)}
+                        className="text-blue-600 hover:text-blue-900"
+                      >
+                        View Stats
+                      </button>
                       <Link
                         to={`/portal/EditAssessment/${assessment._id}`}
                         className="text-indigo-600 hover:text-indigo-900"
@@ -160,6 +157,21 @@ export const AdminAssessmentList = () => {
           </tbody>
         </table>
       </div>
+
+      {selectedAssessmentId && (
+        <div className="mt-8">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-xl font-bold">Assessment Statistics</h2>
+            <button
+              onClick={() => setSelectedAssessmentId(null)}
+              className="text-gray-600 hover:text-gray-900"
+            >
+              Close
+            </button>
+          </div>
+          <AssessmentStatistics assessmentId={selectedAssessmentId} />
+        </div>
+      )}
     </div>
   );
 };

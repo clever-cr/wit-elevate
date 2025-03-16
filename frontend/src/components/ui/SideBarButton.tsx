@@ -1,39 +1,55 @@
-// import { SlArrowRight } from "react-icons/sl"
-// import { Link } from "react-router-dom"
 
-// // eslint-disable-next-line @typescript-eslint/no-explicit-any
-// const SideBarButton = ({text,icon,path}:any) =>{
+// import { NavLink } from "react-router-dom";
+
+// const SideBarButton = ({ text, icon, path, onClick }: any) => {
 //   return (
-//   <Link
-//     to={path}
-//     className="flex items-center  px-5 py-2 hover:bg-primary bg-white rounded-full hover:text-white justify-between"
-//   >
-//     <div className="flex items-center gap-2">
-//       <>{icon}</>
-//       <p>{text}</p>
-//     </div>
-//     <div >
-//       <SlArrowRight className=" hover:hidden w-3" />
-//     </div>
-//   </Link>
-//   )
+//     <NavLink
+//       to={path}
+//       onClick={onClick}
+//       className={({ isActive }) =>
+//         `flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
+//           isActive
+//             ? "bg-blue-50 text-blue-600"
+//             : "text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+//         }`
+//       }
+//     >
+//       {icon}
+//       <span>{text}</span>
+//     </NavLink>
+//   );
+// };
 
-// }
-// export default SideBarButton
+// export default SideBarButton;
+import { NavLink } from "react-router-dom";
 
-import { Link } from "react-router-dom";
+interface SideBarButtonProps {
+  text: string;
+  icon: React.ReactNode;
+  path: string;
+  onClick?: () => void;
+  end?: boolean; // Add this if you want to conditionally apply 'end' for certain links
+}
 
-const SideBarButton = ({ text, icon, path, onClick }: any) => {
+const SideBarButton = ({ text, icon, path, onClick, end }: SideBarButtonProps) => {
   return (
-    <Link
+    <NavLink
       to={path}
-      className="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors"
+      end={end} // This will enforce an exact match if true
       onClick={onClick}
+      className={({ isActive }) =>
+        `flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
+          isActive
+            ? "bg-blue-600 text-white"
+            : "text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+        }`
+      }
     >
       {icon}
       <span>{text}</span>
-    </Link>
+    </NavLink>
   );
 };
 
 export default SideBarButton;
+
