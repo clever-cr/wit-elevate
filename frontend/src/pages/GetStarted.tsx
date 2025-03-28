@@ -5,7 +5,7 @@ const GetStarted = () => {
   return (
     <>
     <div className="px-5 py-10">
-      {/* <NavBar/> */}
+ 
       <Link
             to="/"
             className="text-black text-2xl leading-10 font-extrabold "

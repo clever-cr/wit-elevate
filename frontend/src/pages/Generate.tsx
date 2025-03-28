@@ -38,9 +38,9 @@ const Generate = () => {
   };
 
   const handleGenerateCourse =async () => {
-    const res =await generateCoursesAction("67c4b6c049730346fcb69fd8")(dispatch);
+    const res =await generateCoursesAction(user?.data?._id)(dispatch);
     if(res){
-      navigate("/portal/courses")
+      navigate("/user/portal/courses")
     }
   };
 

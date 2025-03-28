@@ -162,3 +162,62 @@ export interface UserState {
   updatedUser:any,
   token:any
 } 
+
+export interface Question {
+  _id?: string;
+  question: string;
+  options: string[];
+  correctAnswer: string;
+  points: number;
+}
+
+export interface Assessment {
+  _id?: string;
+  title: string;
+  questions: Question[];
+  duration: number;
+  totalQuestions: number;
+  passingScore: number;
+  skillLevel: string;
+  category: string;
+  createdBy?: {
+    firstName: string;
+    lastName: string;
+  };
+  isActive: boolean;
+  createdAt?: string;
+}
+
+export interface AssessmentListItem {
+  _id: string;
+  title: string;
+  duration: number;
+  totalQuestions: number;
+  skillLevel: string;
+  category: string;
+  createdBy?: {
+    firstName: string;
+    lastName: string;
+  };
+}
+
+export interface Badge {
+  _id: string;
+  name: string;
+  description: string;
+  category: string;
+  level: string;
+  image: string;
+  criteria: {
+    assessmentScore: number;
+    requiredAssessments: string[];
+  };
+}
+
+export interface UserBadge {
+  _id: string;
+  user: string;
+  badge: Badge;
+  earnedAt: string;
+  assessments: string[];
+}

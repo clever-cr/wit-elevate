@@ -127,7 +127,7 @@ const Projects = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         {projectsData.map((project) => (
           <Card key={project.id} className="overflow-hidden hover:shadow-lg transition-shadow">
-            <Link to={`/portal/projectDetails`}>
+            <Link to={`/user/portal/projectDetails`}>
               <div className="p-4 sm:p-6">
                 {/* Project Header */}
                 <div className="flex justify-between items-start mb-3 sm:mb-4">

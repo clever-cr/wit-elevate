@@ -20,9 +20,14 @@ const LogIn = () => {
     e.preventDefault();
     const res = await loginUserAction(formData)(dispatch);
     if (res) {
-      navigate("/portal");
+      console.log("res", res);
+      if(res.res.role === "admin"){
+        navigate("/admin/dashboard")
+    }else{
+      navigate("/user/portal/overview")
     }
-  };
+  }
+  }
 
   return (
     <div className="">

@@ -6,7 +6,7 @@ const ProfileDisplay = () => {
   const navigate = useNavigate();
 
   const handleEditProfile = () => {
-    navigate("/portal/profileUpdate");
+    navigate("/user/portal/profileUpdate");
   };
 
   return (

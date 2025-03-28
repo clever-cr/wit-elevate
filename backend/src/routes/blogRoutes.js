@@ -6,7 +6,7 @@ import {
   oneBlog, 
   updateBlog 
 } from '../controllers/blogController.js';
-import { verifyUserToken } from '../middleware/verifyToken.js';
+import  verifyUserToken  from '../middleware/verifyUserToken.js';
 
 const router = express.Router();
 

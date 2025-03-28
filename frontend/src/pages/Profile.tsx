@@ -29,9 +29,8 @@ const Profile = () => {
   const dispatch = useDispatch()
   const { user,course } = useSelector((state: any) => state);
   console.log("usrrrr",course.userCourses)
-  // const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-  //   setFormData({ ...formData, [e.target.name]: e.target.value });
-  // };
+  
+  console.log("user",user.data)
   const [currentStep, setCurrentStep] = useState(1);
   const [profileData, setProfileData] = useState<ProfileData>({
     lastName: user?.data?.lastName,
@@ -88,7 +87,7 @@ const Profile = () => {
     const res = await updateUserAction(profileData,user.data._id)(dispatch)
        if(res ){
 
-navigate("/portal/generate");
+navigate("/user/portal/generate");
    }
    
 

@@ -1,1 +1,1 @@
-export const SERVER_URL = import.meta.env.VITE_URL_SERVER_URL
+export const SERVER_URL = import.meta.env.VITE_APP_URL_SERVER_URL

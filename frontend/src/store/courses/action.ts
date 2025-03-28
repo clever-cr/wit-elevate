@@ -17,7 +17,6 @@ export const getUserCoursesAction = (id:string) => {
       }
       dispatch(courseAction.setIsLoading(false));
     } catch (err) {
-      console.error(err);
       dispatch(courseAction.setIsLoading(false));
     }
   };
@@ -36,7 +35,6 @@ export const generateCoursesAction = (id:string,data?:any) => {
       }
       dispatch(courseAction.setIsLoading(false));
     } catch (err) {
-      console.error(err);
       dispatch(courseAction.setIsLoading(false));
     }
   };

@@ -17,7 +17,6 @@ export const createComment = async (req, res) => {
     
     res.status(200).json(comment);
   } catch (error) {
-    console.log(error);
     res.status(500).json({ message: "Server error" });
   }
 };
@@ -34,7 +33,6 @@ export const AllComments = async (req, res) => {
     const comments = await Comment.find({ blogId });
     res.status(200).json(comments);
   } catch (error) {
-    console.log(error);
     res.status(500).json({ message: "Server error" });
   }
 };
@@ -52,7 +50,6 @@ export const updateComment = async (req, res) => {
     
     res.status(200).json(comment);
   } catch (error) {
-    console.log(error);
     res.status(500).json({ message: "Server error" });
   }
 };
@@ -68,7 +65,6 @@ export const deleteComment = async (req, res) => {
     
     return res.status(200).json(comment);
   } catch (error) {
-    console.log(error);
     res.status(500).json({ message: "Server error" });
   }
 }; 
