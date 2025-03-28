@@ -12,7 +12,6 @@ const HomePage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // This would be an API call in a real app
     setTimeout(() => {
       setCategories([
         {

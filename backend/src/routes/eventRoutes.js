@@ -6,7 +6,7 @@ import {
   oneEvent,
   updateEvent,
 } from '../controllers/eventController.js';
-import { verifyUserToken } from '../middleware/verifyToken.js';
+import verifyUserToken from '../middleware/verifyUserToken.js';
 
 const router = express.Router();
 

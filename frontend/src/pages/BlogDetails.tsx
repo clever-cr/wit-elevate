@@ -45,11 +45,11 @@ const BlogDetails = () => {
   };
 
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
     blog(id).then((data: any) => {
       setBlogDetails(data);
     });
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
     comment(id).then((data: any) => {
       setComments(data);
     });
@@ -60,7 +60,7 @@ const BlogDetails = () => {
       setBlogs(data);
     });
   }, []);
-  console.log("comment", commentData);
+
   return (
     <div className="px-40 pt-28">
       {blogDetails ? (

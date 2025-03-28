@@ -99,11 +99,7 @@ const EventDetails = () => {
       </div>
       <div className="flex justify-start ml-[400px] mt-11">
         <div className="flex items-center gap-3 ">
-          {/* <img
-            src={Profile}
-            alt="profile"
-            className="w-[100px] h-[100px] rounded-full"
-          /> */}
+        
           <div>
             <h1 className="font-semibold  text-[18px]">
               {eventDetails?.organiser}

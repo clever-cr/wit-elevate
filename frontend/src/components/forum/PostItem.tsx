@@ -119,8 +119,7 @@ const PostItem: React.FC<PostItemProps> = ({ post, isOriginalPost = false, onRep
 className={`flex items-center space-x-1 px-3 py-1 rounded-md ${liked ? 'bg-blue-100 text-blue-600' : 'text-gray-500 hover:bg-gray-100'}`}
 onClick={handleLike}
 >
-<ThumbsUp className="h-4 w-4" />
-<span>{likeCount}</span>
+
 </button>
 
 <button 

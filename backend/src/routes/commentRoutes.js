@@ -5,7 +5,7 @@ import {
   deleteComment,
   updateComment,
 } from '../controllers/commentController.js';
-import { verifyUserToken } from '../middleware/verifyToken.js';
+import verifyUserToken from '../middleware/verifyUserToken.js';
 
 const router = express.Router();
 

@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { allBlogs } from "../../util/api";
 import profile from "../../assets/profile.png";
-import Rectangle from "../../assets/Rectangle.png";
 import { Link } from "react-router-dom";
 
 const Blogs = () => {

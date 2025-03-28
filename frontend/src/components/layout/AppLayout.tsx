@@ -11,10 +11,9 @@ const AppLayout = ({ children }: AppLayoutProps) => {
   return (
     <div className="min-h-screen bg-background">
       <AppSidebar />
-      
-      {/* Main Content */}
+
       <div className="ml-64">
-        {/* Header */}
+
         <header className="h-16 border-b bg-white flex items-center justify-end px-6">
           <div className="flex items-center">
             <button className="p-2 rounded-full hover:bg-secondary mr-4">
@@ -30,7 +29,7 @@ const AppLayout = ({ children }: AppLayoutProps) => {
           </div>
         </header>
         
-        {/* Page Content */}
+
         <main className="p-6">
           {children}
         </main>

@@ -5,7 +5,8 @@
   "main": "src/app.js",
   "scripts": {
     "start": "node src/app.js",
-    "dev": "nodemon src/app.js"
+    "dev": "nodemon src/app.js",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
@@ -22,7 +23,19 @@
     "openai": "^4.85.4"
   },
   "devDependencies": {
-    "nodemon": "^3.0.1"
+    "@babel/preset-env": "^7.26.9",
+    "babel-jest": "^29.7.0",
+    "jest": "^29.7.0",
+    "mockingoose": "^2.16.2",
+    "mongodb-memory-server": "^10.1.4",
+    "nodemon": "^3.0.1",
+    "supertest": "^7.0.0"
   },
-  "type": "module"
+  "type": "module",
+  "jest": {
+    "transform": {
+      "^.+\\.js$": "babel-jest"
+    },
+    "testEnvironment": "node"
+  }
 }

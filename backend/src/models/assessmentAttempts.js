@@ -38,8 +38,12 @@ const AssessmentAttemptSchema = new Schema({
     type: Boolean,
     required: true
   },
+  completed:{
+    type:Boolean,
+    required:false
+  },
   timeSpent: {
-    type: Number, // in seconds
+    type: Number,
     required: true
   }
 }, {

@@ -8,7 +8,6 @@ export const createEvent = async (req, res) => {
       event
     });
   } catch (error) {
-    console.log(error);
     res.status(500).json({ message: "Server error" });
   }
 };
@@ -21,7 +20,6 @@ export const allEvents = async (req, res) => {
       .populate('author', 'fullName');
     res.status(200).json(events);
   } catch (error) {
-    console.log(error);
     res.status(500).json({ message: "Server error" });
   }
 };
@@ -35,7 +33,6 @@ export const oneEvent = async (req, res) => {
     }
     res.status(200).json(event);
   } catch (error) {
-    console.log(error);
     res.status(500).json({ message: "Server error" });
   }
 };
@@ -49,7 +46,6 @@ export const deleteEvent = async (req, res) => {
     }
     res.status(200).json({ message: "Event deleted successfully", event });
   } catch (error) {
-    console.log(error);
     res.status(500).json({ message: "Server error" });
   }
 };
@@ -63,7 +59,6 @@ export const updateEvent = async (req, res) => {
     }
     res.status(200).json(event);
   } catch (error) {
-    console.log(error);
     res.status(500).json({ message: "Server error" });
   }
 }; 

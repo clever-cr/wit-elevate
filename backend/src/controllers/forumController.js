@@ -1,5 +1,5 @@
 import {ForumPost, ForumReply, ForumCategory }  from "../models/forum.js"
-import User from "../models/user.js"
+
 
 
 
@@ -27,7 +27,6 @@ export const createCategory = async (req, res) => {
       category,
     });
   } catch (error) {
-    console.log(error);
     return res.status(500).json({ 
       message: "Failed to create category", 
       error: error.message 
@@ -44,7 +43,6 @@ export const getAllCategories = async (req, res) => {
       categories,
     });
   } catch (error) {
-    console.log(error);
     return res.status(500).json({ 
       message: "Failed to fetch categories", 
       error: error.message 
@@ -84,7 +82,6 @@ export const createPost = async (req, res) => {
       post: populatedPost,
     });
   } catch (error) {
-    console.log(error);
     return res.status(500).json({ 
       message: "Failed to create post", 
       error: error.message 
@@ -113,7 +110,6 @@ export const getAllPosts = async (req, res) => {
       posts,
     });
   } catch (error) {
-    console.log(error);
     return res.status(500).json({ 
       message: "Failed to fetch posts", 
       error: error.message 
@@ -151,7 +147,6 @@ export const getPostById = async (req, res) => {
       replies,
     });
   } catch (error) {
-    console.log(error);
     return res.status(500).json({ 
       message: "Failed to fetch post", 
       error: error.message 
@@ -197,7 +192,6 @@ export const updatePost = async (req, res) => {
       post: updatedPost,
     });
   } catch (error) {
-    console.log(error);
     return res.status(500).json({ 
       message: "Failed to update post", 
       error: error.message 
@@ -217,24 +211,22 @@ export const deletePost = async (req, res) => {
       });
     }
     
-    // Check if user is the creator of the post or an admin
+    
     if (post.createdBy.toString() !== req.user._id.toString() && req.user.role !== 'admin') {
       return res.status(403).json({
         message: "Not authorized to delete this post",
       });
     }
-    
-    // Delete all replies to this post
+   
     await ForumReply.deleteMany({ postId });
     
-    // Delete the post
+  
     await ForumPost.findByIdAndDelete(postId);
     
     return res.status(200).json({
       message: "Post and all replies deleted successfully",
     });
   } catch (error) {
-    console.log(error);
     return res.status(500).json({ 
       message: "Failed to delete post", 
       error: error.message 
@@ -276,7 +268,6 @@ export const likePost = async (req, res) => {
       post: updatedPost,
     });
   } catch (error) {
-    console.log(error);
     return res.status(500).json({ 
       message: "Failed to update like status", 
       error: error.message 
@@ -284,13 +275,13 @@ export const likePost = async (req, res) => {
   }
 };
 
-// Forum Reply Controllers
+
 export const createReply = async (req, res) => {
   try {
     const { postId } = req.params;
     const { content } = req.body;
     
-    // Validate post exists
+  
     const postExists = await ForumPost.findById(postId);
     if (!postExists) {
       return res.status(404).json({
@@ -298,7 +289,7 @@ export const createReply = async (req, res) => {
       });
     }
 
-    // Create new reply
+  
     const reply = await ForumReply.create({
       postId,
       content,
@@ -316,7 +307,6 @@ export const createReply = async (req, res) => {
       reply: populatedReply,
     });
   } catch (error) {
-    console.log(error);
     return res.status(500).json({ 
       message: "Failed to create reply", 
       error: error.message 
@@ -337,14 +327,14 @@ export const updateReply = async (req, res) => {
       });
     }
     
-    // Check if user is the creator of the reply
+
     if (reply.createdBy.toString() !== req.user._id.toString()) {
       return res.status(403).json({
         message: "Not authorized to update this reply",
       });
     }
     
-    // Update reply
+
     reply.content = content;
     reply.updatedAt = Date.now();
     
@@ -361,7 +351,6 @@ export const updateReply = async (req, res) => {
       reply: updatedReply,
     });
   } catch (error) {
-    console.log(error);
     return res.status(500).json({ 
       message: "Failed to update reply", 
       error: error.message 
@@ -381,21 +370,20 @@ export const deleteReply = async (req, res) => {
       });
     }
     
-    // Check if user is the creator of the reply or an admin
+
     if (reply.createdBy.toString() !== req.user._id.toString() && req.user.role !== 'admin') {
       return res.status(403).json({
         message: "Not authorized to delete this reply",
       });
     }
     
-    // Delete the reply
+
     await ForumReply.findByIdAndDelete(replyId);
     
     return res.status(200).json({
       message: "Reply deleted successfully",
     });
   } catch (error) {
-    console.log(error);
     return res.status(500).json({ 
       message: "Failed to delete reply", 
       error: error.message 
@@ -415,12 +403,12 @@ export const likeReply = async (req, res) => {
       });
     }
     
-    // Check if user already liked the reply
+
     if (reply.likes.includes(req.user._id)) {
-      // Unlike the reply
+
       reply.likes = reply.likes.filter(like => like.toString() !== req.user._id.toString());
     } else {
-      // Like the reply
+
       reply.likes.push(req.user._id);
     }
     
@@ -437,7 +425,6 @@ export const likeReply = async (req, res) => {
       reply: updatedReply,
     });
   } catch (error) {
-    console.log(error);
     return res.status(500).json({ 
       message: "Failed to update like status", 
       error: error.message 
@@ -445,7 +432,7 @@ export const likeReply = async (req, res) => {
   }
 };
 
-// Search functionality
+
 export const searchForum = async (req, res) => {
   try {
     const { query } = req.query;
@@ -456,7 +443,7 @@ export const searchForum = async (req, res) => {
       });
     }
     
-    // Search in posts (title and content)
+  
     const posts = await ForumPost.find({
       $or: [
         { title: { $regex: query, $options: 'i' } },
@@ -467,7 +454,7 @@ export const searchForum = async (req, res) => {
       select: 'fullName email'
     }).sort({ createdAt: -1 });
     
-    // Search in replies (content)
+
     const replies = await ForumReply.find({
       content: { $regex: query, $options: 'i' }
     }).populate({
@@ -483,7 +470,6 @@ export const searchForum = async (req, res) => {
       }
     });
   } catch (error) {
-    console.log(error);
     return res.status(500).json({ 
       message: "Failed to search forum", 
       error: error.message 

@@ -14,7 +14,7 @@ import {
   likeReply, 
   searchForum 
 } from "../controllers/forumController.js"
-import {verifyUserToken} from "../middleware/verifyToken.js"
+import verifyUserToken from '../middleware/verifyUserToken.js';
 
 
 const router = express.Router();
