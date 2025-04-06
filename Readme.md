@@ -8,7 +8,11 @@ WIT Elevate is An AI-driven platform that helps high school graduates start tech
 
 ## Installing project
 
+- Use commmand `cd backend` to use backend folder, and `cd frontend` to use frontend folder
+
+
 - You have to install Backend and Frontend separately. For this run `npm install` in the `backend` and the `frontend` folder.
+
 
 - For `frontend` run `npm run dev` and `npm run start:dev `for backend
 
